@@ -7,7 +7,7 @@ import { flex, noBullet, btn} from './style';
 const Navbar = () => (
   <div style={flex}>
   <ul style={noBullet}>
-    <Link to={'/'}><button style={btn}> PLAY </button> </Link>
+    <Link to={'/game'}><button style={btn}> rooms </button> </Link>
   </ul>
 </div>
 );
