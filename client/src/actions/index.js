@@ -1,3 +1,5 @@
+import constants from '../constants';
+
 export const playerMove = move => ({
     type: 'PLAYER_MOVE',
     move

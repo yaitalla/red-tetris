@@ -1,10 +1,18 @@
 import React from 'react';
-import PlayerMove from './playerMove';
-import {gp} from '../global'
+import { Layer, Stage } from 'react-konva';
+//import { connect } from 'react-redux';
+import constants from '../../constants';
+import Tetris from '../tetriminos';
+
+const { gridHeight, gridWidth } = constants;
 
 const Game = () =>
   <div>
-      <PlayerMove dispatch={gp}/>
+    <Stage width={gridWidth} height={gridHeight}>
+			<Layer>
+				<Tetris/>
+			</Layer>
+		</Stage>
   </div>
 
 export default Game;
