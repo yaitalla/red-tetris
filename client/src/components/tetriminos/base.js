@@ -40,10 +40,18 @@ const Tetrimino = ({ shape, X, Y, color}) => {
 }
 
 Tetrimino.propTypes = {
-    shape: PropTypes.number.isRequired,
+    shape: PropTypes.array.isRequired,
     X: PropTypes.number.isRequired,
     Y: PropTypes.number.isRequired,
     color: PropTypes.string.isRequired
 }
 
-export default Tetrimino;
+const mapStateToProps = ({ currentTetromino }) => ({
+	shape: currentTetromino.shape,
+	name: currentTetromino.name,
+	color: currentTetromino.color,
+	offsetX: currentTetromino.offsetX,
+	offsetY: currentTetromino.offsetY,
+});
+
+export default connect(mapStateToProps)(Tetrimino);

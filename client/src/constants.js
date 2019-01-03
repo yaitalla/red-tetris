@@ -38,7 +38,7 @@ export default {
 			],
 			color: 'green'
 		},
-		mirrorL: {
+		L: {
 			shape: [
 				[0, 0, 1, 0],
 				[1, 1, 1, 0],
@@ -47,7 +47,7 @@ export default {
 			],
 			color: 'orange'
 		},
-		L: {
+		mirrorL: {
 			shape: [
 				[1, 0, 0, 0],
 				[1, 1, 1, 0],

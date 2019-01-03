@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import Tetrimino from './base';
 
-const mapStateToProps = ({ state }) => ({
+const mapStateToProps = ( {state} ) => ({
     shape: state.shape,
     X: state.X,
     Y: state.Y,

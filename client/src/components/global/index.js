@@ -30,7 +30,6 @@ const Global = () =>
   <Router>
     <div style={divGlobal}>
       <Game/>
-      <Route exact path={'/game'} component={Game} />
     </div>
   </Router>
 
