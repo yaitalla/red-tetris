@@ -4,22 +4,22 @@ import constants from '../../constants';
 const { block } = constants;
 
 
-const Square = () => 
+const Square = ({xs, ys}) => 
 	<Layer>
             <Rect width={block} height={block}
-				x={250} y={80} fill={'red'} key={1}
+				x={xs} y={ys} fill={'red'} key={1}
 				stroke="black" strokeWidth={4}
 			/>
 			<Rect width={block} height={block}
-				x={280} y={80} fill={'red'} key={2}
+				x={xs+30} y={ys} fill={'red'} key={2}
 				stroke="black" strokeWidth={4}
 			/>
 			<Rect width={block} height={block}
-				x={250} y={110} fill={'red'} key={3}
+				x={xs} y={ys+30} fill={'red'} key={3}
 				stroke="black" strokeWidth={4}
 			/>
             <Rect width={block} height={block}
-				x={280} y={110} fill={'red'} key={4}
+				x={xs+30} y={ys+30} fill={'red'} key={4}
 				stroke="black" strokeWidth={4}
 			/>
 	</Layer>

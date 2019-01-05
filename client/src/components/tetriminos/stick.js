@@ -4,22 +4,22 @@ import constants from '../../constants';
 const { block } = constants;
 
 
-const Stick = () => 
+const Stick = ({xs, ys}) => 
 	<Layer>
             <Rect width={block} height={block}
-				x={350} y={80} fill={'red'} key={1}
+				x={xs} y={ys+60} fill={'yellow'} key={1}
 				stroke="black" strokeWidth={4}
 			/>
 			<Rect width={block} height={block}
-				x={350} y={50} fill={'red'} key={2}
+				x={xs} y={ys+30} fill={'yellow'} key={2}
 				stroke="black" strokeWidth={4}
 			/>
 			<Rect width={block} height={block}
-				x={350} y={110} fill={'red'} key={3}
+				x={xs} y={ys+90} fill={'yellow'} key={3}
 				stroke="black" strokeWidth={4}
 			/>
             <Rect width={block} height={block}
-				x={350} y={20} fill={'red'} key={4}
+				x={xs} y={ys} fill={'yellow'} key={4}
 				stroke="black" strokeWidth={4}
 			/>
 	</Layer>

@@ -9,6 +9,7 @@ import Stick from '../tetriminos/stick';
 import SnakeR from '../tetriminos/snakeR';
 import SnakeL from '../tetriminos/snakeL';
 import Cross from '../tetriminos/cross';
+import Launcher from './laucher';
 
 
 
