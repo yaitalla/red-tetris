@@ -1,5 +1,6 @@
 import constants from '../constants';
 
+
 export const launcher = () => {
   (dispatch, getState) => {
     dispatch(gameProcess());
@@ -48,6 +49,12 @@ export const startGame = () => (
     window.addEventListener('keyup', pressSpace)
   }
 );
+
+export const fall = ({data}) => ({
+  type: 'FALL',
+  data
+})
+
 
 export const playerMove = move => ({
     type: 'PLAYER_MOVE',

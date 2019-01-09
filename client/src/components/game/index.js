@@ -9,23 +9,20 @@ import Stick from '../tetriminos/stick';
 import SnakeR from '../tetriminos/snakeR';
 import SnakeL from '../tetriminos/snakeL';
 import Cross from '../tetriminos/cross';
-import Launcher from './laucher';
-
+import { fall } from '../../actions';
+import Launcher from './launcher';
 
 
 const { gridHeight, gridWidth, block } = constants;
 
 const Game = () =>
-  <div style={ {"backgroundColor": "#d0ddf2"}}>
-		<Stage width={1000} height={gridHeight}>
-					<Square xs={250} ys={80} />
-					<L xs={150} ys={50} />
+  <div  style={ {"backgroundColor": "#d0ddf2"}}>
+		<Stage width={gridWidth} height={gridHeight}>
+					<L props={store.getState().fall}  />
 					<MirrorL xs={50} ys={50} />
-					<Stick xs={350} ys={20}  />
-					<SnakeR xs={420} ys={80} />
-					<SnakeL xs={550} ys={80} />
-					<Cross xs={680} ys={80}/>
 		</Stage>
   </div>
+
+
 
 export default Game;

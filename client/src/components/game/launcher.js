@@ -1,4 +1,4 @@
-mport React from 'react';
+import React from 'react';
 import { startGame } from '../../actions/index.js';
 
 class Launcher extends React.Component {
@@ -8,14 +8,12 @@ class Launcher extends React.Component {
 	render() {
 		return (
 			<div>
-				<h1 className={style.pageBanner}>TETRIS</h1>
+				<h1>TETRIS</h1>
                 <p>Press Space Bar to begin</p>
 			</div>
 		);
 	}
 }
-Menu.propTypes = {
-	isPlaying: React.PropTypes.string,
-};
+
 
 export default Launcher;
