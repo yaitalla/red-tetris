@@ -5,6 +5,7 @@ import store from './store';
 import { Provider } from 'react-redux';
 
 window.store = store;
+console.log(store.getState().current)
 ReactDOM.render((
     <Provider store={store}>
         <Global/>

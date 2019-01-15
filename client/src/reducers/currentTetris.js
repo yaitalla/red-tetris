@@ -3,12 +3,13 @@ const { block, tetriminos } = constants;
   
   
 const current = (state = {}, action) => {
-switch (action.type) {
+  switch (action.type) {
     case 'FIRST':
       return {
-        shape: tetriminos[action.randomShape],
+        shape: tetriminos[action.randTetris1.shape],
         X: 90,
-        Y: 0
+        Y: 0,
+        color: tetriminos[action.randTetris1.color]
       };
       case 'NEW':
         return Object.assign({}, action.nextTetris, { X: 90, Y: 0 });

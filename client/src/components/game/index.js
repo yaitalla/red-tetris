@@ -1,15 +1,7 @@
 import React from 'react';
 import { Layer, Stage, Rect, Group } from 'react-konva';
-//import { connect } from 'react-redux';
 import constants from '../../constants';
-import MirrorL from '../tetriminos/mirrorL';
-import L from '../tetriminos/L';
-import Square from '../tetriminos/square';
-import Stick from '../tetriminos/stick';
-import SnakeR from '../tetriminos/snakeR';
-import SnakeL from '../tetriminos/snakeL';
-import Cross from '../tetriminos/cross';
-import { fall } from '../../actions';
+import FallingPiece from '../tetriminos/current';
 import Launcher from './launcher';
 
 
@@ -20,6 +12,7 @@ const Game = () =>
 		<Stage width={gridWidth} height={gridHeight}>
 			<Layer>
 				<Launcher/>
+				<FallingPiece/>
 			</Layer>
 		</Stage>
   </div>

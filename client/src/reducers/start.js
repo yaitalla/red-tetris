@@ -57,17 +57,21 @@ const newGame = (grid, tetrimino, color) => {
             field[i][row+rows.length] = field[i][row];
         }
     }
+  //  console.log(field)
     return field;
 }
 
 const start = (state = grid, action) => {
     switch(action.type) {
         case 'NEW':
+            console.log('NEW')
             return newGame(state, action.current);
         case 'FIRST':
+            console.log('FIRST')
             return grid;
         default:
-            return state;
+            console.log('DEFAULT')
+            return grid;
     }
 }
 

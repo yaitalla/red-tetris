@@ -1,4 +1,4 @@
-import constants from '../constants';
+import { shapes } from '../constants';
 
 
 export const launcher = () => {
@@ -38,16 +38,17 @@ export const launcher = () => {
   }
 }
 
-export const startGame = () => (
-  (dispatch) => {
-    const pressSpace = (event) => {
-      if (event.keyCode === 32) {
-        dispatch(launcher());
-        window.removeEventListener('keyup', pressSpace);
-      }
-    }
-    window.addEventListener('keyup', pressSpace)
-  }
+export const first = () => (
+  const rand1 = Math.floor(Math.random() * 7);
+  const rand2 = Math.floor(Math.random() * 7);
+  console.log(shapes)
+  const randTetris1 = shapes[rand1];
+  const randTetri21 = shapes[rand2];
+  return {
+    type: 'FIRST',
+    randTetris1,
+    randTetris2
+  };
 );
 
 export const fall = ({data}) => ({

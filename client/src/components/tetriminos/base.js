@@ -1,11 +1,13 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Rect, Group } from 'react-konva';
 import constants from '../../constants';
 import { Shape } from 'konva';
+import { connect } from 'react-redux';
 
 const { block } = constants;
 
-const tertriminoLocation = (shape) => {
+const localization = (shape) => {
     const location = [];
     for (let i=0; i<shape.length; i++) {
         for (let j=0; j<shape[i].length; j++) {
@@ -28,30 +30,23 @@ const Shapes = (xs, ys, color) => {
     return shap;
 }
 
-const Tetrimino = ({ shape, X, Y, color}) => {
-    const location = tertriminoLocation(shape);
+const Tetrimino = ({ shape, X, Y, color} ) => {
+    const location = localization(shape);
     const xs = location.map((coord) => (coord.x * block) + X);
     const ys = location.map((coord) => (coord.y * block) + Y);
     return (
         <Group>
             {Shapes(xs, ys, color)}
         </Group>
-    )
+    );
 }
+
 
 Tetrimino.propTypes = {
-    shape: PropTypes.array.isRequired,
-    X: PropTypes.number.isRequired,
-    Y: PropTypes.number.isRequired,
-    color: PropTypes.string.isRequired
-}
+	X: PropTypes.number,
+	Y: PropTypes.number,
+	shape: PropTypes.array,
+	color: PropTypes.string,
+};
 
-const mapStateToProps = ({ currentTetromino }) => ({
-	shape: currentTetromino.shape,
-	name: currentTetromino.name,
-	color: currentTetromino.color,
-	offsetX: currentTetromino.offsetX,
-	offsetY: currentTetromino.offsetY,
-});
-
-export default connect(mapStateToProps)(Tetrimino);
+export default Tetrimino;
