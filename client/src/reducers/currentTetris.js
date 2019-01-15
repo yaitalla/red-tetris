@@ -2,26 +2,25 @@ import constants from '../constants';
 const { block, tetriminos } = constants;
   
   
-function current(state = {}, action) {
+const current = (state = {}, action) => {
 switch (action.type) {
     case 'FIRST':
       return {
-        shape: tetriminos[action.randTetris].shape,
+        shape: tetriminos[action.randomShape],
         X: 90,
-        Y: 0,
-        color:tetriminos[action.randTetris].color,
-        name: action.randTetris
+        Y: 0
       };
-      case 'NEXT':
-        return Object.assign({}, action.next, { X: 90, Y: 0 });
+      case 'NEW':
+        return Object.assign({}, action.nextTetris, { X: 90, Y: 0 });
+      case 'ROTATE':
+         return Object.assign({}, state, {shape: action.rotate});
       case 'RIGHT':
         return Object.assign({}, state, {X: state.X + block});
       case 'LEFT':
         return Object.assign({}, state, {X: state.X - block});
       case 'DOWN':
         return Object.assign({}, state, {Y: state.Y + block});
-      case 'ROTATE':
-        return Object.assign({}, state, {shape: action.rotate});
+     
     default:
       return state;
   }

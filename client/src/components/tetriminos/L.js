@@ -17,7 +17,6 @@ const test = (event) => {
 	})
 }
 
-window.addEventListener('keydown', test);
 
 
 const L = (props) => 
@@ -47,4 +46,4 @@ const mapStateToProps = (state) => ({
 })
 
 
-export default connect(mapStateToProps, { fall })(L);
+export default (L);
