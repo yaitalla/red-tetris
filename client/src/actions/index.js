@@ -1,5 +1,9 @@
 import constants  from '../constants';
 
+/*
+Tes REDUCERS sont nickels, bien découpés ... Pourquoi ne pas faire la mme chose ici ?
+il faut créer un fichier actionName.js pour chaque reducerName.js !
+*/
 
 export const launcher = () => {
   (dispatch, getState) => {
