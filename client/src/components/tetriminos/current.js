@@ -8,7 +8,7 @@ const mapStateToProps = (state) => ({
     color: state.current.color,
 });
 const mapDispatchToProps = (dispatch) => ({
-    shape: dispatch(first)
+    shape: dispatch(first.randTetris1)
   })
   
 const FallingPiece = connect(
