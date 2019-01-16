@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import {start} from '../../actions';
 
 
-
+// Pourquoi tu declare une action dispatch dans tes props ... et tu ne l'utilise pas ?
 const Launcher = ({ grid }) => {
 	const renderBlocks = [];
 	grid.forEach((val, i) => {
@@ -17,13 +17,27 @@ const Launcher = ({ grid }) => {
 	});
 	return <Group>{ renderBlocks }</Group>;
 }
-
+// destructure ;)
+/*
+const mapStateToProps = ({ start }) => ({
+  grid: start,
+  loading: start.loading,
+  error: start.error
+  ....
+});
+*/
 const mapStateToProps = (state) => ({
 	grid: state.start,
 });
 const mapDispatchToProps = (dispatch) => ({
+// si tu utilises bindActionsCreator tu peux juste mettre le nom de l'action et elle aura le dispatch automatiquement
     shape: dispatch(start)
   })
-  
+/*
+ex:
+const mapDispatchToProps = dispatch => bindActionCreators({
+  ationName1, actionName2, ...
+}, dispatch);	
+*/
 
 export default connect(mapStateToProps)(Launcher);
