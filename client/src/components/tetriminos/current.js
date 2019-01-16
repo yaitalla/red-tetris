@@ -1,15 +1,20 @@
 import Tetrimino from './base';
 import { connect } from 'react-redux';
+import {first} from '../../actions';
 
-const mapStateToProps = ({current}) => ({
-    shape: current.shape,
-    X: current.X,
-    Y: current.Y,
-    color: current.color,
+const mapStateToProps = (state) => ({
+    X: state.current.X,
+    Y: state.current.Y,
+    color: state.current.color,
 });
-
+const mapDispatchToProps = (dispatch) => ({
+    shape: dispatch(first)
+  })
+  
 const FallingPiece = connect(
-    mapStateToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(Tetrimino);
 
 export default FallingPiece;
+

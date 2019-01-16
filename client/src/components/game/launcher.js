@@ -1,6 +1,8 @@
 import React from 'react';
 import { Rect, Group } from 'react-konva';
 import { connect } from 'react-redux';
+import {start} from '../../actions';
+
 
 
 const Launcher = ({ grid }) => {
@@ -19,5 +21,9 @@ const Launcher = ({ grid }) => {
 const mapStateToProps = (state) => ({
 	grid: state.start,
 });
+const mapDispatchToProps = (dispatch) => ({
+    shape: dispatch(start)
+  })
+  
 
 export default connect(mapStateToProps)(Launcher);

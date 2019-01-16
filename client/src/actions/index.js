@@ -1,4 +1,4 @@
-import { shapes } from '../constants';
+import constants  from '../constants';
 
 
 export const launcher = () => {
@@ -38,18 +38,22 @@ export const launcher = () => {
   }
 }
 
-export const first = () => (
+export const first = () => {
   const rand1 = Math.floor(Math.random() * 7);
   const rand2 = Math.floor(Math.random() * 7);
-  console.log(shapes)
-  const randTetris1 = shapes[rand1];
-  const randTetri21 = shapes[rand2];
-  return {
-    type: 'FIRST',
-    randTetris1,
-    randTetris2
-  };
-);
+  const randTetris1 = constants.tetriminos[constants.shapes[rand1]].shape;
+  const randTetris2 = constants.tetriminos[constants.shapes[rand2]].shape;
+  console.log('now', constants.tetriminos[constants.shapes[rand1]])
+
+  return randTetris1
+  // return {
+  //   type: 'FIRST',
+  //   payload: {
+  //     randTetris1,
+  //     randTetris2
+  //   }
+  //};
+};
 
 export const fall = ({data}) => ({
   type: 'FALL',
