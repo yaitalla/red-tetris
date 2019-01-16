@@ -4,6 +4,7 @@ import room from './rooms';
 import current from './currentTetris';
 import createShapes from './createShapes';
 
+// PARFAIT !!
 
 const rootReducer = combineReducers({
   start,
