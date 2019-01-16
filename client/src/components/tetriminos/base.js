@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Rect, Group } from 'react-konva';
 import constants from '../../constants';
-import {first} from '../../actions';
+import actions from '../../actions';
 
 import { Shape } from 'konva';
 import { connect } from 'react-redux';
@@ -54,4 +54,4 @@ Tetrimino.propTypes = {
 	color: PropTypes.string,
 };
 
-export default connect(null, {first})(Tetrimino);
+export default connect(null)(Tetrimino);

@@ -1,6 +1,6 @@
 import constants  from '../constants';
 
-export const launcher = () => {
+const launcher = () => {
     (dispatch, getState) => {
       dispatch(gameProcess());
       const move = (event) => {
@@ -36,3 +36,5 @@ export const launcher = () => {
           window.addEventListener('keydown', rotate);
     }
   }
+
+  export default launcher;

@@ -1,6 +1,6 @@
 import Tetrimino from './base';
 import { connect } from 'react-redux';
-import {first} from '../../actions';
+import actions from '../../actions';
 
 const mapStateToProps = (state) => ({
     X: state.current.X,
@@ -8,7 +8,7 @@ const mapStateToProps = (state) => ({
     color: state.current.color,
 });
 const mapDispatchToProps = (dispatch) => ({
-    shape: dispatch(first.randTetris1)
+    shape: dispatch(actions.first)
   })
   
 const FallingPiece = connect(
