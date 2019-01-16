@@ -61,6 +61,13 @@ const newGame = (grid, tetrimino, color) => {
     return field;
 }
 
+/*
+    A VERIFIER:
+    Je pense que tu ne devrais pas faire de calcul dans le reducer ..
+    retourne juste les data dont tu as besoin et fais tes calculs dans ton component,
+    sinon ta value va mettre un temps de dingue pour s'écrire dans ton store
+*/
+
 const start = (state = grid, action) => {
     switch(action.type) {
         case 'NEW':
