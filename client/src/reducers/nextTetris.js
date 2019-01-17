@@ -5,7 +5,7 @@ export const nextTetris = (state = {}, action) => {
     switch(action.type){
         case 'NEW':
             return {
-                shape: tetriminos[action.randomShape],
+                shape: tetriminos[action.randTetris1.shape],
                 X: 90,
                 Y: 0
             };

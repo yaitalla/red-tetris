@@ -2,16 +2,18 @@ import React from 'react';
 import { Layer, Stage, Rect, Group } from 'react-konva';
 import constants from '../../constants';
 import FallingPiece from '../tetriminos/current';
-import Launcher from './launcher';
+import CreateField from './startGame';
+import {game} from './style';
 
 
 const { gridHeight, gridWidth, block } = constants;
 
 const Game = () =>
-  <div  style={ {"backgroundColor": "#d0ddf2"}}>
+  <div  style={game}>
 		<Stage width={gridWidth} height={gridHeight}>
 			<Layer>
-				<Launcher/>
+				<FallingPiece/>
+				<CreateField/>
 			</Layer>
 		</Stage>
   </div>

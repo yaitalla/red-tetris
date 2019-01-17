@@ -3,25 +3,22 @@ const { block, tetriminos } = constants;
   
   
 const current = (state = {}, action) => {
+  console.log(action.type)
   switch (action.type) {
     case 'FIRST':
       return {
-        shape: tetriminos[action.randTetris1.shape],
+        shape: tetriminos[action.randTetris1],
         X: 90,
-        Y: 0,
-        color: tetriminos[action.randTetris1.color]
+        Y: 90,
+        color: tetriminos[action.randTetris1]
       };
       case 'NEW':
-        return Object.assign({}, action.nextTetris, { X: 90, Y: 0 });
+        return [
+          ...state,
+          { X: 90, Y: 0 }
+        ];
       case 'ROTATE':
-         return Object.assign({}, state, {shape: action.rotate});
-      case 'RIGHT':
-        return Object.assign({}, state, {X: state.X + block});
-      case 'LEFT':
-        return Object.assign({}, state, {X: state.X - block});
-      case 'DOWN':
-        return Object.assign({}, state, {Y: state.Y + block});
-     
+         return [ ...state, {shape: action.rotate}];
     default:
       return state;
   }

@@ -6,7 +6,10 @@ const first = () => {
     const randTetris1 = constants.tetriminos[constants.shapes[rand1]].shape;
     const randTetris2 = constants.tetriminos[constants.shapes[rand2]].shape;
   
-    return randTetris1
+    return {
+      type: 'FIRST',
+      randTetris1
+    }
   };
 
   export default first;

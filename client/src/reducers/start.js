@@ -44,7 +44,7 @@ const getField = (grid, tetrimino, color) => {
     return field;
 }
 
-const newGame = (grid, tetrimino, color) => {
+const newRender = (grid, tetrimino, color) => {
     const rows = lineChecker(grid, tetrimino);
     const field = getField(grid, tetrimino, color);
     for (row in rows) {
@@ -57,21 +57,17 @@ const newGame = (grid, tetrimino, color) => {
             field[i][row+rows.length] = field[i][row];
         }
     }
-  //  console.log(field)
     return field;
 }
 
 const start = (state = grid, action) => {
     switch(action.type) {
         case 'NEW':
-            console.log('NEW')
-            return newGame(state, action.current);
+            return newRender(state, action.current);
         case 'FIRST':
-            console.log('FIRST')
             return grid;
         default:
-            console.log('DEFAULT')
-            return grid;
+            return state;
     }
 }
 

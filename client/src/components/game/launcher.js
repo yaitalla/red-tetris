@@ -1,6 +1,5 @@
 import React from 'react';
 import { Rect, Group } from 'react-konva';
-import { connect } from 'react-redux';
 
 
 
@@ -16,11 +15,10 @@ const Launcher = ({ grid }) => {
 	});
 	return <Group>{ renderBlocks }</Group>;
 }
+/*
+Launcher.propTypes = {
+	grid: PropTypes.array
+}
+*/
 
-const mapStateToProps = (state) => ({
-	grid: state.start,
-});
-
-  
-
-export default connect(mapStateToProps, null)(Launcher);
+export default Launcher;

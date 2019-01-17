@@ -11,3 +11,7 @@ export const flexDiv = {
     height: "100%",
     background: "linear-gradient(#e66465, #9198e5)"
 }
+
+export const game = {
+    "backgroundColor": "#efefef"
+}

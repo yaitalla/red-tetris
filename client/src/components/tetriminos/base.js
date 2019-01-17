@@ -23,7 +23,7 @@ const Shapes = (xs, ys, color) => {
 }
 
 const Tetrimino = ({ shape, X, Y, color }) => {
-    console.log('ici', {shape})
+    console.log('ici', shape, X, Y, color)
     const location = localization(shape);
     const xs = location.map((coord) => (coord.x * block) + X);
     const ys = location.map((coord) => (coord.y * block) + Y);
@@ -48,7 +48,7 @@ const localization = (shape) => {
 
 
 Tetrimino.propTypes = {
-	shape: PropTypes.array,
+	shape: PropTypes.object,
 	X: PropTypes.number,
 	Y: PropTypes.number,
 	color: PropTypes.string,
