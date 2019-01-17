@@ -1,5 +1,5 @@
 import constants  from '../constants';
-
+// ... c'est pas beau ici ... peut mieux faire !
 const launcher = () => {
     (dispatch, getState) => {
       dispatch(gameProcess());
