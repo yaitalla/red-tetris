@@ -12,7 +12,6 @@ const Game = () =>
 		<Stage width={gridWidth} height={gridHeight}>
 			<Layer>
 				<Launcher/>
-				<FallingPiece/>
 			</Layer>
 		</Stage>
   </div>
