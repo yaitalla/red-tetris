@@ -1,5 +1,9 @@
-const filler = (array, gap, newArray) => {
+const updateArray = (array, gap, newArray, size) => {
     let i = 0;
+    let update = [];
+    for (i=0; i<size; i++) {
+        update[i] = ret[i].slice(gap).concat(update);
+    }
 }
 
 const processRotation = () => {
@@ -16,7 +20,7 @@ const processRotation = () => {
     }
     const renderCase = new Array(test).fill(0);
     for(let i=0; i<size; i++){
-        new[i] = filler //
+        new[i] = updateArray //  
     }
     
 }

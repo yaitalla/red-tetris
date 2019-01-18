@@ -3,14 +3,15 @@ const { block, tetriminos } = constants;
   
   
 const current = (state = {}, action) => {
-  console.log(action.type)
+  console.log('currentReducer',action.type)
   switch (action.type) {
     case 'FIRST':
+      console.log(action.randTetris1.shape, action.randTetris1.color)
       return {
-        shape: tetriminos[action.randTetris1],
+        shape: action.randTetris1.shape,
         X: 90,
         Y: 90,
-        color: tetriminos[action.randTetris1]
+        color: action.randTetris1.color
       };
       case 'NEW':
         return [

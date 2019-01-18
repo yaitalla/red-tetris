@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 window.store = store;
 //console.log(store.getState())
 store.subscribe(() => {
-    console.log('subscribe triggered')
+    console.log('subscribe:', store.getState())
 })
 ReactDOM.render((
     <Provider store={store}>

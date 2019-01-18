@@ -1,7 +1,8 @@
 import Tetrimino from './base';
-import { connect, bindActionCreators } from 'react-redux';
+import { connect} from 'react-redux';
+import { bindActionCreators } from 'redux';
 import actions from '../../actions';
-
+const first = actions.first;
 
 const mapStateToProps = (state) => ({
     shape: state.current.shape,
@@ -9,10 +10,12 @@ const mapStateToProps = (state) => ({
     Y: state.current.Y,
     color: state.current.color,
 });
-const mapDispatchToProps = bindActionCreators(dispatch) => ({
-    shape: actions.first,
-    
-});
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        shape: dispatch(first())
+    }
+}
   
 const FallingPiece = connect(
     mapStateToProps,

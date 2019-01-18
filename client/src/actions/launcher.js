@@ -2,38 +2,29 @@ import constants  from '../constants';
 
 const launcher = () => {
     (dispatch, getState) => {
-      dispatch(gameProcess());
       const move = (event) => {
-        switch(event.keyCode) {
-          case 37: //left
-            event.preventDefault();
-            dispatch(movePiece());
-            break;
-          case 39: //right
-            event.preventDefault();
-            dispatch(movePiece());
-            break;
-          case 40: //down
-            event.preventDefault();
-            dispatch(movePiece());
-            break;
-          default:
-            break;
-        }
-      }
-      const rotate = (event) => {
         switch(event.keyCode) {
           case 38:
             event.preventDefault();
-            dispatch(rotatePiece());
+            console.log('rotate');
+            break;
+          case 37: //left
+            event.preventDefault();
+            console.log('move left');
+            break;
+          case 39: //right
+            event.preventDefault();
+            console.log('move right');
+            break;
+          case 40: //down
+            event.preventDefault();
+            console.log('move down');
             break;
           default:
             break;
         }
       }
-      downfall(dispatch, Date.now(), getState);
       window.addEventListener('keydown', move);
-          window.addEventListener('keydown', rotate);
     }
   }
 

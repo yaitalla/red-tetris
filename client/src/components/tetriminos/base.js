@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Rect, Group } from 'react-konva';
 import constants from '../../constants';
 import actions from '../../actions';
+import Test from '../game/tetrisTest';
 
 import { Shape } from 'konva';
 import { connect } from 'react-redux';
@@ -19,18 +20,18 @@ const Shapes = (xs, ys, color) => {
                             x={xs[i]} y={ys[i]} fill={color}
                             stroke="black" strokeWidth={4} /> );
     }
+    console.log(shap)
     return shap;
 }
 
 const Tetrimino = ({ shape, X, Y, color }) => {
-    console.log('ici', shape, X, Y, color)
-    const location = localization(shape);
+    console.log('Tetrimino', shape, X, Y, color)
+    const location = localization(shape.randTetris1.shape);
     const xs = location.map((coord) => (coord.x * block) + X);
     const ys = location.map((coord) => (coord.y * block) + Y);
+    //console.log('Tetrimino', location)
     return (
-        <Group>
-            {Shapes(xs, ys, color)}
-        </Group>
+            <Test xs={50} ys={50}/>
     );
 }
 
@@ -54,4 +55,4 @@ Tetrimino.propTypes = {
 	color: PropTypes.string,
 };
 
-export default connect(null)(Tetrimino);
+export default Tetrimino;
