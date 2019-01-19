@@ -5,7 +5,7 @@ import { Layer } from 'react-konva';
 
 const { block } = constants;
 
-
+0
 const Test = ({xs, ys}) => 
 	<Group>
             <Rect width={block} height={block}

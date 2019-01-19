@@ -1,7 +1,6 @@
 import constants  from '../constants';
 
 const launcher = () => {
-    (dispatch, getState) => {
       const move = (event) => {
         switch(event.keyCode) {
           case 38:
@@ -25,7 +24,9 @@ const launcher = () => {
         }
       }
       window.addEventListener('keydown', move);
-    }
+      return {
+        type: 'LAUNCHER'
+      }
   }
 
   export default launcher;

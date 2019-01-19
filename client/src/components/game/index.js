@@ -13,6 +13,7 @@ const Game = () =>
 		<Stage width={gridWidth} height={gridHeight}>
 			<Layer>
 				<FallingPiece/>
+				<CreateField/>
 			</Layer>
 		</Stage>
   </div>

@@ -1,3 +1,6 @@
+import constants from '../../constants';
+const { gridHeight, gridWidth } = constants;
+
 export const field = {
     backgroundColor: "cyan",
     width: "100%",
@@ -13,5 +16,8 @@ export const flexDiv = {
 }
 
 export const game = {
-    "backgroundColor": "#efefef"
+    "backgroundColor": "#efefef",
+    height: gridHeight,
+    width: gridWidth,
+    borderStyle: "solid"
 }

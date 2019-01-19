@@ -1,12 +1,11 @@
 import constants from '../constants';
 const { block, tetriminos } = constants;
-  
+
   
 const current = (state = {}, action) => {
-  console.log('currentReducer',action.type)
+  if (action.type.length < 7) {console.log('current reducer', action.type)}
   switch (action.type) {
     case 'FIRST':
-      console.log(action.randTetris1.shape, action.randTetris1.color)
       return {
         shape: action.randTetris1.shape,
         X: 90,

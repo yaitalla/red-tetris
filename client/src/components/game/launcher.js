@@ -4,6 +4,7 @@ import { Rect, Group } from 'react-konva';
 
 
 const Launcher = ({ grid }) => {
+	console.log('grid', grid)
 	const renderBlocks = [];
 	grid.forEach((val, i) => {
 		val.forEach((unit, j) => {

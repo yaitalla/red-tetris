@@ -52,7 +52,7 @@ Tetrimino.propTypes = {
 	shape: PropTypes.object,
 	X: PropTypes.number,
 	Y: PropTypes.number,
-	color: PropTypes.string,
+    color: PropTypes.string,
 };
 
 export default Tetrimino;

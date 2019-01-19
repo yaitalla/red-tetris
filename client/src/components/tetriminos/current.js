@@ -1,8 +1,7 @@
 import Tetrimino from './base';
 import { connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
-import actions from '../../actions';
-const first = actions.first;
+import first from '../../actions/first';
 
 const mapStateToProps = (state) => ({
     shape: state.current.shape,
