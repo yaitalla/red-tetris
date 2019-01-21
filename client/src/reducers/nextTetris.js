@@ -1,9 +1,9 @@
 import constants from '../constants';
-const { block, tetriminos } = constants;
+const { tetriminos } = constants;
 
 export const nextTetris = (state = {}, action) => {
     switch(action.type){
-        case 'NEW':
+        case 'NEXT':
             return {
                 shape: tetriminos[action.randTetris1.shape],
                 X: 90,

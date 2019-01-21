@@ -1,11 +1,10 @@
 import React from 'react';
 import { Rect, Group } from 'react-konva';
 import constants from '../../constants';
-import { Layer } from 'react-konva';
 
 const { block } = constants;
 
-const Test = ({xs, ys, color}) => 
+const MirrorL = ({xs, ys, color}) => 
 	<Group>
             <Rect width={block} height={block}
 				x={xs+30} y={ys} fill={color} key={1}
@@ -24,4 +23,4 @@ const Test = ({xs, ys, color}) =>
 				stroke="black" strokeWidth={4}
 			/>
 	</Group>
-export default Test;
+export default MirrorL;

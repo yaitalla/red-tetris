@@ -25,13 +25,13 @@ const Shapes = (xs, ys, color) => {
 }
 
 const Tetrimino = ({ shape, X, Y, color }) => {
-    console.log('Tetrimino', shape, X, Y, color)
-    const location = localization(shape.randTetris1.shape);
-    const xs = location.map((coord) => (coord.x * block) + X);
-    const ys = location.map((coord) => (coord.y * block) + Y);
+    console.log('Tetrimino', shape, X, Y)
+    // const location = localization(shape.randTetris.shape);
+    // const xs = location.map((coord) => (coord.x * block) + X);
+    // const ys = location.map((coord) => (coord.y * block) + Y);
     //console.log('Tetrimino', location)
     return (
-            <Test xs={50} ys={50}/>
+            <Test xs={X} ys={Y} color={color}/>
     );
 }
 
@@ -49,7 +49,7 @@ const localization = (shape) => {
 
 
 Tetrimino.propTypes = {
-	shape: PropTypes.object,
+	shape: PropTypes.string,
 	X: PropTypes.number,
 	Y: PropTypes.number,
     color: PropTypes.string,

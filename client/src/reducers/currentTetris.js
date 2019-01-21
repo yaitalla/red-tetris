@@ -2,17 +2,17 @@ import constants from '../constants';
 const { block, tetriminos } = constants;
 
   
-const current = (state = {}, action) => {
+const currentPiece = (state = {}, action) => {
   if (action.type.length < 7) {console.log('current reducer', action.type)}
   switch (action.type) {
     case 'FIRST':
       return {
-        shape: action.randTetris1.shape,
+        shape: action.randTetris.shape,
         X: 90,
-        Y: 90,
-        color: action.randTetris1.color
+        Y: -70,
+        color: action.randTetris.color
       };
-      case 'NEW':
+      case 'NEXT':
         return [
           ...state,
           { X: 90, Y: 0 }
@@ -24,4 +24,4 @@ const current = (state = {}, action) => {
   }
 }
 
-export default current;
+export default currentPiece;

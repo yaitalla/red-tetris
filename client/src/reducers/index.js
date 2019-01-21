@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
 import start from './start';
-import current from './currentTetris';
+import currentPiece from './currentTetris';
+//import nextPiece from './nextTetris';
 
 
 const rootReducer = combineReducers({
   start,
-  current,
-  //next
+  currentPiece,
 });
 
 

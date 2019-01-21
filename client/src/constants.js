@@ -18,7 +18,7 @@ export default {
 				[0, 0, 0, 0],
 				[0, 0, 0, 0],
 			],
-			color: 'red'
+			color: '#e53259'
 		},
 		square: {
 			shape: [
@@ -36,7 +36,7 @@ export default {
 				[0, 0, 0, 0],
 				[0, 0, 0, 0],
 			],
-			color: 'green'
+			color: '#2db754'
 		},
 		L: {
 			shape: [
@@ -45,7 +45,7 @@ export default {
 				[0, 0, 0, 0],
 				[0, 0, 0, 0],
 			],
-			color: 'orange'
+			color: '#ef7e32'
 		},
 		mirrorL: {
 			shape: [
@@ -54,7 +54,7 @@ export default {
 				[0, 0, 0, 0],
 				[0, 0, 0, 0],
 			],
-			color: 'yellow'
+			color: '#ffd232'
 		},
 		snakeL: {
 			shape: [
@@ -63,7 +63,7 @@ export default {
 				[0, 0, 0, 0],
 				[0, 0, 0, 0],
 			],
-			color: 'purple'
+			color: '#cd7cff'
 		},
 		snakeR: {
 			shape: [
@@ -72,7 +72,7 @@ export default {
 				[0, 0, 0, 0],
 				[0, 0, 0, 0],
 			],
-			color: 'brown',
+			color: '#d18162',
 		}
 	},
     grid,

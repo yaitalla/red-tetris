@@ -14,6 +14,7 @@ const Launcher = ({ grid }) => {
 			}
 		});
 	});
+	console.log('renderBlocks', renderBlocks)
 	return <Group>{ renderBlocks }</Group>;
 }
 /*

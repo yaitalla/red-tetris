@@ -63,10 +63,10 @@ const newRender = (grid, tetrimino, color) => {
 const start = (state = grid, action) => {
     if (action.type.length < 7) {console.log('start reducer',action.type)}
     switch(action.type) {
-        case 'NEW':
-            return newRender(state, action.current);
         case 'FIRST':
             return grid;
+        case 'NEXT':
+            return newRender(state, action.current);
         default:
             return state;
     }
