@@ -4,18 +4,12 @@ import { bindActionCreators } from 'redux';
 import first from '../../actions/first';
 
 const mapStateToProps = (state) => ({
-    shape: state.currentPiece.shape,
-    X: state.currentPiece.X,
-    Y: state.currentPiece.Y,
-    color: state.currentPiece.color,
+    data: state.currentPiece.data,
 });
 
-const mapDispatchToProps = () => {
+const mapDispatchToProps = (dispatch) => {
     return {
-        shape: (first().randTetris.shape),
-        color: (first().randTetris.color),
-        X: (first().randTetris.X),
-        Y: first().randTetris.Y 
+        data: dispatch(first())
     }
 }
   

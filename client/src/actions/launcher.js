@@ -5,7 +5,7 @@ const launcher = () => {
         switch(event.keyCode) {
           case 38:
             event.preventDefault();
-            console.log('rotate');
+            console.log(store.getState().currentPiece.data.Y);
             break;
           case 37: //left
             event.preventDefault();
@@ -17,6 +17,7 @@ const launcher = () => {
             break;
           case 40: //down
             event.preventDefault();
+            store.getState().currentPiece.Y+=10
             console.log('move down');
             break;
           default:

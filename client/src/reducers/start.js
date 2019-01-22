@@ -61,10 +61,16 @@ const newRender = (grid, tetrimino, color) => {
 }
 
 const start = (state = grid, action) => {
-    if (action.type.length < 7) {console.log('start reducer',action.type)}
+    //if (action.type.length < 7) {console.log('start reducer',action.type)}
     switch(action.type) {
         case 'FIRST':
             return grid;
+        case 'DOWN':
+            return Object.assign({}, state, { Y: Y+30 });
+        case 'LEFT':
+            return Object.assign({}, state, { X: X-30 });
+        case 'RIGHT':
+            return Object.assign({}, state, { X: X+30 });
         case 'NEXT':
             return newRender(state, action.current);
         default:
