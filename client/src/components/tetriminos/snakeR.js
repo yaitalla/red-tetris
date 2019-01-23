@@ -4,22 +4,22 @@ import constants from '../../constants';
 const { block } = constants;
 
 
-const SnakeR = ({xs, ys, color}) => 
+const SnakeR = ({data}) => 
 	<Group>
             <Rect width={block} height={block}
-				x={xs+30} y={ys} fill={color} key={1}
+				x={data.X+30} y={data.Y} fill={data.color} key={1}
 				stroke="black" strokeWidth={4}
 			/>
 			<Rect width={block} height={block}
-				x={xs+60} y={ys} fill={color} key={2}
+				x={data.X+60} y={data.Y} fill={data.color} key={2}
 				stroke="black" strokeWidth={4}
 			/>
 			<Rect width={block} height={block}
-				x={xs} y={ys+30} fill={color} key={3}
+				x={data.X} y={data.Y+30} fill={data.color} key={3}
 				stroke="black" strokeWidth={4}
 			/>
             <Rect width={block} height={block}
-				x={xs+30} y={ys+30} fill={color} key={4}
+				x={data.X+30} y={data.Y+30} fill={data.color} key={4}
 				stroke="black" strokeWidth={4}
 			/>
 	</Group>

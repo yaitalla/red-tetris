@@ -5,10 +5,10 @@ import store from './store';
 import { Provider } from 'react-redux';
 
 window.store = store;
-console.log('store at beginning',store.getState())
-store.subscribe(() => {
-    console.log('subscribe:', store.getState())
-})
+//console.log('store at beginning',store.getState())
+// store.subscribe(() => {
+//     console.log('subscribe:', store.getState())
+// })
 ReactDOM.render((
     <Provider store={store}>
         <Global/>
