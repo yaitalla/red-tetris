@@ -1,11 +1,20 @@
 import first from './first';
-import launcher from './launcher';
-import {down, right, left} from './moves';
+import brandNew from './brandNew';
 
-const actions = {
-  first,
-  launcher,
-  down
+const launch = () => {
+    (dispatch, getState) => {
+        
+    }
 }
 
-export default actions;
+const gameStart = () => {
+    (dispatch) => {
+        const checkKey = (event) => {
+            if(event.keyCode === 32) {
+                dispatch(launch());
+                window.removeEventListener('keyup', checkKey);
+            }
+        }
+        window.removeEventListener('keyup', checkKey);
+    }
+}

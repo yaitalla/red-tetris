@@ -1,11 +1,11 @@
 const grid = [];
 
-for (let i=0; i<15; i++) {
+for (let i=0; i<20; i++) {
     grid.push([]);
 }
-for (let i=0; i<15; i++) {
-    for(let j=0; j<25; j++) {
-        grid[i].push('empty');
+for (let i=0; i<20; i++) {
+    for(let j=0; j<10; j++) {
+        grid[i].push('yes');
     }
 }
 
@@ -77,9 +77,9 @@ export default {
 	},
     grid,
     gridHeight: 600,
-    gridWidth: 300,
+    gridWidth: 260,
     shapes: [
         'L', 'mirrorL', 'snakeL', 'snakeR', 'cross', 'stick', 'square'
     ],
-    block: 30
+    block: 24
 }

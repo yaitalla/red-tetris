@@ -25,7 +25,7 @@ const lineChecker = (grid, tetrimino) => {
     for (line in lines){
         let checked = true;
         for(let i=0; i<10; i++){
-            if(field[i][line] === 'empty'){
+            if(field[i][line] === '0'){
                 checked = false;
             }
         }
@@ -49,7 +49,7 @@ const newRender = (grid, tetrimino, color) => {
     const field = getField(grid, tetrimino, color);
     for (row in rows) {
         for(let i=0; i<10; i++){
-            field[i][row] = 'empty';
+            field[i][row] = '0';
         }
     }
     for(let row=rows[0]-1; row>-1; row--){
@@ -71,7 +71,7 @@ const start = (state = grid, action) => {
             return Object.assign({}, state, { X: X-30 });
         case 'RIGHT':
             return Object.assign({}, state, { X: X+30 });
-        case 'NEXT':
+        case 'BRAND_NEW':
             return newRender(state, action.current);
         default:
             return state;

@@ -4,11 +4,9 @@ import React from 'react';
 import store from './store';
 import { Provider } from 'react-redux';
 
-window.store = store;
-//console.log('store at beginning',store.getState())
-// store.subscribe(() => {
-//     console.log('subscribe:', store.getState())
-// })
+window.store = store.getState();
+console.log(window.store)
+
 ReactDOM.render((
     <Provider store={store}>
         <Global/>
