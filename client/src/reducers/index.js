@@ -1,12 +1,27 @@
-import { combineReducers } from 'redux';
-import start from './start';
-import currentPiece from './currentTetris';
+import grid from '../constants';
 
 
-const rootReducer = combineReducers({
-  start,
-  currentPiece,
-});
+const INITIAL_STATE = {
+    field: grid,
+    shape: [],
+    color: ""
+}
+
+const game = (state = INITIAL_STATE, action) => {
+    switch(action.type) {
+        case 'DOWN':
+            return null;
+        case 'BRAND_NEW':
+            return {
+                ...state,
+                shape: action.shape,
+                color: action.color
+            };
+        default:
+            return state;
+
+    }
+}
 
 
-export default rootReducer;
+export default game;
