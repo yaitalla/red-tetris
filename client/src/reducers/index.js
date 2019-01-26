@@ -1,4 +1,4 @@
-import grid from '../constants';
+import grid from '../grid';
 
 
 const INITIAL_STATE = {

@@ -2,31 +2,30 @@ import React from 'react';
 import Row from './rows';
 import {board} from './style';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import fill from '../../actions/fillGrid';
 
-const api = axios.create({baseURL:"http://localhost:4000"});
-
-const getTetris = () => {
-   const ret = [];
-   api.get("/api/game/play").then((data) => {
-     fill(data.data)
-    });
-}
 
 const Board = ({data}) =>
-    <div style={board}>
-          {getTetris()}
-
+{
+  fill();
+ return ( <div style={board}>
         {
-          data.map((row, i) => <Row key={i} stat={row}/> )
+          // data.map((row, i) => <Row key={i} stat={row}/> )
         }
-    </div>
+    </div>)
+}
 
 
   const mapStateToProps = (state) => ({
     data: state.field
   })
 
+  const mapDispatchToProps = dispatch => {
+    return {
+      data: 
+        dispatch(fill())
+    }
+  }
 
-export default connect(mapStateToProps)(Board);
+
+export default connect(mapStateToProps, {fill})(Board);

@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import Base from './base';
 
 const mapStateToProps = ({ currentPiece }) => ({
 	shape: currentPiece.shape,

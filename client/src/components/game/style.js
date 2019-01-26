@@ -1,6 +1,3 @@
-import constants from '../../constants';
-const { gridHeight, gridWidth } = constants;
-
 export const rows = {
     display: "flex",
     flexDirection: "row",
