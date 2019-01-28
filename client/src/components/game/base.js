@@ -1,4 +1,4 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 
-class Base extends React
+class Base extends React {}

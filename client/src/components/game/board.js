@@ -8,11 +8,13 @@ import fill from '../../actions/fillGrid';
 const Board = ({data}) =>
 {
   fill();
- return ( <div style={board}>
+  return (
+    <div style={board}>
         {
-          // data.map((row, i) => <Row key={i} stat={row}/> )
+           data.map((row, i) => <Row key={i} stat={row}/> )
         }
-    </div>)
+    </div>
+  )
 }
 
 
@@ -20,12 +22,10 @@ const Board = ({data}) =>
     data: state.field
   })
 
-  const mapDispatchToProps = dispatch => {
-    return {
-      data: 
-        dispatch(fill())
-    }
-  }
+  const mapDispatchToProps = dispatch => ({
+    shape: fill().shape,
+    color: fill().color
+  })
 
 
-export default connect(mapStateToProps, {fill})(Board);
+export default connect(mapStateToProps, mapDispatchToProps)(Board);
