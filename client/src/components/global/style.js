@@ -3,7 +3,7 @@ export const divGlobal = {
   backgroundColor: "#f4f4f4", //gris
   flexDirection: "row",
   justifyContent: "space-around",
-  height: "97vh",
+  height: "70vh",
   width: "100%",
   borderRadius: "15px",
 }

@@ -1,11 +1,13 @@
 import React from 'react';
 import {board} from './style';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import fill from '../../actions/fillGrid';
 
 
 const dataBoard = ({data}) =>
 {
-  console.log('dataBoard', data)
+  //console.log('dataBoard', data)
   return ( 
       <div style={board}>
         {
@@ -20,5 +22,12 @@ const dataBoard = ({data}) =>
     data: state.shape
   })
 
+  const mapDispatchToProps = dispatch => {
+    return {
+      shape: bindActionCreators(fill, dispatch)
+    }
+  }
 
-export default connect(mapStateToProps)(dataBoard);
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(dataBoard);

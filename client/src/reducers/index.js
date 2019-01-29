@@ -14,6 +14,7 @@ const game = (state = INITIAL_STATE, action) => {
         case 'BRAND_NEW':
             return {
                 ...state,
+                field: action.grid,
                 shape: action.shape,
                 color: action.color
             };

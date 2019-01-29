@@ -15,13 +15,23 @@ app.use(bodyParser.urlencoded({ extended: false })); //parse request bodies in a
 app.use(bodyParser.json());
 app.use('/api', api);
 
-
+/* How To run shell commands from Node.js
+const proce = require('child_process');
+const myFiles = proce.execSync('ls', {encoding: 'utf8'});
+console.log(myFiles);
+*/
 
 io.on('connection', function (socket) {
-  console.log(socket.id)
+  console.log('user', socket.id, 'connected')
+
+  socket.on('SHAPE_REQUEST', (data) => {
+    io.emit('RECEIVE_REQUEST', data);
+  })
+
+  
   socket.on('disconnect', () => {
-    console.log('User disconnected')
-  });
+    console.log('User', socket.id, 'disconnected')
+  }); 
 });
 
 
