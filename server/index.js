@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-const axios = require('axios');
+const shaper = require('./config/shaper');
 const helmet = require('helmet');
 const cors = require('cors');
 const api = require('./routes/api');
@@ -25,7 +25,7 @@ io.on('connection', function (socket) {
   console.log('user', socket.id, 'connected')
 
   socket.on('SHAPE_REQUEST', (data) => {
-    io.emit('RECEIVE_REQUEST', data);
+    io.emit('RECEIVE_REQUEST', shaper());
   })
 
   

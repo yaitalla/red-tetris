@@ -10,21 +10,21 @@ const fillIt = (shape, color, grid) => ({
     type: 'BRAND_NEW',
     grid: grid,
     shape: shape,
-    color: color
+    color: color,
 })
-const api = axios.create({baseURL:"http://localhost:4000"});
+//const api = axios.create({baseURL:"http://localhost:4000"});
 
-const fill = () => {
-    const socket = io('localhost:4000');
-    socket.emit('SHAPE_REQUEST', {
-        field: 'test grid'
-    });
-    socket.on('RECEIVE_REQUEST', function(data){
-        checkPayload(data);
-    });
-    const checkPayload = data => {
-        console.log(data);
-    };
+const fill = (shape, field) => {
+    
+    let ret = field;
+    for (let i=0; i<4; i++) {
+        //console.log(ret[i], shape.shape[i])
+        for(let j=3; j<7; j++) {
+            ret[i][j] = shape.shape[i][j-3]
+        }
+    }
+    console.log(ret)
+    fillIt(shape.shape, shape.color, ret);
     
     
     // return api.get("/api/game/play").then((data) => {

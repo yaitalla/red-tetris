@@ -17,6 +17,7 @@ const Board = ({data}) =>
   )
 }
 
+  
 
   const mapStateToProps = (state) => ({
     data: state.field
