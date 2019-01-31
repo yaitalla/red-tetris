@@ -14,6 +14,7 @@ const game = (state = INITIAL_STATE, action) => {
         case 'DOWN':
             return action.newField;
         case 'BRAND_NEW':
+            console.log('reduc log', action)
             return {
                 ...state,
                 field: action.grid,

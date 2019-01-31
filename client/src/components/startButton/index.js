@@ -19,8 +19,14 @@ const mapStateToProps = (state) => ({
     data: state.field
 })
 
+/*
 const mapDispatchToProps = (dispatch) => ({
-    onclick: () => dispatch({ type: 'BRAND_NEW' })
+    onclick: (dispatch) => dispatch(fill())
+});
+*/
+
+const mapDispatchToProps = (dispatch) => ({
+    onclick: () => dispatch({ type: "BRAND_NEW"})
 });
 
 // const mapDispatchToProps = (dispatch, ownProps) => ({

@@ -17,7 +17,7 @@ export const down = field => {
                 }
             }
         }
-        console.log('ret down', ret)
+       // console.log('ret down', ret)
         return ret
     }
    const newField =  newF(store.field, Date.now())

@@ -18,7 +18,6 @@ const Test = ({stat}) => {
 const Board = ({data}) =>
 {
   const dat = data.newField
-  //console.log(dat)
   return (
     <div style={board}>
         {
