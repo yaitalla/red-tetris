@@ -12,7 +12,7 @@ const INITIAL_STATE = {
 const game = (state = INITIAL_STATE, action) => {
     switch(action.type) {
         case 'DOWN':
-            return null;
+            return action.newField;
         case 'BRAND_NEW':
             return {
                 ...state,

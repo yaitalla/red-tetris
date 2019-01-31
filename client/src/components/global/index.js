@@ -8,19 +8,6 @@ import io from 'socket.io-client';
 
 
 const Global = () => {
-  // const socket = io('localhost:4000');
-  // socket.emit('WIN_SIGNAL', {
-  //   signal: 'win'
-  // });
-  // //console.log('log socket', socket.connected, socket.disconnected)
-  // socket.on('RECEIVE_SIGNAL', function(data){
-  //   addMessage(data);
-  // });
-  // const addMessage = data => {
-  //     console.log(data);
-  // };
-
-
 
   return (
     <Router>
