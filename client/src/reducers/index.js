@@ -9,17 +9,17 @@ const INITIAL_STATE = {
     socket: io('localhost:4000')
 }
 
-const game = (state = INITIAL_STATE, action) => {
+const game = (state = INITIAL_STATE, action = {}) => {
     switch(action.type) {
         case 'DOWN':
             return action.newField;
         case 'BRAND_NEW':
-            console.log('reduc log', action)
+            console.log('reduc log', action.type )
             return {
-                ...state,
                 field: action.grid,
                 shape: action.shape,
-                color: action.color
+                color: action.color,
+                socket: store.socket
             };
         default:
             return state;

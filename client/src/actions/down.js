@@ -12,9 +12,11 @@ export const down = field => {
         for (let i=0; i<20; i++) {
             for(let j=0; j<10; j++) {
                 if (store.field[i][j] === '0'){
-                    //    console.log('trouvé en:',i, j )
-                        ret[i+1][j] = '0';
+                        ret[i][j] = '';
                 }
+                else if (store.field[i][j] === '1'){
+                    ret[i+1][j] = '1';
+            }
             }
         }
        // console.log('ret down', ret)

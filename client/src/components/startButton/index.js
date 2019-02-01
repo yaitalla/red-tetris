@@ -4,7 +4,8 @@ import fill from '../../actions/fillGrid';
 import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
 
-const Button = ({onclick}) => {
+const Button = ({onclick, data}) => {
+    console.log('button log', onclick)
     return (
         <div style={flex}>
             <ul style={noBullet}>
@@ -25,15 +26,19 @@ const mapDispatchToProps = (dispatch) => ({
 });
 */
 
-const mapDispatchToProps = (dispatch) => ({
-    onclick: () => dispatch({ type: "BRAND_NEW"})
-});
+// const mapDispatchToProps = (dispatch, ownProps) => ({
+//     onclick: (ownProps) => dispatch(fill(store.socket, ownProps.socket))
+// });
 
 // const mapDispatchToProps = (dispatch, ownProps) => ({
 //     onclick: () => dispatch(fill(ownProps.newField))
 // })
 
-//const mapDispatchToProps = dispatch => bindActionCreators({ fill() }, dispatch);
+const mapDispatchToProps = dispatch => {
+    return {
+        onClick: bindActionCreators({ fill }, dispatch)
+    }
+};
 
 
-export default connect(null, mapDispatchToProps)(Button);
+export default connect(mapStateToProps, mapDispatchToProps)(Button);
