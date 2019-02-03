@@ -1,11 +1,10 @@
 import React from 'react';
 import { flex, noBullet, btn} from './style';
-import fill from '../../actions/fillGrid';
+import {fill} from '../../actions/fillGrid';
 import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
 
 const Button = ({onclick, data}) => {
-    console.log('button log', onclick)
     return (
         <div style={flex}>
             <ul style={noBullet}>
@@ -20,25 +19,22 @@ const mapStateToProps = (state) => ({
     data: state.field
 })
 
-/*
 const mapDispatchToProps = (dispatch) => ({
-    onclick: (dispatch) => dispatch(fill())
+    onclick: () => dispatch(fill(store.socket))
 });
-*/
+/*
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+    onclick: (ownProps) => dispatch(fill(store.socket, ownProps.socket))
+});
 
 // const mapDispatchToProps = (dispatch, ownProps) => ({
-//     onclick: (ownProps) => dispatch(fill(store.socket, ownProps.socket))
-// });
-
-// const mapDispatchToProps = (dispatch, ownProps) => ({
-//     onclick: () => dispatch(fill(ownProps.newField))
+//     onclick: () => dispatch(fill(ownProps.socket))
 // })
 
-const mapDispatchToProps = dispatch => {
-    return {
-        onClick: bindActionCreators({ fill }, dispatch)
-    }
-};
-
+// const mapDispatchToProps = (dispatch) => ({
+//     onclick: (dispatch) => dispatch(fill()) 
+// })
+*/
 
 export default connect(mapStateToProps, mapDispatchToProps)(Button);

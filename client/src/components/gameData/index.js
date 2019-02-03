@@ -22,12 +22,7 @@ const dataBoard = ({data}) =>
     data: state.shape
   })
 
-  const mapDispatchToProps = dispatch => {
-    return {
-      shape: bindActionCreators(fill, dispatch)
-    }
-  }
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(dataBoard);
+export default connect(mapStateToProps)(dataBoard);

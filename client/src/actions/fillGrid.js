@@ -1,4 +1,5 @@
 const socketData = (data) => {
+    //console.log(data)
     let shape = data;
     let ret = store.field;
     for (let i=0; i<4; i++) {
@@ -6,7 +7,7 @@ const socketData = (data) => {
             ret[i][j] = shape.shape[i][j-3]
         }
     }
-    //console.log('ici', ret)
+    console.log('ici', ret)
     return {
         type: 'BRAND_NEW',
         grid: ret,
@@ -15,19 +16,19 @@ const socketData = (data) => {
     }
 }
 
-const handlingData = (dispatch) => (data) => {
+const handlingData = () => (data) => {
     //console.log('ici', data)
-    return dispatch(socketData(data))
+    return (socketData(data))
 }
 
-const fill = (socket, ownProps) => {
-    //console.log('ownProps', ownProps)
+export const fill = (socket) => {
+    //console.log('dispatch', store)
         socket.emit('SHAPE_REQUEST', {
             field: store.field
         });
-        socket.on('RECEIVE_REQUEST', handlingData(dispatch))
+        socket.on('RECEIVE_REQUEST', handlingData());
+    return {type: "BRAND_NEW"}
 }
-export default fill;
 
 /*
 const fill = (socket) => {
