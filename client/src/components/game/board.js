@@ -3,6 +3,7 @@ import Row from './rows';
 import {board, rows, box} from './style';
 import { connect } from 'react-redux';
 import fill from '../../actions/fillGrid';
+import {move} from '../../actions/move';
 import {down} from '../../actions/down';
 
 const Test = ({stat}) => {
@@ -17,6 +18,7 @@ const Test = ({stat}) => {
 
 const Board = ({data}) =>
 {
+  console.log('board', data)
   const dat = data.newField
   return (
     <div style={board}>
@@ -32,7 +34,7 @@ const mapStateToProps = (state) => ({
   data: state.field
 })
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  data: dispatch(down(ownProps.newField))
+  data: dispatch(move(ownProps.newField))
 })
 
 

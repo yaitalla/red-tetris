@@ -8,5 +8,5 @@ for (let i=0; i<20; i++) {
         grid[i].push('');
     }
 }
-
+grid[0][4] = '1'
 export default grid;

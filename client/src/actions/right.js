@@ -1,11 +1,11 @@
-export const down = field => {
-    const ret = [];
+export const right = field => {
+    const movedShape = [];
     for (let i=0; i<20; i++) {
-        ret.push([]);
+        movedShape.push([]);
     }
     for (let i=0; i<20; i++) {
         for(let j=0; j<10; j++) {
-            ret[i].push('');
+            movedShape[i].push('');
         }
     }
     const newF = (field, time) => {
@@ -13,23 +13,23 @@ export const down = field => {
             for(let j=0; j<10; j++) {
                 if (store.field[i][j] === '0'){
                     console.log('0 trouvé')
-                        ret[i][j] = '';
+                        movedShape[i][j] = '';
                 }
                 else if (store.field[i][j] === '1'){
-                    ret[i+1][j] = '1';
+                    movedShape[i][j+1] = '1';
                 }
             }
         }
-        return ret
+        return movedShape
     }
     const newField =  newF(store.field, Date.now())
     const action = {
-        type: 'DOWN',
+        type: 'RIGHT',
         newField
     }
     console.log(action)
     return {
-        type: 'DOWN',
+        type: 'RIGHT',
         newField
     }
   }

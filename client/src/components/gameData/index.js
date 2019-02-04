@@ -7,7 +7,7 @@ import fill from '../../actions/fillGrid';
 
 const dataBoard = ({data}) =>
 {
-  //console.log('dataBoard', data)
+  console.log('dataBoard', data)
   return ( 
       <div style={board}>
         {
