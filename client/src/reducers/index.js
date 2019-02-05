@@ -1,12 +1,10 @@
 import grid from '../grid';
-import io from 'socket.io-client';
 
 
 const INITIAL_STATE = {
     field: grid,
     shape: [],
     color: "",
-    socket: io('localhost:4000')
 }
 
 const game = (state = INITIAL_STATE, action = {}) => {
@@ -22,9 +20,9 @@ const game = (state = INITIAL_STATE, action = {}) => {
                 color: action.color,
                 socket: store.socket
             };
-        case 'RAS':
+        case 'NEW':
             console.log('reduc log: action=',action)
-            return action.newField;
+            return state;
         default:
             return state;
 

@@ -21,15 +21,23 @@ const myFiles = proce.execSync('ls', {encoding: 'utf8'});
 console.log(myFiles);
 */
 
-io.on('connection', function (socket) {
-  console.log('user', socket.id, 'connected')
+io.on('connection', (socket) => {
+  console.log('user connected', socket.id)
   socket.on('SHAPE_REQUEST', (data) => {
-    io.emit('SEND_SHAPE', shaper());
+    console.log(data)
+    io.emit('SHAPE_REQUEST', {data})
   })
-  socket.on('disconnect', () => {
-    console.log('User', socket.id, 'disconnected')
-  }); 
-});
+})
+
+// io.on('connection', function (socket) {
+//   console.log('user', socket.id, 'connected')
+//   socket.on('SHAPE_REQUEST', (data) => {
+//     io.emit('SEND_SHAPE', shaper());
+//   })
+//   socket.on('disconnect', () => {
+//     console.log('User', socket.id, 'disconnected')
+//   }); 
+// });
 
 app.get('/', (req, res) => {
   res.send('first step')

@@ -30,7 +30,7 @@ const mapStateToProps = (state) => ({
   data: state.field
 })
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  data: dispatch(move(store.field))
+  data: dispatch(move())
 })
 
 

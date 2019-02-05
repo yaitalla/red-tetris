@@ -1,3 +1,7 @@
+import io from 'socket.io-client';
+
+const socket = io('localhost:4000')
+
 const socketData = (data) => {
     //console.log(data)
     let shape = data;
@@ -21,14 +25,9 @@ const handlingData = () => (data) => {
     return (socketData(data))
 }
 
-export const fill = (socket) => {
-        socket.emit('SHAPE_REQUEST', {
-        });
-        socket.on('SEND_SHAPE',function(data){
-            console.log('callback data', data)
-            handlingData(data)
-        });
-    return {type: "BRAND_NEW"}
+export const fill = (data) => {
+        console.log(data)
+         return (dispatch) => dispatch({type: "NEW", data})
 }
 
 
