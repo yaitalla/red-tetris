@@ -19,6 +19,8 @@ export const move = field => {
                 break;
             case 40:
                 event.preventDefault();
+    console.log(field)
+
                 return down(field);
             default:
                 return {

@@ -23,17 +23,13 @@ console.log(myFiles);
 
 io.on('connection', function (socket) {
   console.log('user', socket.id, 'connected')
-
   socket.on('SHAPE_REQUEST', (data) => {
-    io.emit('RECEIVE_REQUEST', shaper());
+    io.emit('SEND_SHAPE', shaper());
   })
-
-  
   socket.on('disconnect', () => {
     console.log('User', socket.id, 'disconnected')
   }); 
 });
-
 
 app.get('/', (req, res) => {
   res.send('first step')

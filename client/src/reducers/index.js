@@ -12,15 +12,19 @@ const INITIAL_STATE = {
 const game = (state = INITIAL_STATE, action = {}) => {
     switch(action.type) {
         case 'DOWN':
+            console.log('reduc log: action=',action)
             return action.newField;
         case 'BRAND_NEW':
-            console.log('reduc log', action.type )
+            console.log('reduc log: action=', action )
             return {
                 field: action.grid,
                 shape: action.shape,
                 color: action.color,
                 socket: store.socket
             };
+        case 'RAS':
+            console.log('reduc log: action=',action)
+            return action.newField;
         default:
             return state;
 

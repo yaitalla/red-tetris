@@ -7,7 +7,7 @@ const socketData = (data) => {
             ret[i][j] = shape.shape[i][j-3]
         }
     }
-    console.log('ici', ret)
+    //console.log('ici', ret)
     return {
         type: 'BRAND_NEW',
         grid: ret,
@@ -22,12 +22,28 @@ const handlingData = () => (data) => {
 }
 
 export const fill = (socket) => {
-    //console.log('dispatch', store)
         socket.emit('SHAPE_REQUEST', {
-            field: store.field
         });
-        socket.on('RECEIVE_REQUEST', handlingData());
+        socket.on('SEND_SHAPE',function(data){
+            console.log('callback data', data)
+            handlingData(data)
+        });
     return {type: "BRAND_NEW"}
+}
+
+
+// Helper to emit a redux action to our websocket server
+const fillAction = (actionCreator) => {
+  return (...args) => {
+    // This return the action object which gets sent to our backend
+    // server via the socket connection
+    const result = actionCreator.apply(this, args)
+    socket.emit(result.key, {
+      ...result.payload,
+      type: result.type
+    })
+    return result
+  }
 }
 
 /*
