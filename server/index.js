@@ -24,7 +24,7 @@ console.log(myFiles);
 io.on('connection', (socket) => {
   console.log('user connected', socket.id)
   socket.on('SHAPE_REQUEST', (data) => {
-    console.log(data)
+    console.log(data, shaper())
     io.emit('SHAPE_REQUEST', {data})
   })
 })

@@ -4,11 +4,9 @@ import React from 'react';
 import store from './store';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import configureSocket from "./socket";
 
-export const socket = configureSocket(store.dispatch)
 window.store = store.getState();
-// console.log(window.store)
+console.log(window.store)
 // store.subscribe(() => {
 //     console.log('subscribe',store.getState())
 // })

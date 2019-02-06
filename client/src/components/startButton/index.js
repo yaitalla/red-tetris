@@ -11,12 +11,12 @@ const socket = io('localhost:4000')
 
 
 const starter = () => {
-    socket.emit('SHAPE_REQUEST', "stqrter")
+    socket.emit('SHAPE_REQUEST', store.field)
 }
 
 
 const Button = ({ fill}) => {
-    socket.on('SHAPE_REQUEST', (data) => {
+    socket.on('SHAPE_SENT', (data) => {
         // dispatch({type: "NEW", data})
         fill(data)
     })
