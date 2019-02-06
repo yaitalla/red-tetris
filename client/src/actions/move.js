@@ -1,7 +1,8 @@
-import {down} from './down';
-import {right} from './right';
-import {left} from './left';
+export const move = (data) => {
+    return (dispatch) => dispatch(data)
+}
 
+/*
 export const move = field => {
    const handleDirection = (event) => {
         switch (event.keyCode) {
@@ -19,16 +20,14 @@ export const move = field => {
                 break;
             case 40:
                 event.preventDefault();
-    console.log(field)
+                 console.log('down')
 
                 return down(field);
             default:
-                return {
-                    type: 'RAS',
-                    newField: store.field
-                    }
+                return field
         }
    }
    window.addEventListener('keydown', handleDirection);
-   return handleDirection
+   return (dispatch) => dispatch(handleDirection)
 }
+*/

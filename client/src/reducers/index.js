@@ -1,27 +1,30 @@
 import grid from '../grid';
-
+import {BRAND_NEW, MOVE} from '../constants';
 
 const INITIAL_STATE = {
     field: grid,
     shape: [],
     color: "",
+    next: {}
 }
 
 const game = (state = INITIAL_STATE, action = {}) => {
+    console.log(action.type.length > 10 ? "defaut action": action.type)
     switch(action.type) {
-        case 'DOWN':
-            console.log('reduc log: action=',action)
-            return action.newField;
-        case 'BRAND_NEW':
-            console.log('reduc log: action=', action )
+        case MOVE:
             return {
-                field: action.grid,
+                ...state,
+                field: action.field
+            };
+        case BRAND_NEW:
+            return {
+                ...state,
+                field: action.field,
                 shape: action.shape,
                 color: action.color,
-                socket: store.socket
+                next: action.next
             };
-        case 'NEW':
-            console.log('reduc log: action=',action)
+        case 'RAS':
             return state;
         default:
             return state;

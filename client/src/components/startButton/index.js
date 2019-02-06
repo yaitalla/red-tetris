@@ -1,38 +1,37 @@
 import React from 'react';
 import { flex, noBullet, btn} from './style';
 import {fill} from '../../actions/fillGrid';
-import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
-import io from 'socket.io-client';
-//import {socket} from '../../index'
+//import io from 'socket.io-client';
+import { SOCKET, SHAPE_REQUEST, SERVER_IO_URL, SHAPE_SENT } from '../../constants';
 
-const socket = io('localhost:4000')
+//const socket = io(SERVER_IO_URL)
 
 
 
-const starter = () => {
-    socket.emit('SHAPE_REQUEST', store.field)
+const starter = (field) => {
+    SOCKET.emit(SHAPE_REQUEST, field)
 }
 
 
-const Button = ({ fill}) => {
-    socket.on('SHAPE_SENT', (data) => {
-        // dispatch({type: "NEW", data})
+const Button = ({fill, field}) => {
+    SOCKET.on(SHAPE_SENT, (data) => {
         fill(data)
     })
     return (
         <div style={flex}>
             <ul style={noBullet}>
-        <button onClick={() => starter()} style={btn}> PLAY </button>
+        <button onClick={() => starter(field)} style={btn}> PLAY </button>
             </ul>
         </div>
     )
 }
 
+const mapStateToProps = (state) => {
+    return {
+        field: state.field
+    }
+}
 
-const mapStateToProps = (state) => ({
-})
 
-
-
-export default connect(mapStateToProps, {fill})(Button);
+export default connect(mapStateToProps, { fill })(Button);

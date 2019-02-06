@@ -8,7 +8,7 @@ module.exports =  {
 				[0, 0, 0, 0],
 				[0, 0, 0, 0],
 			],
-			color: '#e53259'
+			color: '#fff6b6'
 		},
 		square: {
 			shape: [
@@ -17,7 +17,7 @@ module.exports =  {
 				[0, 0, 0, 0],
 				[0, 0, 0, 0],
 			],
-			color: '#00BCD4'
+			color: '#f4cfb2'
 		},
 		cross: {
 			shape: [
@@ -26,7 +26,7 @@ module.exports =  {
 				[0, 0, 0, 0],
 				[0, 0, 0, 0],
 			],
-			color: '#2db754'
+			color: '#ffcccc'
 		},
 		L: {
 			shape: [
@@ -35,7 +35,7 @@ module.exports =  {
 				[0, 0, 0, 0],
 				[0, 0, 0, 0],
 			],
-			color: '#ef7e32'
+			color: '#d9c2f0'
 		},
 		mirrorL: {
 			shape: [
@@ -53,7 +53,7 @@ module.exports =  {
 				[0, 0, 0, 0],
 				[0, 0, 0, 0],
 			],
-			color: '#cd7cff'
+			color: '#b5e8f7'
 		},
 		snakeR: {
 			shape: [
