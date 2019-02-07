@@ -5,7 +5,7 @@ import logger from 'redux-logger';
 
 const store = createStore(
     game,
-    applyMiddleware(ReduxThunk)
+    applyMiddleware(ReduxThunk, logger)
 );
 
 export default store;

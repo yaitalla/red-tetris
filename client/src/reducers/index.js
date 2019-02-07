@@ -4,7 +4,7 @@ import {BRAND_NEW, MOVE} from '../constants';
 const INITIAL_STATE = {
     field: grid,
     shape: [],
-    color: "",
+    colors: [],
     next: {}
 }
 
@@ -21,7 +21,7 @@ const game = (state = INITIAL_STATE, action = {}) => {
                 ...state,
                 field: action.field,
                 shape: action.shape,
-                color: action.color,
+                colors: action.colors,
                 next: action.next
             };
         case 'RAS':

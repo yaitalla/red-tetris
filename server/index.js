@@ -3,7 +3,6 @@ const bodyParser = require('body-parser');
 const app = express();
 const shaper = require('./process/shaper');
 const mover = require('./process/mover');
-const helmet = require('helmet');
 const cors = require('cors');
 const api = require('./routes/api');
 const db = require('./config/db');
@@ -11,7 +10,6 @@ const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
 app.use(cors({"origin": "*"})); //cross origin ressource sharing
-app.use(helmet()); //secures express app with HTTP headers
 app.use(bodyParser.urlencoded({ extended: false })); //parse request bodies in a midlleware
 app.use(bodyParser.json());
 app.use('/api', api);
@@ -25,10 +23,15 @@ console.log(myFiles);
 io.on('connection', (socket) => {
   console.log('user connected', socket.id)
   socket.on('SHAPE_REQUEST', (data) => {
+    console.log('SHAPE_REQUEST', data)
     io.emit('SHAPE_SENT', shaper(data))
   })
   socket.on('MOVE_REQUEST', (data) => {
+   // console.log('MOVE_REQUEST', data)
     io.emit('MOVE_SENT', mover(data))
+  })
+  socket.on('disconnect', () => {
+    console.log(socket.id, 'disconnected')
   })
 })
 

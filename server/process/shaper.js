@@ -1,8 +1,8 @@
 const data = require('../public/data.js');
 
 const mapDecoder = (field) => {
-    for (let i=0; i<20; i++) {
-        for(let j=0; j<10; j++) {
+    for (let i=0; i<22; i++) {
+        for(let j=0; j<12; j++) {
             if (field[i][j] == '0'){
                     field[i][j] = '';
             }
@@ -11,18 +11,19 @@ const mapDecoder = (field) => {
     return field
 }
 
-const fieldCreator = (field, shape) => {
+const fieldCreator = (field, shape, colors) => {
     let ret = field;
-    for (let i=0; i<4; i++) {
+    const i = colors.length
+    for (let i=1; i<5; i++) {
         for(let j=3; j<7; j++) {
-            ret[i][j] = shape.shape[i][j-3]
+            ret[i][j] = shape.shape[i-1][j-3]
         }
     }
     return {
         type: 'BRAND_NEW',
-        field: mapDecoder(ret),
+        field: ret,
         shape: shape.shape,
-        color: shape.color,
+        colors: colors[i].push(shape.color),
         next: randShape()
     }
 }
@@ -35,9 +36,9 @@ const randShape = () => {
     return shape;
 }
 
-const shaper = (field) => {
+const shaper = ({field, colors}) => {
     const shape = randShape();
-    return(fieldCreator(field, shape));
+    return(fieldCreator(field, shape, colors));
 }
 
 module.exports = shaper;
