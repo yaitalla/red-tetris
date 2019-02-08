@@ -21,7 +21,6 @@ const broadcastKeysToServer = (field, color) => {
       switch(e.keyCode){
         case 40: //down arrow
           SOCKET.emit(MOVE_REQUEST, {field, key: e.keyCode})
-          e.preventDefault();
           break;
         case 39: //right arrow
           SOCKET.emit(MOVE_REQUEST, {field, key: e.keyCode})
@@ -38,14 +37,14 @@ const broadcastKeysToServer = (field, color) => {
   }
   window.addEventListener('keydown', listener);
 }
-// SOCKET.on(MOVE_SENT, (data) => {
-//   console.log('socket on', data)
-//   move(data)
-// })
-const Global = ({data, color}) => {
-  // console.log('global', data, color)
- // broadcastKeysToServer(data, color)
-  //broadcastDropdown(data, color)
+
+const Global = ({data, color, move}) => {
+  // SOCKET.on(MOVE_SENT, (data) => {
+  //   console.log('socket on', data)
+  //   move(data)
+  // })
+//  broadcastKeysToServer(data, color)
+//  broadcastDropdown(data, color)
   return (
       <div>
         <Button />

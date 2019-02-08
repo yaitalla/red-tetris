@@ -2,6 +2,7 @@ import React from 'react';
 import {board, rows, box} from './style';
 import { connect } from 'react-redux';
 import {move} from '../../actions/move';
+import {test} from '../../actions/test';
 import { SOCKET, MOVE_REQUEST, MOVE_SENT } from '../../constants';
 
 const setStyle = (color) => {
@@ -14,71 +15,70 @@ const setStyle = (color) => {
   }
 }
 
-const applyColor = (color, mapKey) => {
-  return (
-    <div key={mapKey} style={setStyle(color)}>{''}</div>
-  )
-}
-
-const broadcastKeysToServer = (field, color) => {
-  console.log('listener color', color)
-  const listener = (e) => {
-    switch(e.keyCode){
-      case 40:
-        SOCKET.emit(MOVE_REQUEST, {field, key: e.keyCode})
-        e.preventDefault();
-        break;
-      case 39:
-        SOCKET.emit(MOVE_REQUEST, {field, key: e.keyCode})
-        e.preventDefault();
-        break;
-      case 37:
-        SOCKET.emit(MOVE_REQUEST, {field, key: e.keyCode})
-        e.preventDefault();
-        break;
-      default:
-        break;
+const applyColor = (colors, mapKey, squareValue, squareId) => {
+  if(squareValue == 1) {
+      return (
+        <div key={mapKey} style={setStyle("white")}>{''}</div>
+      )
+  } else {
+      return (
+        <div key={mapKey} style={setStyle(colors[squareId])}>{''}</div>
+      )
   }
 }
-  window.addEventListener('keydown', listener);
-}
-const broadcastDropdown = (field) => {
-  console.log(colors)
-  const data = { field, key:40, colors }
-  setTimeout(() => {
-  SOCKET.emit(MOVE_REQUEST, data)
-  }, 500)
-}
 
-const checkGroud = (data) => {
-
-}
-
-const Row = ({stat, color}) =>
-  <div style={rows}>
-      {
+const Row = ({stat, colors, id}) => {
+    return (
+      <div style={rows}>
+        {
           stat.map((square, i) =>
-            square == '1' ? applyColor(color, i) :
-            (square == '2' ? applyColor("white", i) :
-            <div key={i} style={box}>{''}</div>)
+            square > 0 ?  applyColor(colors, i, square, id) :
+            <div key={i} style={box}>{''}</div>
           )
-      }
-  </div>
-
-
-
-const Board = ({move, data, colors}) =>
-{
-  console.log(colors)
- // broadcastKeysToServer(data, color)
- // if (colors[0]) broadcastDropdown(data, colors);
+        }
+    </div>
+    )
+}
+          // stat.map((square, i) =>
+          //   square == '1' ? applyColor(color, i) :
+          //   (square == '2' ? applyColor("white", i) :
+          //   <div key={i} style={box}>{''}</div>)
+          // )
+     
+const broadcastDropdown = (field, id, next) => {
+  if (next){
+    console.log("grounded:", next)
+   // SOCKET.emit(SHAPE_REQUEST, {field})
+  } else if (id && !next){
+    console.log("grounded:", next)
+    setTimeout(() => {
+        SOCKET.emit(MOVE_REQUEST, { field, key:40, id })
+      }, 500)
+  }
   SOCKET.on(MOVE_SENT, (data) => {
     move(data)
   })
+}
+
+const Board = ({move, data, colors, test, timer, ID, next}) =>
+{
+  console.log(timer)
+  broadcastDropdown(data, ID, next)
+  // broadcastKeysToServer(data, ID)
+ // if (colors[0]) broadcastDropdown(data, colors);
+  // SOCKET.on(MOVE_SENT, (data) => {
+  //   move(data)
+  // })
+  SOCKET.emit('TEST', { })
+
+  SOCKET.on('TEST_SENT', (data) => {
+    test(data)
+  })
+  
   return (
     <div style={board}>
         {
-           data.map((row, i) => <Row key={i} color={colors} stat={row}/> )
+           data.map((row, i) => <Row key={i} id={ID} colors={colors} stat={row}/> )
         }
     </div>
   )
@@ -87,8 +87,11 @@ const Board = ({move, data, colors}) =>
 
 const mapStateToProps = (state) => ({
   data: state.field,
-  colors: state.colors
+  colors: state.colors,
+  ID: state.currentID,
+  next: state.grounded,
+  timer: state.time
 })
 
 
-export default connect(mapStateToProps, {move})(Board);
+export default connect(mapStateToProps, {move, test})(Board);

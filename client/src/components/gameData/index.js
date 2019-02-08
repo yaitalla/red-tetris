@@ -17,35 +17,39 @@ const applyColor = (color, mapKey) => {
   )
 }
 
-const Row = ({stat, color}) => 
-  <div style={rows}>
-      {
-          stat.map((square, i) =>
-            square == '1' ? applyColor(color, i) :
-                            applyColor("#f4f4f4", i)
-          )
-      }
-  </div>
+const Row = ({stat, color}) => {
+  return (
+    <div style={rows}>
+    {
+      stat.map((square, i) =>
+        square == '2' ? applyColor(color, i) :
+               applyColor("#f4f4f4", i)
+      )
+    }
+    </div>
+  )
+}
+  
 
-const shapeView = (data) => {
+const shapeView = (data, colors) => {
   return (
     <div>
       {
         data.shape.map((row, i) =>
-          <Row key={i} color={data.color} stat={row}/>
+          <Row key={i} color={colors[data.id]} stat={row}/>
         )
       }
     </div>
   )
 }
 
-const dataBoard = ({data}) =>
+const dataBoard = ({data, colors}) =>
 {
   return ( 
       <div style={board}>
         <h2>Next Shape</h2>
         {
-          data.shape ? shapeView(data) : null
+          data.shape ? shapeView(data, colors) : null
         }
       </div>
   )
@@ -53,7 +57,8 @@ const dataBoard = ({data}) =>
 
 
   const mapStateToProps = (state) => ({
-    data: state.next
+    data: state.next,
+    colors: state.colors
   })
 
 
