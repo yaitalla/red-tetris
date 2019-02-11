@@ -1,16 +1,5 @@
 const data = require('../public/data.js');
 
-const mapDecoder = (field) => {
-    for (let i=0; i<22; i++) {
-        for(let j=0; j<12; j++) {
-            if (field[i][j] == '0'){
-                    field[i][j] = '';
-            }
-        }
-    }
-    return field
-}
-
 const fieldCreator = (field, shape) => {
     let ret = field;
     for (let i=1; i<5; i++) {
@@ -21,9 +10,10 @@ const fieldCreator = (field, shape) => {
     return {
         type: 'BRAND_NEW',
         field: ret,
-        shape: shape.shape,
+        shape: shape,
         next: randShape(),
         currentID: shape.id,
+        ground: false
     }
 }
 
@@ -31,17 +21,22 @@ const randShape = () => {
     const shapes = data.shapes; //list of string
 	const currentRand = Math.floor(Math.random() * 7); //random number
     const shape = data.tetriminos[shapes[currentRand]];
-    
     return {
         shape: shape.shape,
         id: currentRand
     };
 }
 
-const shaper = ({field}) => {
-   // console.log(field)
+const shaper = (data) => {
+    //console.log(data)
     const shape = randShape();
-    return(fieldCreator(field, shape));
+    if (data.next == null) {
+        return(fieldCreator(data.field, shape));
+    } else {
+        return (fieldCreator(data.field, data.next))
+    }
+
+   // console.log(field)
 }
 
 module.exports = shaper;

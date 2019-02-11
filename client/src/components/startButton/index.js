@@ -9,20 +9,20 @@ import { SOCKET, SHAPE_REQUEST, SERVER_IO_URL, SHAPE_SENT } from '../../constant
 
 
 
-const starter = (field, colors) => {
-    SOCKET.emit(SHAPE_REQUEST, {field})
-
+const starter = (field, next) => {
+    SOCKET.emit(SHAPE_REQUEST, {field, next})
 }
 
-
-const Button = ({fill, field}) => {
+const Button = ({fill, field, id}) => {
     SOCKET.on(SHAPE_SENT, (data) => {
         fill(data)
     })
     return (
         <div style={flex}>
             <ul style={noBullet}>
-        <button onClick={() => starter(field)} style={btn}> PLAY </button>
+            {id == null ? <button onClick={() => starter(field, null)} style={btn}> PLAY </button>
+                : ''
+            }
             </ul>
         </div>
     )
@@ -31,6 +31,7 @@ const Button = ({fill, field}) => {
 const mapStateToProps = (state) => {
     return {
         field: state.field,
+        id: state.currentID
     }
 }
 

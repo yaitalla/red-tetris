@@ -1,21 +1,35 @@
-const checkDown = (field) => {
-    for ( i=0; i<20; i++) {
-        for( j=0; j<10; j++) {
-            if (field[i][j] == '1'){
-                field[i+1][j]
+const computeOffset = (data, way) => {
+    let offset = 0;
+    let x = -1, y = -1;
+        for (let i=0; i<22; i++) {
+            for(let j=0; j<12; j++) {
+                if (data[i][j] == 2){
+                    switch(way){
+                        case "down":
+                            if (x != i) {
+                                x = i;
+                                offset++;
+                            }
+                            break;
+                        case "left":
+                            if (y > j) {
+                                y = j;
+                                offset++;
+                            }
+                            break;
+                        case "left":
+                            if (y < j) {
+                                y = j;
+                                offset++;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
             }
         }
-    }
-    return false;
+    return offset;
 }
 
-const checkForCollision = (direction, field) => {
-    switch(direction){
-        case "down":
-            return checkDown(field);
-        default:
-            return false;
-    }
-};
-
-module.exports = checkForCollision;
+module.exports = computeOffset;

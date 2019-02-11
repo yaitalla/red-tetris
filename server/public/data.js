@@ -62,7 +62,7 @@ module.exports =  {
 				[0, 0, 0, 0],
 				[0, 0, 0, 0],
 			],
-			color: '#d18162',//ici
+			color: '#d18162',
 		}
 	},
     gridHeight: 600,

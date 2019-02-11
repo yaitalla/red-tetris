@@ -3,9 +3,10 @@ const bodyParser = require('body-parser');
 const app = express();
 const shaper = require('./process/shaper');
 const mover = require('./process/mover');
+const computeOffset = require('./process/colision');
 const cors = require('cors');
 const api = require('./routes/api');
-const db = require('./config/db');
+//const db = require('./config/db');
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
@@ -23,18 +24,18 @@ console.log(myFiles);
 io.on('connection', (socket) => {
   console.log('user connected', socket.id)
   socket.on('SHAPE_REQUEST', (data) => {
-   // console.log('SHAPE_REQUEST', data)
+  //  console.log('SHAPE_REQUEST', data)
     io.emit('SHAPE_SENT', shaper(data))
   })
   socket.on('MOVE_REQUEST', (data) => {
-   // console.log('MOVE_REQUEST', data)
+    //console.log('MOVE_REQUEST', data)
     io.emit('MOVE_SENT', mover(data))
   })
   socket.on('TEST', (data) => {
-    // console.log('MOVE_REQUEST', data)
-    let time = new Date()
-    ret = time.getHours()+':'+time.getMinutes()+':'+time.getSeconds()
-     io.emit('TEST_SENT', { type: "TEST", time:  ret})
+    // console.log(computeOffset(data, "down"))
+    // let time = new Date()
+    // ret = time.getHours()+':'+time.getMinutes()+':'+time.getSeconds()
+    //  io.emit('TEST_SENT', { type: "TEST", time:  ret})
    })
   socket.on('disconnect', () => {
     console.log(socket.id, 'disconnected')

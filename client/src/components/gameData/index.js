@@ -45,7 +45,7 @@ const shapeView = (data, colors) => {
 
 const dataBoard = ({data, colors}) =>
 {
-  return ( 
+return ( 
       <div style={board}>
         <h2>Next Shape</h2>
         {

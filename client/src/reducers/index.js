@@ -8,7 +8,6 @@ const INITIAL_STATE = {
     next: {},
     currentID: null,
     grounded: false,
-    time: ''
 }
 
 const game = (state = INITIAL_STATE, action = {}) => {
