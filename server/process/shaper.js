@@ -19,7 +19,7 @@ const fieldCreator = (field, shape) => {
 
 const randShape = () => {
     const shapes = data.shapes; //list of string
-	const currentRand = Math.floor(Math.random() * 7); //random number
+	const currentRand = Math.floor(Math.random() * 2); //random number
     const shape = data.tetriminos[shapes[currentRand]];
     return {
         shape: shape.shape,

@@ -1,5 +1,5 @@
 import grid from '../grid';
-import {BRAND_NEW, MOVE} from '../constants';
+import {BRAND_NEW, RIGHT, LEFT, DROPDOWN} from '../constants';
 
 const INITIAL_STATE = {
     field: grid,
@@ -13,7 +13,19 @@ const INITIAL_STATE = {
 const game = (state = INITIAL_STATE, action = {}) => {
   //  console.log(action.type.length > 10 ? "defaut action": action.type)
     switch(action.type) {
-        case MOVE:
+        case DROPDOWN:
+            return {
+                ...state,
+                field: action.field,
+                grounded: action.grounded
+            };
+        case LEFT:
+            return {
+                ...state,
+                field: action.field,
+                grounded: action.grounded
+            };
+        case RIGHT:
             return {
                 ...state,
                 field: action.field,

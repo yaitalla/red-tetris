@@ -2,8 +2,10 @@ import React from 'react';
 import {board, rows, box} from './style';
 import { connect } from 'react-redux';
 import {move} from '../../actions/move';
-import {test} from '../../actions/test';
-import { SOCKET, MOVE_REQUEST, MOVE_SENT, SHAPE_REQUEST} from '../../constants';
+import {left} from '../../actions/left';
+import {right} from '../../actions/right';
+import { LEFT, RIGHT, DROPDOWN, SOCKET,
+  MOVE_REQUEST, MOVE_SENT, SHAPE_REQUEST} from '../../constants';
 
 const setStyle = (color) => {
   return  {
@@ -28,7 +30,7 @@ const applyColor = (colors, mapKey, squareValue, squareId) => {
     return (
       <div key={mapKey} style={setStyle(colors[squareValue-3])}>{''}</div>
     )
-}
+  }
 }
 
 const Row = ({stat, colors, id}) => {
@@ -45,23 +47,20 @@ const Row = ({stat, colors, id}) => {
 }
 
 const broadcastKeysToServer = (field, id) => {
-  console.log('broadcasKeysToServer', field)
+  //console.log('broadcasKeysToServer', field)
 
   const listener = (e) => {
     if (id != null) {
       switch(e.keyCode){
         case 40: //down arrow
-          e.preventDefault()
           SOCKET.emit(MOVE_REQUEST, {field, key: e.keyCode, id})
           e.preventDefault()
           break;
         case 39: //right arrow
-        e.preventDefault()
         SOCKET.emit(MOVE_REQUEST, {field, key: e.keyCode, id})
         e.preventDefault()
         break;
         case 37: //left arrow
-        e.preventDefault()
         SOCKET.emit(MOVE_REQUEST, {field, key: e.keyCode, id})
         e.preventDefault()
         break;
@@ -73,17 +72,27 @@ const broadcastKeysToServer = (field, id) => {
   window.addEventListener('keydown', listener);
 }
 
-const listenServerSocket = (data, move) => {
+const listenServerSocket = (datas, move, left, right) => {
+  console.log("action")
   SOCKET.on(MOVE_SENT, (data) => {
-    move(data)
-  })
-  SOCKET.on('TEST', (data) => {
-    move(data)
+    switch(data.type) {
+      case DROPDOWN:
+        move(data);
+        break;
+      case LEFT:
+        left(data);
+        break;
+      case RIGHT:
+        right(data);
+        break;
+      default:
+        break;
+    }
   })
 }
      
 const broadcastDropdown = (field, id, next, trigger) => {
-  console.log('broadcastDropdown', id)
+  console.log('broadcastDropdown', field)
   if (trigger == true){
     SOCKET.emit(SHAPE_REQUEST, {field, next})
   } else if (trigger == false){
@@ -94,13 +103,13 @@ const broadcastDropdown = (field, id, next, trigger) => {
 }
 
 const Board = ({move, data, colors, 
-  triggerNext, timer, ID, next}) =>
+  triggerNext, right, left, ID, next}) =>
 {
-  listenServerSocket(data, move)
+  listenServerSocket(data, move, left, right)
   broadcastKeysToServer(data, ID)
-  if (ID != null) {
-    broadcastDropdown(data, ID, next, triggerNext);
-  } 
+  // if (ID != null) {
+  //   broadcastDropdown(data, ID, next, triggerNext);
+  // } 
  
   return (
     <div style={board}>
@@ -121,4 +130,4 @@ const mapStateToProps = (state) => ({
 })
 
 
-export default connect(mapStateToProps, {move, test})(Board);
+export default connect(mapStateToProps, {move, left, right})(Board);

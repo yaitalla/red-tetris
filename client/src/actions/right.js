@@ -1,3 +1,3 @@
-export const test = (data) => {
+export const right = (data) => {
     return (dispatch) => dispatch(data)
 }

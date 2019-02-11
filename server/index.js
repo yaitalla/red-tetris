@@ -3,7 +3,6 @@ const bodyParser = require('body-parser');
 const app = express();
 const shaper = require('./process/shaper');
 const mover = require('./process/mover');
-const computeOffset = require('./process/colision');
 const cors = require('cors');
 const api = require('./routes/api');
 //const db = require('./config/db');
@@ -32,7 +31,6 @@ io.on('connection', (socket) => {
     io.emit('MOVE_SENT', mover(data))
   })
   socket.on('TEST', (data) => {
-    // console.log(computeOffset(data, "down"))
     // let time = new Date()
     // ret = time.getHours()+':'+time.getMinutes()+':'+time.getSeconds()
     //  io.emit('TEST_SENT', { type: "TEST", time:  ret})

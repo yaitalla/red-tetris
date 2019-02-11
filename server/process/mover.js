@@ -33,27 +33,7 @@ const finish = (field, id) => {
     }
     return field;
 }
-const moveDown = (field, id) => {
-    const grid = gridMaker(field);
-    let i, j;
-    const offsetDown = computeOffset(field, "down");
-    for ( i=0; i<21; i++) {
-        for( j=1; j<11; j++) {
-            if ((field[i][j] == 2) && (i < 21)){
-                if (field[i + offsetDown-1][j] > 2 || field[i + offsetDown-1][j] == 1){
-                    return {
-                        field: finish(field, id),
-                        grounded: true
-                    }
-                } else { grid[i+1][j] = 2; }
-            }
-        }
-    }
-    return {
-        field: grid,
-        grounded: false
-    }
-}
+
 
 const moveLeft = (field, id) => {
     const grid = gridMaker(field);
@@ -72,6 +52,7 @@ const moveLeft = (field, id) => {
         }
     }
     return {
+        type: 'LEFT',
         field: grid,
         grounded: false
     }
@@ -94,20 +75,43 @@ const moveRight = (field, id) => {
         }
     }
     return {
+        type: 'RIGHT',
         field: grid,
         grounded: false
     }
 }
-
-const mover = (data) => {
-    let ret = {};
-    ret = data.key == 40 ? moveDown(data.field, data.id) : (
-        data.key == 39 ? moveRight(data.field, data.id) : moveLeft(data.field, data.id)
-    )
+const moveDown = (field, id) => {
+    const grid = gridMaker(field);
+    let i, j;
+    const offsetDown = computeOffset(field, "down");
+    for ( i=0; i<21; i++) {
+        for( j=1; j<11; j++) {
+            if ((field[i][j] == 2) && (i < 21)){
+                if (field[i + offsetDown-1][j] > 2 || field[i + offsetDown-1][j] == 1){
+                    return {
+                        field: finish(field, id),
+                        grounded: true
+                    }
+                } else { grid[i+1][j] = 2; }
+            }
+        }
+    }
     return {
-        type: 'MOVE',
-        field: ret.field,
-        grounded: ret.grounded
+        type: 'DROPDOWN',
+        field: grid,
+        grounded: false
+    }
+}
+const mover = (data) => {
+    switch(data.key){
+        case 40:
+            return moveDown(data.field, data.id);
+        case 39:
+            return moveRight(data.field, data.id);
+        case 37:
+            return moveLeft(data.field, data.id);
+        default:
+            break;
     }
 }
 
