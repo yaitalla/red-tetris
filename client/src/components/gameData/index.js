@@ -1,6 +1,7 @@
 import React from 'react';
-import {board, rows, box} from './style';
+import {board, rows, gameover} from './style';
 import { connect } from 'react-redux';
+import game from '../../reducers';
 
 
 const applyColor = (color, mapKey) => {
@@ -43,22 +44,30 @@ const shapeView = (data, colors) => {
   )
 }
 
-const dataBoard = ({data, colors}) =>
+const dataBoard = ({gameOver, data, colors}) =>
 {
-return ( 
-      <div style={board}>
-        <h2>Next Shape</h2>
-        {
-          data.shape ? shapeView(data, colors) : null
-        }
-      </div>
-  )
+  if (gameOver == true) {
+    return (
+      <div style={gameover}>
+        <h1>Game Over</h1>
+      </div>  
+    )
+  }
+    return ( 
+          <div style={board}>
+            <h2>Next Shape</h2>
+            {
+              data.shape ? shapeView(data, colors) : null
+            }
+          </div>
+    )
 }
 
 
   const mapStateToProps = (state) => ({
     data: state.next,
-    colors: state.colors
+    colors: state.colors,
+    gameOver: state.gameOver
   })
 
 

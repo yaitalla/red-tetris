@@ -23,18 +23,19 @@ console.log(myFiles);
 io.on('connection', (socket) => {
   console.log('user connected', socket.id)
   socket.on('SHAPE_REQUEST', (data) => {
-  //  console.log('SHAPE_REQUEST', data)
+   // console.log('SHAPE_REQUEST', data)
     io.emit('SHAPE_SENT', shaper(data))
   })
-  socket.on('MOVE_REQUEST', (data) => {
+  socket.on('DOWN_REQUEST', (data) => {
     //console.log('MOVE_REQUEST', data)
-    io.emit('MOVE_SENT', mover(data))
+    io.emit('SERVE_DOWN', mover(data))
   })
-  socket.on('TEST', (data) => {
-    // let time = new Date()
-    // ret = time.getHours()+':'+time.getMinutes()+':'+time.getSeconds()
-    //  io.emit('TEST_SENT', { type: "TEST", time:  ret})
+  socket.on('LEFT_REQUEST', (data) => {
+      io.emit('SERVE_LEFT', mover(data))
    })
+  socket.on('RIGHT_REQUEST', (data) => {
+    io.emit('SERVE_RIGHT', mover(data))
+ })
   socket.on('disconnect', () => {
     console.log(socket.id, 'disconnected')
   })

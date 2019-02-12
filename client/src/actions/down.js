@@ -1,3 +1,3 @@
-export const move = (data) => {
+export const down = (data) => {
     return (dispatch) => dispatch(data)
 }

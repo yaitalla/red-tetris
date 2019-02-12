@@ -7,3 +7,12 @@ export const divGlobal = {
   width: "100%",
   borderRadius: "15px",
 }
+
+
+export const gameover = {
+  display: "flex",
+    flexDirection: "column",
+    width: '220px',
+    background: "#bbbb",
+    height: '510px'
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { flex, noBullet, btn} from './style';
+import { flex, noBullet, btn, nonstyle} from './style';
 import {fill} from '../../actions/fillGrid';
 import { connect } from 'react-redux';
 //import io from 'socket.io-client';
@@ -21,7 +21,7 @@ const Button = ({fill, field, id}) => {
         <div style={flex}>
             <ul style={noBullet}>
             {id == null ? <button onClick={() => starter(field, null)} style={btn}> PLAY </button>
-                : ''
+                : <div style={nonstyle} ></div>
             }
             </ul>
         </div>

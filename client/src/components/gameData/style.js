@@ -17,3 +17,10 @@ export const box = {
     width: '24px',
     textAlign: 'center'
 }
+export const gameover = {
+    display: "flex",
+      flexDirection: "column",
+      width: '220px',
+      background: "#bbbb",
+      height: '510px'
+  }

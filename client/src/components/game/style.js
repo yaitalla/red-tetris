@@ -15,3 +15,11 @@ export const board = {
     flexDirection: "column",
     width: '260px', 
 }
+
+export const gameover = {
+    display: "flex",
+      flexDirection: "column",
+      width: '220px',
+      background: "#bbbb",
+      height: '510px'
+  }

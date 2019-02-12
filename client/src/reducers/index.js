@@ -1,5 +1,6 @@
 import grid from '../grid';
-import {BRAND_NEW, RIGHT, LEFT, DROPDOWN} from '../constants';
+import {BRAND_NEW, GAME_OVER,
+    RIGHT, LEFT, DROPDOWN} from '../constants';
 
 const INITIAL_STATE = {
     field: grid,
@@ -8,6 +9,7 @@ const INITIAL_STATE = {
     next: {},
     currentID: null,
     grounded: false,
+    gameOver: false
 }
 
 const game = (state = INITIAL_STATE, action = {}) => {
@@ -40,10 +42,11 @@ const game = (state = INITIAL_STATE, action = {}) => {
                 currentID: action.currentID,
                 grounded: false
             };
-        case 'TEST':
+        case GAME_OVER:
             return {
                 ...state,
-                time: action.time
+                currentID: null,
+                gameOver: true
             };
         default:
             return state;

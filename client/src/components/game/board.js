@@ -1,11 +1,48 @@
 import React from 'react';
-import {board, rows, box} from './style';
+import {board, rows, box, gameover} from './style';
 import { connect } from 'react-redux';
-import {move} from '../../actions/move';
+import lifecycle from 'react-pure-lifecycle';
+import {down} from '../../actions/down';
 import {left} from '../../actions/left';
 import {right} from '../../actions/right';
-import { LEFT, RIGHT, DROPDOWN, SOCKET,
-  MOVE_REQUEST, MOVE_SENT, SHAPE_REQUEST} from '../../constants';
+import { SERVE_LEFT, LEFT_REQUEST, RIGHT_REQUEST,
+  SERVE_RIGHT, DROPDOWN, SOCKET,
+  DOWN_REQUEST, SERVE_DOWN, SHAPE_REQUEST} from '../../constants';
+
+
+const methods = {
+    componentDidUpdate(props) {
+    },
+    componentDidMount(props) {
+      console.log('mounted')
+    }
+}
+
+const keys = ({field, id}) => {
+  console.log(field)
+  let listener = (e) => {
+      switch(e.keyCode) {
+        case 39:
+        e.preventDefault();
+          SOCKET.emit(RIGHT_REQUEST, {field, key: e.keyCode, id})
+          e.preventDefault();
+          break;
+        case 40:
+        e.preventDefault();
+          SOCKET.emit(DOWN_REQUEST, {field, key: e.keyCode, id})
+          e.preventDefault();
+          break;
+        case 37:
+        e.preventDefault();
+        SOCKET.emit(LEFT_REQUEST, {field, key: e.keyCode, id})
+          e.preventDefault();
+          break;
+        default:
+          break;
+      }
+  }
+  window.addEventListener('keydown', listener);
+}
 
 const setStyle = (color) => {
   return  {
@@ -47,74 +84,59 @@ const Row = ({stat, colors, id}) => {
 }
 
 const broadcastKeysToServer = (field, id) => {
-  //console.log('broadcasKeysToServer', field)
-
   const listener = (e) => {
     if (id != null) {
-      switch(e.keyCode){
-        case 40: //down arrow
-          SOCKET.emit(MOVE_REQUEST, {field, key: e.keyCode, id})
-          e.preventDefault()
-          break;
-        case 39: //right arrow
-        SOCKET.emit(MOVE_REQUEST, {field, key: e.keyCode, id})
-        e.preventDefault()
-        break;
-        case 37: //left arrow
-        SOCKET.emit(MOVE_REQUEST, {field, key: e.keyCode, id})
-        e.preventDefault()
-        break;
-        default:
-          break;
-        }
+      if (e.keyCode == 40){
+        SOCKET.emit(DOWN_REQUEST, {field, key: e.keyCode, id})
+      } else if (e.keyCode == 39){
+        SOCKET.emit(RIGHT_REQUEST, {field, key: e.keyCode, id})
+      } else if (e.keyCode == 37){
+        SOCKET.emit(LEFT_REQUEST, {field, key: e.keyCode, id})
+      }
     }
   }
-  window.addEventListener('keydown', listener);
+ // window.addEventListener('keydown', listener);
 }
 
-const listenServerSocket = (datas, move, left, right) => {
-  console.log("action")
-  SOCKET.on(MOVE_SENT, (data) => {
-    switch(data.type) {
-      case DROPDOWN:
-        move(data);
-        break;
-      case LEFT:
-        left(data);
-        break;
-      case RIGHT:
-        right(data);
-        break;
-      default:
-        break;
-    }
+const listenServerSocket = (down, left, right) => {
+  SOCKET.on(SERVE_DOWN, (data) => {
+    down(data)    
+  })
+  SOCKET.on(SERVE_LEFT, (data) => {
+    left(data)    
+  })
+  SOCKET.on(SERVE_RIGHT, (data) => {
+    right(data)    
   })
 }
      
 const broadcastDropdown = (field, id, next, trigger) => {
-  console.log('broadcastDropdown', field)
   if (trigger == true){
     SOCKET.emit(SHAPE_REQUEST, {field, next})
-  } else if (trigger == false){
+  } else if (trigger == false && id != null ){
     setTimeout(() => {
-        SOCKET.emit(MOVE_REQUEST, { field, key:40, id })
+        SOCKET.emit(DOWN_REQUEST, { field, key:40, id })
       }, 500)
   }
 }
 
-const Board = ({move, data, colors, 
-  triggerNext, right, left, ID, next}) =>
+const Board = ({down, data, colors, gameOver,
+  triggerNext, right, left, id, next}) =>
 {
-  listenServerSocket(data, move, left, right)
-  broadcastKeysToServer(data, ID)
-  // if (ID != null) {
-  //   broadcastDropdown(data, ID, next, triggerNext);
-  // } 
- 
+  if (gameOver == false) {
+    listenServerSocket(down, left, right)
+  }
+  if (id != null) {
+    broadcastDropdown(data, id, next, triggerNext);
+  }
+  // if (id != null) {
+  //   keys(data, id)
+  // }
+
   return (
     <div style={board}>
         {
-           data.map((row, i) => <Row key={i} id={ID} colors={colors} stat={row}/> )
+           data.map((row, i) => <Row key={i} id={id} colors={colors} stat={row}/> )
         }
     </div>
   )
@@ -124,10 +146,12 @@ const Board = ({move, data, colors,
 const mapStateToProps = (state) => ({
   data: state.field,
   colors: state.colors,
-  ID: state.currentID,
+  id: state.currentID,
   triggerNext: state.grounded,
   next: state.next,
+  gameOver: state.gameOver
 })
 
+const Boarding =  lifecycle(methods)(Board) 
 
-export default connect(mapStateToProps, {move, left, right})(Board);
+export default connect(mapStateToProps, {down, left, right})(Board);

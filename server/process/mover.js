@@ -43,6 +43,7 @@ const moveLeft = (field, id) => {
         for( j=1; j<11; j++) {
             if ((field[i][j] == 2) && (i < 21)){
                 if (field[i][j - offsetDown-1] > 2 || field[i][j - offsetDown-1] == 1){
+                    console.log(offsetDown)
                     return {
                         field: finish(field, id),
                         grounded: true
@@ -83,12 +84,14 @@ const moveRight = (field, id) => {
 const moveDown = (field, id) => {
     const grid = gridMaker(field);
     let i, j;
-    const offsetDown = computeOffset(field, "down");
+    let offsetDown = computeOffset(field, "down");
+    offsetDown = offsetDown == 1 ? 2 : offsetDown;
     for ( i=0; i<21; i++) {
         for( j=1; j<11; j++) {
             if ((field[i][j] == 2) && (i < 21)){
                 if (field[i + offsetDown-1][j] > 2 || field[i + offsetDown-1][j] == 1){
                     return {
+                        type: 'DROPDOWN',
                         field: finish(field, id),
                         grounded: true
                     }
@@ -103,12 +106,15 @@ const moveDown = (field, id) => {
     }
 }
 const mover = (data) => {
+    //console.log(data.key)
     switch(data.key){
         case 40:
             return moveDown(data.field, data.id);
         case 39:
+            console.log(data.field)
             return moveRight(data.field, data.id);
         case 37:
+            console.log(data.field)
             return moveLeft(data.field, data.id);
         default:
             break;
