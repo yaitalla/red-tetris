@@ -1,4 +1,5 @@
 const computeOffset = require('./colision');
+const rotate = require('./rotation');
 
 const gridMaker = (field) =>{
     const grid = []
@@ -37,6 +38,7 @@ const finish = (field, id) => {
 
 const moveLeft = (field, id) => {
     const grid = gridMaker(field);
+     //console.log('left',grid)
     let i, j;
     const offsetDown = computeOffset(field, "left");
     for ( i=0; i<21; i++) {
@@ -45,6 +47,7 @@ const moveLeft = (field, id) => {
                 if (field[i][j - offsetDown-1] > 2 || field[i][j - offsetDown-1] == 1){
                     console.log(offsetDown)
                     return {
+                        type: 'LEFT',
                         field: finish(field, id),
                         grounded: true
                     }
@@ -55,12 +58,12 @@ const moveLeft = (field, id) => {
     return {
         type: 'LEFT',
         field: grid,
-        grounded: false
     }
 }
 
 const moveRight = (field, id) => {
     const grid = gridMaker(field);
+    // console.log('right',grid)
     let i, j;
     const offsetDown = computeOffset(field, "right");
     for ( i=0; i<21; i++) {
@@ -68,6 +71,7 @@ const moveRight = (field, id) => {
             if ((field[i][j] == 2) && (i < 21)){
                 if (field[i][j + offsetDown-1] > 2 || field[i][j + offsetDown-1] == 1){
                     return {
+                        type: 'RIGHT',
                         field: finish(field, id),
                         grounded: true
                     }
@@ -78,7 +82,6 @@ const moveRight = (field, id) => {
     return {
         type: 'RIGHT',
         field: grid,
-        grounded: false
     }
 }
 const moveDown = (field, id) => {
@@ -106,19 +109,22 @@ const moveDown = (field, id) => {
     }
 }
 const mover = (data) => {
+    return (
+        data.key == 40 ? moveDown(data.field, data.id) :
+            data.key == 39 ? moveRight(data.field, data.id) :
+                 moveLeft(data.field, data.id)    
+    )
     //console.log(data.key)
-    switch(data.key){
-        case 40:
-            return moveDown(data.field, data.id);
-        case 39:
-            console.log(data.field)
-            return moveRight(data.field, data.id);
-        case 37:
-            console.log(data.field)
-            return moveLeft(data.field, data.id);
-        default:
-            break;
-    }
+    // switch(data.key){
+    //     case 40:
+    //         return moveDown(data.field, data.id);
+    //     case 39:
+    //         return moveRight(data.field, data.id);
+    //     case 37:
+    //         return moveLeft(data.field, data.id);
+    //     default:
+    //         break;
+    // }
 }
 
 module.exports = mover;

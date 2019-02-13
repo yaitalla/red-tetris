@@ -4,36 +4,52 @@ import { connect } from 'react-redux';
 import lifecycle from 'react-pure-lifecycle';
 import {down} from '../../actions/down';
 import {left} from '../../actions/left';
+import ArrowKeysReact from 'arrow-keys-react';
 import {right} from '../../actions/right';
 import { SERVE_LEFT, LEFT_REQUEST, RIGHT_REQUEST,
   SERVE_RIGHT, DROPDOWN, SOCKET,
   DOWN_REQUEST, SERVE_DOWN, SHAPE_REQUEST} from '../../constants';
 
+let x = 0;
+
+// var promiseSocket = new Promise(function(resolve, reject) {
+//   setTimeout(function() {
+//     resolve('foo');
+//   }, 300);
+// });
+// promiseSocket.then(function(value) {
+//   console.log(value);
+//   // expected output: "foo"
+// });
+
 
 const methods = {
     componentDidUpdate(props) {
+     console.log('updated')
     },
     componentDidMount(props) {
       console.log('mounted')
+    },
+    componentWillUpdate(props){
+      console.log('wiilUpdatet')
+    },
+    componentWillMount(props){
+      console.log('wiil mount')
     }
 }
 
-const keys = ({field, id}) => {
-  console.log(field)
-  let listener = (e) => {
+const keys = (field, id) => {
+  const listener = (e) => {
       switch(e.keyCode) {
         case 39:
-        e.preventDefault();
           SOCKET.emit(RIGHT_REQUEST, {field, key: e.keyCode, id})
           e.preventDefault();
           break;
         case 40:
-        e.preventDefault();
           SOCKET.emit(DOWN_REQUEST, {field, key: e.keyCode, id})
           e.preventDefault();
           break;
         case 37:
-        e.preventDefault();
         SOCKET.emit(LEFT_REQUEST, {field, key: e.keyCode, id})
           e.preventDefault();
           break;
@@ -41,7 +57,7 @@ const keys = ({field, id}) => {
           break;
       }
   }
-  window.addEventListener('keydown', listener);
+ // window.addEventListener('keydown', listener);
 }
 
 const setStyle = (color) => {
@@ -99,15 +115,25 @@ const broadcastKeysToServer = (field, id) => {
 }
 
 const listenServerSocket = (down, left, right) => {
-  SOCKET.on(SERVE_DOWN, (data) => {
-    down(data)    
-  })
-  SOCKET.on(SERVE_LEFT, (data) => {
-    left(data)    
-  })
-  SOCKET.on(SERVE_RIGHT, (data) => {
-    right(data)    
-  })
+  if (x == 0) {
+    console.log('x = 0')
+    SOCKET.on(SERVE_DOWN, (data) => {
+      console.log('move from server')
+      x = 1;
+      down(data)    
+    })
+    SOCKET.on(SERVE_LEFT, (data) => {
+      console.log('move from server')
+      x = 1;
+      left(data)    
+    })
+    SOCKET.on(SERVE_RIGHT, (data) => {
+      console.log('move from server')
+      x = 1;
+      right(data)    
+    })
+    
+  }
 }
      
 const broadcastDropdown = (field, id, next, trigger) => {
@@ -123,18 +149,18 @@ const broadcastDropdown = (field, id, next, trigger) => {
 const Board = ({down, data, colors, gameOver,
   triggerNext, right, left, id, next}) =>
 {
-  if (gameOver == false) {
-    listenServerSocket(down, left, right)
-  }
-  if (id != null) {
-    broadcastDropdown(data, id, next, triggerNext);
-  }
+  // if (gameOver == false) {
+  //   listenServerSocket(down, left, right)
+  // }
   // if (id != null) {
-  //   keys(data, id)
+  //   broadcastDropdown(data, id, next, triggerNext);
+  // }
+  // if (id != null && x == 0) {
+  //   keys(data, id);
   // }
 
   return (
-    <div style={board}>
+    <div {...ArrowKeysReact.events} tabIndex="1" style={board}>
         {
            data.map((row, i) => <Row key={i} id={id} colors={colors} stat={row}/> )
         }
@@ -154,4 +180,4 @@ const mapStateToProps = (state) => ({
 
 const Boarding =  lifecycle(methods)(Board) 
 
-export default connect(mapStateToProps, {down, left, right})(Board);
+export default connect(mapStateToProps, {down, left, right})(Boarding);
