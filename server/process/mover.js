@@ -37,21 +37,25 @@ const finish = (field, id) => {
 
 
 const moveLeft = (field, id) => {
-    const grid = gridMaker(field);
-     //console.log('left',grid)
+     console.log('left',field)
+     const grid = gridMaker(field);
     let i, j;
     const offsetDown = computeOffset(field, "left");
     for ( i=0; i<21; i++) {
         for( j=1; j<11; j++) {
             if ((field[i][j] == 2) && (i < 21)){
-                if (field[i][j - offsetDown-1] > 2 || field[i][j - offsetDown-1] == 1){
+                console.log('trouvé')
+                if (field[i][j-1] > 2 || field[i][j-1] == 1){
                     console.log(offsetDown)
                     return {
                         type: 'LEFT',
                         field: finish(field, id),
                         grounded: true
                     }
-                } else { grid[i][j-1] = 2; }
+                } else {
+                    // console.log('trouvé')
+                    grid[i][j-1] = 2;
+                }
             }
         }
     }

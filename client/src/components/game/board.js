@@ -10,7 +10,6 @@ import { SERVE_LEFT, LEFT_REQUEST, RIGHT_REQUEST,
   SERVE_RIGHT, DROPDOWN, SOCKET,
   DOWN_REQUEST, SERVE_DOWN, SHAPE_REQUEST} from '../../constants';
 
-let x = 0;
 
 // var promiseSocket = new Promise(function(resolve, reject) {
 //   setTimeout(function() {
@@ -25,16 +24,16 @@ let x = 0;
 
 const methods = {
     componentDidUpdate(props) {
-     console.log('updated')
+     //console.log('updated')
     },
     componentDidMount(props) {
-      console.log('mounted')
+      // console.log('mounted')
     },
     componentWillUpdate(props){
-      console.log('wiilUpdatet')
+      // console.log('willUpdate')
     },
     componentWillMount(props){
-      console.log('wiil mount')
+      // console.log('will mount')
     }
 }
 
@@ -114,27 +113,23 @@ const broadcastKeysToServer = (field, id) => {
  // window.addEventListener('keydown', listener);
 }
 
-const listenServerSocket = (down, left, right) => {
-  if (x == 0) {
-    console.log('x = 0')
-    SOCKET.on(SERVE_DOWN, (data) => {
-      console.log('move from server')
-      x = 1;
-      down(data)    
-    })
-    SOCKET.on(SERVE_LEFT, (data) => {
-      console.log('move from server')
-      x = 1;
-      left(data)    
-    })
-    SOCKET.on(SERVE_RIGHT, (data) => {
-      console.log('move from server')
-      x = 1;
-      right(data)    
-    })
+// const listenServerSocket = (down, left, right) => {
+//   if (x == 0) {
+//     SOCKET.on(SERVE_DOWN, (data) => {
+//       console.log('move from server')
+//       down(data)    
+//     })
+//     SOCKET.on(SERVE_LEFT, (data) => {
+//       console.log('move from server')
+//       left(data)    
+//     })
+//     SOCKET.on(SERVE_RIGHT, (data) => {
+//       console.log('move from server')
+//       right(data)    
+//     })
     
-  }
-}
+//   }
+// }
      
 const broadcastDropdown = (field, id, next, trigger) => {
   if (trigger == true){

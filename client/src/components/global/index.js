@@ -12,47 +12,47 @@ import {left} from '../../actions/left';
 import {right} from '../../actions/right';
 import GameOver from './gameOver';
 
-const listenServerSocket = (down, left, right) => {
-    SOCKET.on(SERVE_DOWN, (data) => {
-      console.log('move from server')
-      down(data)    
-    })
-    SOCKET.on(SERVE_LEFT, (data) => {
-      console.log('move from server')
-      left(data)    
-    })
-    SOCKET.on(SERVE_RIGHT, (data) => {
-      console.log('move from server')
-      right(data)    
-    })
-}
+// const listenServerSocket = (down, left, right) => {
+//     SOCKET.on(SERVE_DOWN, (data) => {
+//       console.log('move from server')
+//       down(data)    
+//     })
+//     SOCKET.on(SERVE_LEFT, (data) => {
+//       console.log('move from server')
+//       left(data)    
+//     })
+//     SOCKET.on(SERVE_RIGHT, (data) => {
+//       console.log('move from server')
+//       right(data)    
+//     })
+// }
 
-const broadcastKeysToServer = (field, id) => {
-  const listener = (e) => {
-      switch(e.keyCode){
-        case 40: //down arrow
-          SOCKET.emit(DOWN_REQUEST, {field, key: e.keyCode, id})
-          break;
-        case 39: //right arrow
-          SOCKET.emit(RIGHT_REQUEST, {field, key: e.keyCode, id})
-          e.preventDefault();
-          break;
-        case 37: //left arrow
-          SOCKET.emit(LEFT_REQUEST, {field, key: e.keyCode, id})
-          e.preventDefault();
-          break;
-        default:
-          break;
-        }
-  }
-  window.addEventListener('keydown', listener);
-}
+// const broadcastKeysToServer = (field, id) => {
+//   const listener = (e) => {
+//       switch(e.keyCode){
+//         case 40: //down arrow
+//           SOCKET.emit(DOWN_REQUEST, {field, key: e.keyCode, id})
+//           break;
+//         case 39: //right arrow
+//           SOCKET.emit(RIGHT_REQUEST, {field, key: e.keyCode, id})
+//           e.preventDefault();
+//           break;
+//         case 37: //left arrow
+//           SOCKET.emit(LEFT_REQUEST, {field, key: e.keyCode, id})
+//           e.preventDefault();
+//           break;
+//         default:
+//           break;
+//         }
+//   }
+//   window.addEventListener('keydown', listener);
+// }
 
 const Global = ({data, id, down, left, right}) => {
-  listenServerSocket(down, left, right)
-  if (id != null) {
-    broadcastKeysToServer(data, id)
-}
+  // listenServerSocket(down, left, right)
+  // if (id != null) {
+  //   broadcastKeysToServer(data, id)
+  // }
   return (
       <div>
         <Button />

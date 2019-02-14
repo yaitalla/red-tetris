@@ -27,10 +27,10 @@ io.on('connection', (socket) => {
     io.emit('SHAPE_SENT', shaper(data))
   })
   socket.on('DOWN_REQUEST', (data) => {
-    //console.log('MOVE_REQUEST', data)
     io.emit('SERVE_DOWN', mover(data))
   })
   socket.on('LEFT_REQUEST', (data) => {
+    console.log(data)
       io.emit('SERVE_LEFT', mover(data))
    })
   socket.on('RIGHT_REQUEST', (data) => {
