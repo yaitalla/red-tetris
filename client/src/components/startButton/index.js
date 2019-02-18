@@ -2,25 +2,23 @@ import React from 'react';
 import { flex, noBullet, btn, nonstyle} from './style';
 import {fill} from '../../actions/fillGrid';
 import { connect } from 'react-redux';
-//import io from 'socket.io-client';
-import { SOCKET, SHAPE_REQUEST, SERVER_IO_URL, SHAPE_SENT } from '../../constants';
+import { SHAPE_REQUEST, SERVER_IO_URL, SHAPE_SENT } from '../../constants';
 
-//const socket = io(SERVER_IO_URL)
-
+//import {socket} from '../game/board';
 
 
-const starter = (field, next) => {
-    SOCKET.emit(SHAPE_REQUEST, {field, next})
+const starter = (field, next, socket) => {
+    socket.emit(SHAPE_REQUEST, {field, next})
 }
 
-const Button = ({fill, field, id}) => {
-    SOCKET.on(SHAPE_SENT, (data) => {
+const Button = ({fill, field, id, socket}) => {
+    socket.on(SHAPE_SENT, (data) => {
         fill(data)
     })
     return (
         <div style={flex}>
             <ul style={noBullet}>
-            {id == null ? <button onClick={() => starter(field, null)} style={btn}> PLAY </button>
+            {id == null ? <button onClick={() => starter(field, null, socket)} style={btn}> PLAY </button>
                 : <div style={nonstyle} ></div>
             }
             </ul>
@@ -31,7 +29,8 @@ const Button = ({fill, field, id}) => {
 const mapStateToProps = (state) => {
     return {
         field: state.field,
-        id: state.currentID
+        id: state.currentID,
+        socket: state.socket
     }
 }
 

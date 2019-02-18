@@ -36,21 +36,20 @@ const finish = (field, id) => {
 }
 
 
-const moveLeft = (field, id) => {
-     console.log('left',field)
+const moveLeft = (field, id, move) => {
+     //console.log('left',field)
      const grid = gridMaker(field);
     let i, j;
     const offsetDown = computeOffset(field, "left");
     for ( i=0; i<21; i++) {
         for( j=1; j<11; j++) {
             if ((field[i][j] == 2) && (i < 21)){
-                console.log('trouvé')
+               // console.log('trouvé')
                 if (field[i][j-1] > 2 || field[i][j-1] == 1){
-                    console.log(offsetDown)
+                    //console.log(offsetDown)
                     return {
                         type: 'LEFT',
-                        field: finish(field, id),
-                        grounded: true
+                        field: field,
                     }
                 } else {
                     // console.log('trouvé')
@@ -62,10 +61,11 @@ const moveLeft = (field, id) => {
     return {
         type: 'LEFT',
         field: grid,
+        moving: true
     }
 }
 
-const moveRight = (field, id) => {
+const moveRight = (field, id, move) => {
     const grid = gridMaker(field);
     // console.log('right',grid)
     let i, j;
@@ -76,8 +76,7 @@ const moveRight = (field, id) => {
                 if (field[i][j + offsetDown-1] > 2 || field[i][j + offsetDown-1] == 1){
                     return {
                         type: 'RIGHT',
-                        field: finish(field, id),
-                        grounded: true
+                        field: field,
                     }
                 } else { grid[i][j+1] = 2; }
             }
@@ -86,9 +85,10 @@ const moveRight = (field, id) => {
     return {
         type: 'RIGHT',
         field: grid,
+        moving: true
     }
 }
-const moveDown = (field, id) => {
+const moveDown = (field, id, move) => {
     const grid = gridMaker(field);
     let i, j;
     let offsetDown = computeOffset(field, "down");
@@ -100,35 +100,27 @@ const moveDown = (field, id) => {
                     return {
                         type: 'DROPDOWN',
                         field: finish(field, id),
-                        grounded: true
+                        grounded: true,
+                        moving: true
                     }
                 } else { grid[i+1][j] = 2; }
             }
         }
     }
+    //console.log(grid)
     return {
         type: 'DROPDOWN',
         field: grid,
-        grounded: false
+        grounded: false,
+        moving: true
     }
 }
 const mover = (data) => {
     return (
-        data.key == 40 ? moveDown(data.field, data.id) :
-            data.key == 39 ? moveRight(data.field, data.id) :
-                 moveLeft(data.field, data.id)    
+        data.key == 40 ? moveDown(data.field, data.id, data.move) :
+            data.key == 39 ? moveRight(data.field, data.id, data.move) :
+                 moveLeft(data.field, data.id, data.move)    
     )
-    //console.log(data.key)
-    // switch(data.key){
-    //     case 40:
-    //         return moveDown(data.field, data.id);
-    //     case 39:
-    //         return moveRight(data.field, data.id);
-    //     case 37:
-    //         return moveLeft(data.field, data.id);
-    //     default:
-    //         break;
-    // }
 }
 
 module.exports = mover;

@@ -1,3 +1,4 @@
 export const right = (data) => {
-    return (dispatch) => dispatch(data)
+    return data
+    // return (dispatch) => dispatch(data)
 }

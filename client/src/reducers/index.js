@@ -1,4 +1,5 @@
 import grid from '../grid';
+import io from 'socket.io-client';
 import {BRAND_NEW, GAME_OVER,
     RIGHT, LEFT, DROPDOWN} from '../constants';
 
@@ -9,29 +10,39 @@ const INITIAL_STATE = {
     next: {},
     currentID: null,
     grounded: false,
-    gameOver: false
+    gameOver: false,
+    moving: false,
+    socket: io('localhost:4000')
 }
 
 const game = (state = INITIAL_STATE, action = {}) => {
-  //  console.log(action.type.length > 10 ? "defaut action": action.type)
+    // console.log(action.type.length > 10 ? "defaut action": action.type)
     switch(action.type) {
         case DROPDOWN:
             return {
                 ...state,
                 field: action.field,
-                grounded: action.grounded
+                grounded: action.grounded,
+                moving: action.moving
+            };
+        case 'MOVED':
+            return {
+                ...state,
+                moving: false
             };
         case LEFT:
             return {
                 ...state,
                 field: action.field,
-                grounded: action.grounded
+                grounded: action.grounded,
+                moving: action.moving
             };
         case RIGHT:
             return {
                 ...state,
                 field: action.field,
-                grounded: action.grounded
+                grounded: action.grounded,
+                moving: action.moving
             };
         case BRAND_NEW:
             return {

@@ -24,14 +24,14 @@ io.on('connection', (socket) => {
   console.log('user connected', socket.id)
   socket.on('SHAPE_REQUEST', (data) => {
    // console.log('SHAPE_REQUEST', data)
-    io.emit('SHAPE_SENT', shaper(data))
+    socket.emit('SHAPE_SENT', shaper(data))
   })
   socket.on('DOWN_REQUEST', (data) => {
     io.emit('SERVE_DOWN', mover(data))
   })
   socket.on('LEFT_REQUEST', (data) => {
-    console.log(data)
-      io.emit('SERVE_LEFT', mover(data))
+    //console.log(data)
+    socket.emit('SERVE_LEFT', mover(data))
    })
   socket.on('RIGHT_REQUEST', (data) => {
     io.emit('SERVE_RIGHT', mover(data))
