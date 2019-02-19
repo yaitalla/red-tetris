@@ -1,6 +1,6 @@
 import grid from '../grid';
 import io from 'socket.io-client';
-import {BRAND_NEW, GAME_OVER,
+import {BRAND_NEW, GAME_OVER, ROTATE,
     RIGHT, LEFT, DROPDOWN} from '../constants';
 
 const INITIAL_STATE = {
@@ -25,10 +25,10 @@ const game = (state = INITIAL_STATE, action = {}) => {
                 grounded: action.grounded,
                 moving: action.moving
             };
-        case 'MOVED':
+        case ROTATE:
             return {
                 ...state,
-                moving: false
+                field: action.field
             };
         case LEFT:
             return {

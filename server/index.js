@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const shaper = require('./process/shaper');
 const mover = require('./process/mover');
+const rotateShape = require('./process/rotation');
 const cors = require('cors');
 const api = require('./routes/api');
 //const db = require('./config/db');
@@ -35,7 +36,10 @@ io.on('connection', (socket) => {
    })
   socket.on('RIGHT_REQUEST', (data) => {
     io.emit('SERVE_RIGHT', mover(data))
- })
+  })
+  socket.on('ROTATE_REQUEST', (data) => {
+    socket.emit('SERVE_ROTATE', rotateShape(data))
+  })
   socket.on('disconnect', () => {
     console.log(socket.id, 'disconnected')
   })

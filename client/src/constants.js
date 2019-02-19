@@ -13,4 +13,7 @@ export const SERVE_LEFT = 'SERVE_LEFT';
 export const RIGHT_REQUEST = 'RIGHT_REQUEST';
 export const SERVE_RIGHT = 'SERVE_RIGHT';
 export const DROPDOWN = 'DROPDOWN';
+export const ROTATE = 'ROTATE';
+export const SERVE_ROTATE = 'SERVE_ROTATE';
+export const ROTATE_REQUEST = 'ROTATE_REQUEST';
 export const GAME_OVER = 'GAME_OVER';
