@@ -41,6 +41,7 @@ const moveLeft = (field, id, move) => {
      const grid = gridMaker(field);
     let i, j;
     const offsetDown = computeOffset(field, "left");
+    console.log('left offset', offsetDown)
     //console.log(offsetDown)
     for ( i=0; i<21; i++) {
         for( j=1; j<11; j++) {
@@ -71,7 +72,7 @@ const moveRight = (field, id, move) => {
     // console.log('right',grid)
     let i, j;
     const offsetDown = computeOffset(field, "right");
-    console.log(offsetDown)
+    console.log('right offset', offsetDown)
     for ( i=0; i<21; i++) {
         for( j=1; j<11; j++) {
             if ((field[i][j] == 2) && (i < 21)){

@@ -12,7 +12,7 @@ const INITIAL_STATE = {
     grounded: false,
     gameOver: false,
     moving: false,
-    socket: io('localhost:4000')
+    //socket: io('localhost:4000')
 }
 
 const game = (state = INITIAL_STATE, action = {}) => {
@@ -28,7 +28,8 @@ const game = (state = INITIAL_STATE, action = {}) => {
         case ROTATE:
             return {
                 ...state,
-                field: action.field
+                field: action.field,
+                shape: action.shape
             };
         case LEFT:
             return {

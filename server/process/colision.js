@@ -17,7 +17,7 @@ const computeOffset = (data, way) => {
                                 offset++;
                             }
                             break;
-                        case "left":
+                        case "right":
                             if (y < j) {
                                 y = j;
                                 offset++;

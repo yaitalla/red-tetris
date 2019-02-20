@@ -4,66 +4,66 @@ import Board from '../game/board';
 import DataBoard from '../gameData';
 import Button from '../startButton';
 import {down} from '../../actions/down';
+import {left} from '../../actions/left';
+import {right} from '../../actions/right';
+import lifecycle from 'react-pure-lifecycle';
+import {rotate} from '../../actions/rotate';
 import { connect } from 'react-redux';
-import io from 'socket.io-client';
+import socket from '../../socket';
+// import io from 'socket.io-client';
 import { SERVE_LEFT, LEFT_REQUEST, RIGHT_REQUEST,
   SERVE_RIGHT, DROPDOWN, ROTATE_REQUEST, SERVE_ROTATE,
   DOWN_REQUEST, SERVE_DOWN, SHAPE_REQUEST} from '../../constants';
 
-import GameOver from './gameOver';
+// export const socket =  io('localhost:4000');
 
 
-
-const listenServerSocket = (down, left, right, socket, move) => {
-  const listen = (socket) => {
+const listenServerSocket = (down, left, right, rotate) => {
     socket.once(SERVE_DOWN, (data) => {
       console.log('down from server')
       down(data)    
     })
     socket.once(SERVE_LEFT, (data) => {
       console.log('left from server')
-      down(data)    
+      left(data)    
     })
     socket.once(SERVE_RIGHT, (data) => {
       console.log('right from server')
-      down(data)    
+      right(data)    
     })
     socket.once(SERVE_ROTATE, (data) => {
       console.log('rotate from server')
-      down(data)    
+      rotate(data)    
     })
-  }
-    listen(socket)
-    
 }
-const keys = (field, id, SOCKET, shape) => {
+const keys = (field, id, shape) => {
   const listener = (e) => {
       switch(e.keyCode) {
         case 39: //right
-          SOCKET.emit(RIGHT_REQUEST, {field, key: e.keyCode, id})
+          socket.emit(RIGHT_REQUEST, {field, key: e.keyCode, id})
           e.preventDefault();
           break;
         case 40: //down
-          SOCKET.emit(DOWN_REQUEST, {field, key: e.keyCode, id})
+          socket.emit(DOWN_REQUEST, {field, key: e.keyCode, id})
           e.preventDefault();
           break;
         case 38: //up
           if (id != 6) {
-            SOCKET.emit(ROTATE_REQUEST, {field, key: e.keyCode, id, shape})
+            socket.emit(ROTATE_REQUEST, {field, key: e.keyCode, id, shape})
           }
           e.preventDefault();
           break;
         case 37: //left
-          SOCKET.emit(LEFT_REQUEST, {field, key: e.keyCode, id})
+          socket.emit(LEFT_REQUEST, {field, key: e.keyCode, id})
           e.preventDefault();
           break;
         default:
           break;
       }
   }
- window.addEventListener('keydown', listener);
+ window.addEventListener('keydown', listener, {once: true});
 }
-const broadcastDropdown = (field, id, next, trigger, socket) => {
+const broadcastDropdown = (field, id, next, trigger) => {
   if (trigger == true){
     socket.emit(SHAPE_REQUEST, {field, next})
   } else if (trigger == false && id != null ){
@@ -73,13 +73,14 @@ const broadcastDropdown = (field, id, next, trigger, socket) => {
   }
 }
 
-const Global = ({data, id, down, left, right, socket, shape, move,  trigger, next}) => {
-  listenServerSocket(down, left, right, socket, move)
+const Global = ({data, id, down, left, right, shape, rotate,  trigger, next}) => {
+  console.log(shape.shape)
+  listenServerSocket(down, left, right, rotate)
   // if (id != null) {
   //   broadcastDropdown(data, id, next, trigger, socket)
   // }
   if (id != null) {
-    keys(data, id, socket, shape);
+    keys(data, id, shape);
   }
   return (
       <div>
@@ -95,7 +96,7 @@ const Global = ({data, id, down, left, right, socket, shape, move,  trigger, nex
 const mapStateToProps = (state) => ({
   data: state.field,
   id: state.currentID,
-  socket: state.socket,
+ // socket: state.socket,
   trigger: state.grounded,
   next: state.next,
   move: state.moving,
@@ -103,4 +104,4 @@ const mapStateToProps = (state) => ({
 })
   
 
-export default connect(mapStateToProps, {down})(Global);
+export default connect(mapStateToProps, {down, left, rotate, right})(Global);

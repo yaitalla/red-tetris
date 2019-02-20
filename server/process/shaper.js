@@ -16,6 +16,7 @@ const fieldCreator = (field, shape) => {
             }
         }
     }
+    console.log(shape.shape)
     return {
         type: 'BRAND_NEW',
         field: ret,

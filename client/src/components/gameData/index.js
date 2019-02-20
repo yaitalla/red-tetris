@@ -1,5 +1,5 @@
 import React from 'react';
-import {board, rows, gameover} from './style';
+import {board, rows, controls, gameover, center} from './style';
 import { connect } from 'react-redux';
 import game from '../../reducers';
 
@@ -20,14 +20,17 @@ const applyColor = (color, mapKey) => {
 
 const Row = ({stat, color}) => {
   return (
-    <div style={rows}>
-    {
-      stat.map((square, i) =>
-        square == '2' ? applyColor(color, i) :
-               applyColor("#f4f4f4", i)
-      )
-    }
+    <div>
+      <div style={rows}>
+        {
+          stat.map((square, i) =>
+            square == '2' ? applyColor(color, i) :
+                  applyColor("#f4f4f4", i)
+          )
+        }
+      </div>
     </div>
+    
   )
 }
   
@@ -55,10 +58,10 @@ const dataBoard = ({gameOver, data, colors}) =>
   }
     return ( 
           <div style={board}>
-            <h2>Next Shape</h2>
-            {
-              data.shape ? shapeView(data, colors) : null
-            }
+            <h2 style={center}>Next Shape</h2>
+              {
+                data.shape ? shapeView(data, colors) : null
+              }
           </div>
     )
 }

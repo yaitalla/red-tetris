@@ -24,11 +24,12 @@ console.log(myFiles);
 io.on('connection', (socket) => {
   console.log('user connected', socket.id)
   socket.on('SHAPE_REQUEST', (data) => {
+    console.log('ici')
    // console.log('SHAPE_REQUEST', data)
     socket.emit('SHAPE_SENT', shaper(data))
   })
   socket.on('DOWN_REQUEST', (data) => {
-    io.emit('SERVE_DOWN', mover(data))
+    socket.emit('SERVE_DOWN', mover(data))
   })
   socket.on('LEFT_REQUEST', (data) => {
     //console.log(data)
@@ -38,6 +39,7 @@ io.on('connection', (socket) => {
     io.emit('SERVE_RIGHT', mover(data))
   })
   socket.on('ROTATE_REQUEST', (data) => {
+    console.log('server socket.on ROTATE triggered')
     socket.emit('SERVE_ROTATE', rotateShape(data))
   })
   socket.on('disconnect', () => {

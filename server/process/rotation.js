@@ -52,26 +52,32 @@ const coordinate = (field) => {
                 }
         }
     }
-    return {x, y}
+    return {x: parseInt(x), y: parseInt(y)}
 }
 
 const rotateShape = (data) => {
     const coord = coordinate(data.field);
-   //console.log(data.shape)
     let ret = newGrid(data.field);
     const rot = {
         shape: rotate(data.shape.shape),
         id: data.shape.id
     }
-    for (let i=1; i<5; i++) {
-        for(let j=3; j<7; j++) {
-            if (rot.shape[i-1][j-3] == 2) {
-                ret[i][j+1] = rot.shape[i-1][j-3]
-            }
+    console.log(coord)
+    // for (let i=coord.y; i<coord.y+4; i++) {
+    //     for(let j=coord.x; j<coord.x+4; j++) {
+    //         if (rot.shape[i-coord.y][j-coord.x] == 2) {
+    //             ret[i][j+coord.y] = rot.shape[i-coord.y][j-coord.x]
+    //         }
+    //     }
+    // }
+
+for (let i=1; i<5; i++) {
+    for(let j=3; j<7; j++) {
+        if (rot.shape[i-1][j-3] == 2) {
+            ret[i][j+1] = rot.shape[i-1][j-3]
         }
     }
-    console.log(rot)
-    
+}
     return {
         type: 'ROTATE',
         field: ret,

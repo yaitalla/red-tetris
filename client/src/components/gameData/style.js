@@ -8,6 +8,11 @@ export const board = {
 export const rows = {
     display: "flex",
     flexDirection: "row",
+    justifyContent: "center"
+}
+
+export const center = {
+    textAlign: "center"
 }
 
 export const box = {
