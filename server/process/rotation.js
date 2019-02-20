@@ -63,6 +63,7 @@ const rotateShape = (data) => {
         id: data.shape.id
     }
     console.log(coord)
+    console.log(rot.shape)
     // for (let i=coord.y; i<coord.y+4; i++) {
     //     for(let j=coord.x; j<coord.x+4; j++) {
     //         if (rot.shape[i-coord.y][j-coord.x] == 2) {
@@ -71,13 +72,14 @@ const rotateShape = (data) => {
     //     }
     // }
 
-for (let i=1; i<5; i++) {
-    for(let j=3; j<7; j++) {
-        if (rot.shape[i-1][j-3] == 2) {
-            ret[i][j+1] = rot.shape[i-1][j-3]
+    for (let i=1; i<5; i++) {
+        for(let j=3; j<7; j++) {
+            if (rot.shape[i-1][j-3] == 2) {
+                console.log(i, j)
+                ret[i][j+1] = rot.shape[i-1][j-3]
+            }
         }
     }
-}
     return {
         type: 'ROTATE',
         field: ret,

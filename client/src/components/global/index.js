@@ -74,7 +74,7 @@ const broadcastDropdown = (field, id, next, trigger) => {
 }
 
 const Global = ({data, id, down, left, right, shape, rotate,  trigger, next}) => {
-  console.log(shape.shape)
+  console.log(shape)
   listenServerSocket(down, left, right, rotate)
   // if (id != null) {
   //   broadcastDropdown(data, id, next, trigger, socket)

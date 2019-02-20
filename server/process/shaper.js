@@ -16,7 +16,6 @@ const fieldCreator = (field, shape) => {
             }
         }
     }
-    console.log(shape.shape)
     return {
         type: 'BRAND_NEW',
         field: ret,
@@ -33,7 +32,11 @@ const randShape = () => {
     const shape = data.tetriminos[shapes[currentRand]];
     return {
         shape: shape.shape,
-        id: currentRand
+        id: currentRand,
+        leftCorner: {
+            y: 1,
+            x: 4
+        }
     };
 }
 
