@@ -16,7 +16,7 @@ const starter = (field, next) => {
 
 const Button = ({fill, field, id}) => {
     socket.once(SHAPE_SENT, (data) => {
-      console.log('shape from server')
+      console.log(data)
       fill(data)
     })
     return (

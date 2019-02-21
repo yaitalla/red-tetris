@@ -37,14 +37,21 @@ const listenServerSocket = (down, left, right, rotate) => {
     })
 }
 const keys = (field, id, shape) => {
+  
   const listener = (e) => {
+    const data = {
+      field,
+      key: e.keyCode,
+      id,
+      shape: shape
+    }
       switch(e.keyCode) {
         case 39: //right
-          socket.emit(RIGHT_REQUEST, {field, key: e.keyCode, id})
+          socket.emit(RIGHT_REQUEST, data)
           e.preventDefault();
           break;
         case 40: //down
-          socket.emit(DOWN_REQUEST, {field, key: e.keyCode, id})
+          socket.emit(DOWN_REQUEST, data)
           e.preventDefault();
           break;
         case 38: //up
@@ -54,7 +61,7 @@ const keys = (field, id, shape) => {
           e.preventDefault();
           break;
         case 37: //left
-          socket.emit(LEFT_REQUEST, {field, key: e.keyCode, id})
+          socket.emit(LEFT_REQUEST, data)
           e.preventDefault();
           break;
         default:
@@ -74,7 +81,6 @@ const broadcastDropdown = (field, id, next, trigger) => {
 }
 
 const Global = ({data, id, down, left, right, shape, rotate,  trigger, next}) => {
-  console.log(shape)
   listenServerSocket(down, left, right, rotate)
   // if (id != null) {
   //   broadcastDropdown(data, id, next, trigger, socket)

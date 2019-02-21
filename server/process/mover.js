@@ -36,7 +36,7 @@ const finish = (field, id) => {
 }
 
 
-const moveLeft = (field, id, move) => {
+const moveLeft = (field, id, move, shape) => {
      //console.log('left',field)
      const grid = gridMaker(field);
     let i, j;
@@ -52,6 +52,7 @@ const moveLeft = (field, id, move) => {
                     return {
                         type: 'LEFT',
                         field: field,
+                        shape: shape
                     }
                 } else {
                     // console.log('trouvé')
@@ -60,14 +61,18 @@ const moveLeft = (field, id, move) => {
             }
         }
     }
+    console.log(shape.leftCorner)
+    shape.leftCorner.x--
+    console.log(shape.leftCorner)
     return {
         type: 'LEFT',
         field: grid,
-        moving: true
+        moving: true,
+        shape: shape
     }
 }
 
-const moveRight = (field, id, move) => {
+const moveRight = (field, id, move, shape) => {
     const grid = gridMaker(field);
     // console.log('right',grid)
     let i, j;
@@ -80,18 +85,23 @@ const moveRight = (field, id, move) => {
                     return {
                         type: 'RIGHT',
                         field: field,
+                        shape: shape
                     }
                 } else { grid[i][j+1] = 2; }
             }
         }
     }
+    console.log(shape.leftCorner)
+    shape.leftCorner.x++
+    console.log(shape.leftCorner)
     return {
         type: 'RIGHT',
         field: grid,
-        moving: true
+        moving: true,
+        shape: shape
     }
 }
-const moveDown = (field, id, move) => {
+const moveDown = (field, id, move, shape) => {
     const grid = gridMaker(field);
     let i, j;
     let offsetDown = computeOffset(field, "down");
@@ -104,25 +114,30 @@ const moveDown = (field, id, move) => {
                         type: 'DROPDOWN',
                         field: finish(field, id),
                         grounded: true,
-                        moving: true
+                        shape: shape
+                        
                     }
                 } else { grid[i+1][j] = 2; }
             }
         }
     }
     //console.log(grid)
+    console.log(shape.leftCorner)
+    shape.leftCorner.y++
+    console.log(shape.leftCorner)
     return {
         type: 'DROPDOWN',
         field: grid,
         grounded: false,
-        moving: true
+        moving: true,
+        shape: shape
     }
 }
 const mover = (data) => {
     return (
-        data.key == 40 ? moveDown(data.field, data.id, data.move) :
-            data.key == 39 ? moveRight(data.field, data.id, data.move) :
-                 moveLeft(data.field, data.id, data.move)    
+        data.key == 40 ? moveDown(data.field, data.id, data.move, data.shape) :
+            data.key == 39 ? moveRight(data.field, data.id, data.move, data.shape) :
+                 moveLeft(data.field, data.id, data.move, data.shape)    
     )
 }
 

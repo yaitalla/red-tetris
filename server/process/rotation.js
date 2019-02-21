@@ -60,23 +60,27 @@ const rotateShape = (data) => {
     let ret = newGrid(data.field);
     const rot = {
         shape: rotate(data.shape.shape),
-        id: data.shape.id
+        id: data.shape.id,
+        leftCorner: data.shape.leftCorner
     }
-    console.log(coord)
-    console.log(rot.shape)
-    // for (let i=coord.y; i<coord.y+4; i++) {
-    //     for(let j=coord.x; j<coord.x+4; j++) {
-    //         if (rot.shape[i-coord.y][j-coord.x] == 2) {
-    //             ret[i][j+coord.y] = rot.shape[i-coord.y][j-coord.x]
+    console.log(data.shape.leftCorner)
+    // console.log(coord)
+    // console.log(rot.shape)
+    // for (let i=1; i<5; i++) {
+    //     for(let j=3; j<7; j++) {
+    //         if (rot.shape[i-1][j-3] == 2) {
+    //             console.log(i, j)
+    //             ret[i][j+1] = rot.shape[i-1][j-3]
     //         }
     //     }
     // }
-
-    for (let i=1; i<5; i++) {
-        for(let j=3; j<7; j++) {
-            if (rot.shape[i-1][j-3] == 2) {
+    const x = data.shape.leftCorner.x
+    const y = data.shape.leftCorner.y
+    for (let i=y; i<(y+4); i++) {
+        for(let j=x; j<(x+4); j++) {
+            if (rot.shape[i-y][j-x] == 2) {
                 console.log(i, j)
-                ret[i][j+1] = rot.shape[i-1][j-3]
+                ret[i][j+y] = rot.shape[i-y][j-x]
             }
         }
     }

@@ -23,7 +23,8 @@ const game = (state = INITIAL_STATE, action = {}) => {
                 ...state,
                 field: action.field,
                 grounded: action.grounded,
-                moving: action.moving
+                moving: action.moving,
+                shape: action.shape
             };
         case ROTATE:
             return {
@@ -36,14 +37,16 @@ const game = (state = INITIAL_STATE, action = {}) => {
                 ...state,
                 field: action.field,
                 grounded: action.grounded,
-                moving: action.moving
+                moving: action.moving,
+                shape: action.shape
             };
         case RIGHT:
             return {
                 ...state,
                 field: action.field,
                 grounded: action.grounded,
-                moving: action.moving
+                moving: action.moving,
+                shape: action.shape
             };
         case BRAND_NEW:
             return {
