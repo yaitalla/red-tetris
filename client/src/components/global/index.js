@@ -70,24 +70,25 @@ const keys = (field, id, shape) => {
   }
  window.addEventListener('keydown', listener, {once: true});
 }
-const broadcastDropdown = (field, id, next, trigger) => {
+const broadcastDropdown = (field, id, next, trigger, shape) => {
   if (trigger == true){
     socket.emit(SHAPE_REQUEST, {field, next})
   } else if (trigger == false && id != null ){
     setTimeout(() => {
-      socket.emit(DOWN_REQUEST, { field, key:40, id })
+      socket.emit(DOWN_REQUEST, { field, key:40, id, shape })
       }, 500)
   }
 }
 
 const Global = ({data, id, down, left, right, shape, rotate,  trigger, next}) => {
   listenServerSocket(down, left, right, rotate)
-  // if (id != null) {
-  //   broadcastDropdown(data, id, next, trigger, socket)
-  // }
+  console.log(shape)
   if (id != null) {
-    keys(data, id, shape);
+    broadcastDropdown(data, id, next, trigger, shape)
   }
+  // if (id != null) {
+  //   keys(data, id, shape);
+  // }
   return (
       <div>
         <Button />
