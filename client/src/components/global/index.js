@@ -4,24 +4,32 @@ import Board from '../game/board';
 import DataBoard from '../gameData';
 import Button from '../startButton';
 import {down} from '../../actions/down';
+import {drop} from '../../actions/drop';
 import {left} from '../../actions/left';
 import {right} from '../../actions/right';
 import lifecycle from 'react-pure-lifecycle';
 import {rotate} from '../../actions/rotate';
 import { connect } from 'react-redux';
+import {fill} from '../../actions/fillGrid';
 import socket from '../../socket';
-// import io from 'socket.io-client';
-import { SERVE_LEFT, LEFT_REQUEST, RIGHT_REQUEST,
-  SERVE_RIGHT, DROPDOWN, ROTATE_REQUEST, SERVE_ROTATE,
-  DOWN_REQUEST, SERVE_DOWN, SHAPE_REQUEST} from '../../constants';
-
-// export const socket =  io('localhost:4000');
+import { SERVE_LEFT, LEFT_REQUEST, RIGHT_REQUEST, SERVE_DROPDOWN,
+  SERVE_RIGHT, DROPDOWN_REQUEST, ROTATE_REQUEST, SERVE_ROTATE,
+  DOWN_REQUEST, SERVE_DOWN, SHAPE_REQUEST, SHAPE_SENT} from '../../constants';
 
 
-const listenServerSocket = (down, left, right, rotate) => {
+
+const listenServerSocket = (down, left, right, rotate, fill, drop) => {
     socket.once(SERVE_DOWN, (data) => {
       console.log('down from server')
       down(data)    
+    })
+    socket.once(SERVE_DROPDOWN, (data) => {
+      console.log('dropdown from server')
+      drop(data)    
+    })
+    socket.once(SHAPE_SENT, (data) => {
+      console.log('new shape from server')
+      fill(data)    
     })
     socket.once(SERVE_LEFT, (data) => {
       console.log('left from server')
@@ -75,20 +83,19 @@ const broadcastDropdown = (field, id, next, trigger, shape) => {
     socket.emit(SHAPE_REQUEST, {field, next})
   } else if (trigger == false && id != null ){
     setTimeout(() => {
-      socket.emit(DOWN_REQUEST, { field, key:40, id, shape })
-      }, 500)
+      socket.emit(DROPDOWN_REQUEST, { field, key:40, id, shape })
+      }, 300)
   }
 }
 
-const Global = ({data, id, down, left, right, shape, rotate,  trigger, next}) => {
-  listenServerSocket(down, left, right, rotate)
-  console.log(shape)
-  if (id != null) {
-    broadcastDropdown(data, id, next, trigger, shape)
-  }
+const Global = ({data, id, down, left, right, shape, rotate, drop, trigger, next, fill}) => {
+  listenServerSocket(down, left, right, rotate, fill, drop)
   // if (id != null) {
-  //   keys(data, id, shape);
+  //   broadcastDropdown(data, id, next, trigger, shape)
   // }
+  if (id != null) {
+    keys(data, id, shape);
+  }
   return (
       <div>
         <Button />
@@ -103,7 +110,6 @@ const Global = ({data, id, down, left, right, shape, rotate,  trigger, next}) =>
 const mapStateToProps = (state) => ({
   data: state.field,
   id: state.currentID,
- // socket: state.socket,
   trigger: state.grounded,
   next: state.next,
   move: state.moving,
@@ -111,4 +117,4 @@ const mapStateToProps = (state) => ({
 })
   
 
-export default connect(mapStateToProps, {down, left, rotate, right})(Global);
+export default connect(mapStateToProps, {down, drop, left, rotate, right, fill})(Global);

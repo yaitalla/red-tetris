@@ -1,5 +1,4 @@
 const computeOffset = require('./colision');
-const rotate = require('./rotation');
 
 const gridMaker = (field) =>{
     const grid = []
@@ -37,33 +36,26 @@ const finish = (field, id) => {
 
 
 const moveLeft = (field, id, move, shape) => {
-     //console.log('left',field)
      const grid = gridMaker(field);
     let i, j;
     const offsetDown = computeOffset(field, "left");
-    console.log('left offset', offsetDown)
-    //console.log(offsetDown)
     for ( i=0; i<21; i++) {
         for( j=1; j<11; j++) {
             if ((field[i][j] == 2) && (i < 21)){
-               // console.log('trouvé')
                 if (field[i][j-1] > 2 || field[i][j-1] == 1){
-                    //console.log(offsetDown)
                     return {
                         type: 'LEFT',
                         field: field,
                         shape: shape
                     }
                 } else {
-                    // console.log('trouvé')
                     grid[i][j-1] = 2;
                 }
             }
         }
     }
-    console.log(shape.leftCorner)
     shape.leftCorner.x--
-    console.log(shape.leftCorner)
+    console.log(shape)
     return {
         type: 'LEFT',
         field: grid,
@@ -74,10 +66,8 @@ const moveLeft = (field, id, move, shape) => {
 
 const moveRight = (field, id, move, shape) => {
     const grid = gridMaker(field);
-    // console.log('right',grid)
     let i, j;
     const offsetDown = computeOffset(field, "right");
-    console.log('right offset', offsetDown)
     for ( i=0; i<21; i++) {
         for( j=1; j<11; j++) {
             if ((field[i][j] == 2) && (i < 21)){
@@ -91,9 +81,7 @@ const moveRight = (field, id, move, shape) => {
             }
         }
     }
-    console.log(shape.leftCorner)
     shape.leftCorner.x++
-    console.log(shape.leftCorner)
     return {
         type: 'RIGHT',
         field: grid,
@@ -111,22 +99,18 @@ const moveDown = (field, id, move, shape) => {
             if ((field[i][j] == 2) && (i < 21)){
                 if (field[i + offsetDown-1][j] > 2 || field[i + offsetDown-1][j] == 1){
                     return {
-                        type: 'DROPDOWN',
+                        type: 'DOWN',
                         field: finish(field, id),
                         grounded: true,
                         shape: shape
-                        
                     }
                 } else { grid[i+1][j] = 2; }
             }
         }
     }
-    //console.log(grid)
-    console.log(shape.leftCorner)
     shape.leftCorner.y++
-    console.log(shape.leftCorner)
     return {
-        type: 'DROPDOWN',
+        type: 'DOWN',
         field: grid,
         grounded: false,
         moving: true,

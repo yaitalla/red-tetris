@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const shaper = require('./process/shaper');
 const mover = require('./process/mover');
+const dropdown = require('./process/dropdown');
 const rotateShape = require('./process/rotation');
 const cors = require('cors');
 const api = require('./routes/api');
@@ -23,12 +24,19 @@ console.log(myFiles);
 
 io.on('connection', (socket) => {
   console.log('user connected', socket.id)
+  socket.on('START_GAME', (data) => {
+    // console.log('SHAPE_REQUEST', data)
+     socket.emit('START_SENT', shaper(data))
+   })
   socket.on('SHAPE_REQUEST', (data) => {
    // console.log('SHAPE_REQUEST', data)
     socket.emit('SHAPE_SENT', shaper(data))
   })
   socket.on('DOWN_REQUEST', (data) => {
     socket.emit('SERVE_DOWN', mover(data))
+  })
+  socket.on('DROPDOWN_REQUEST', (data) => {
+    socket.emit('SERVE_DROPDOWN', mover(data))
   })
   socket.on('LEFT_REQUEST', (data) => {
     //console.log(data)

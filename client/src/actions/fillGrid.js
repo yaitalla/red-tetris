@@ -1,3 +1,4 @@
 export const fill = (data) => {
-    return (dispatch) => dispatch(data)
+    return data
+    // return (dispatch) => dispatch(data)
 }

@@ -41,22 +41,8 @@ const rotate = (shape) => {
     return ret;
 }
 
-const coordinate = (field) => {
-    let x=15;
-    let y=0;
-    for (let i in field) {
-        for(let j in field[i]) {
-                if (field[i][j] == 2) {
-                    x = x > j ? j : x;
-                    y = y < i ? i : y;
-                }
-        }
-    }
-    return {x: parseInt(x), y: parseInt(y)}
-}
 
 const rotateShape = (data) => {
-    const coord = coordinate(data.field);
     let ret = newGrid(data.field);
     const rot = {
         shape: rotate(data.shape.shape),
@@ -80,7 +66,7 @@ const rotateShape = (data) => {
         for(let j=x; j<(x+4); j++) {
             if (rot.shape[i-y][j-x] == 2) {
                 console.log(i, j)
-                ret[i][j+y] = rot.shape[i-y][j-x]
+                ret[i][j] = rot.shape[i-y][j-x]
             }
         }
     }

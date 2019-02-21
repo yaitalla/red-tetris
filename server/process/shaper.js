@@ -12,17 +12,18 @@ const fieldCreator = (field, shape) => {
                         gameOver: true
                     }
                 }
+                //console.log(i, j+1)
                 ret[i][j+1] = shape.shape[i-1][j-3]
             }
         }
     }
+   // console.log(ret)
     return {
         type: 'BRAND_NEW',
         field: ret,
         shape: shape,
         next: randShape(),
         currentID: shape.id,
-        ground: false
     }
 }
 
@@ -41,15 +42,13 @@ const randShape = () => {
 }
 
 const shaper = (data) => {
-    //console.log(data)
+    //  console.log(data)
     const shape = randShape();
     if (data.next == null) {
         return(fieldCreator(data.field, shape));
     } else {
         return (fieldCreator(data.field, data.next))
     }
-
-   // console.log(field)
 }
 
 module.exports = shaper;

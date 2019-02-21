@@ -1,6 +1,6 @@
 import grid from '../grid';
 import io from 'socket.io-client';
-import {BRAND_NEW, GAME_OVER, ROTATE,
+import {BRAND_NEW, GAME_OVER, ROTATE, DOWN,
     RIGHT, LEFT, DROPDOWN} from '../constants';
 
 const INITIAL_STATE = {
@@ -19,6 +19,14 @@ const game = (state = INITIAL_STATE, action = {}) => {
     // console.log(action.type.length > 10 ? "defaut action": action.type)
     switch(action.type) {
         case DROPDOWN:
+            return {
+                ...state,
+                field: action.field,
+                grounded: action.grounded,
+                moving: action.moving,
+                shape: action.shape
+            };
+        case DOWN:
             return {
                 ...state,
                 field: action.field,
