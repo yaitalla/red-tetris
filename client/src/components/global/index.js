@@ -9,6 +9,7 @@ import {left} from '../../actions/left';
 import {right} from '../../actions/right';
 import lifecycle from 'react-pure-lifecycle';
 import {rotate} from '../../actions/rotate';
+import {refresh} from '../../actions/refresh';
 import { connect } from 'react-redux';
 import {fill} from '../../actions/fillGrid';
 import socket from '../../socket';
@@ -19,82 +20,57 @@ import { SERVE_LEFT, LEFT_REQUEST, RIGHT_REQUEST, SERVE_DROPDOWN,
 
 
 const listenServerSocket = (down, left, right, rotate, fill, drop) => {
-    socket.once(SERVE_DOWN, (data) => {
-      console.log('down from server')
-      down(data)    
-    })
-    socket.once(SERVE_DROPDOWN, (data) => {
-      console.log('dropdown from server')
-      drop(data)    
-    })
     socket.once(SHAPE_SENT, (data) => {
       console.log('new shape from server')
       fill(data)    
     })
-    socket.once(SERVE_LEFT, (data) => {
-      console.log('left from server')
-      left(data)    
-    })
-    socket.once(SERVE_RIGHT, (data) => {
-      console.log('right from server')
-      right(data)    
-    })
-    socket.once(SERVE_ROTATE, (data) => {
-      console.log('rotate from server')
-      rotate(data)    
-    })
 }
-const keys = (field, id, shape) => {
-  
+const keys = (total, field, id, shapes, down, left, right, rotate, refresh, nbr) => {
   const listener = (e) => {
-    const data = {
-      field,
-      key: e.keyCode,
-      id,
-      shape: shape
-    }
       switch(e.keyCode) {
         case 39: //right
-          socket.emit(RIGHT_REQUEST, data)
+          right(field, nbr, shapes, total-1)
           e.preventDefault();
           break;
         case 40: //down
-          socket.emit(DOWN_REQUEST, data)
+          down(field, id, shapes, total-1)
           e.preventDefault();
           break;
-        case 38: //up
+         case 38: //up
           if (id != 6) {
-            socket.emit(ROTATE_REQUEST, {field, key: e.keyCode, id, shape})
+            rotate(field, shapes, total-1)
           }
           e.preventDefault();
           break;
         case 37: //left
-          socket.emit(LEFT_REQUEST, data)
+          left(field, nbr, shapes, total-1)
           e.preventDefault();
           break;
         default:
-          break;
+          refresh(field, nbr)
+          e.preventDefault();
       }
   }
  window.addEventListener('keydown', listener, {once: true});
 }
-const broadcastDropdown = (field, id, next, trigger, shape) => {
+const broadcastDropdown = (field, id, total, trigger, shapes, drop) => {
+
   if (trigger == true){
-    socket.emit(SHAPE_REQUEST, {field, next})
+    // nextShape()
   } else if (trigger == false && id != null ){
-    setTimeout(() => {
-      socket.emit(DROPDOWN_REQUEST, { field, key:40, id, shape })
+  setTimeout(() => {
+      drop(field, id, shapes, total-1)
       }, 300)
   }
 }
 
-const Global = ({data, id, down, left, right, shape, rotate, drop, trigger, next, fill}) => {
-  listenServerSocket(down, left, right, rotate, fill, drop)
+const Global = ({refresh, nb, data, id, total, down, left, right, shapes, rotate, drop, trigger, next, fill}) => {
+  //listenServerSocket(down, left, right, rotate, fill, drop)
   // if (id != null) {
-  //   broadcastDropdown(data, id, next, trigger, shape)
+  //   broadcastDropdown(data, id, total, trigger, shapes, drop)
   // }
   if (id != null) {
-    keys(data, id, shape);
+    keys(total, data, id, shapes, down, left, right, rotate, refresh, nb);
   }
   return (
       <div>
@@ -113,8 +89,10 @@ const mapStateToProps = (state) => ({
   trigger: state.grounded,
   next: state.next,
   move: state.moving,
-  shape: state.shape
+  shapes: state.shapes,
+  total: state.total,
+  nb: state.nb
 })
   
 
-export default connect(mapStateToProps, {down, drop, left, rotate, right, fill})(Global);
+export default connect(mapStateToProps, {refresh, down, drop, left, rotate, right, fill})(Global);

@@ -1,10 +1,10 @@
 const data = require('../public/data.js');
 
-const fieldCreator = (field, shape) => {
+const fieldCreator = (field, shapes) => {
     let ret = field;
     for (let i=1; i<5; i++) {
         for(let j=3; j<7; j++) {
-            if (shape.shape[i-1][j-3] == 2) {
+            if (shapes[0].shape[i-1][j-3] == 2) {
                 if (ret[i][j+1] > 2) {
                     return {
                         type: 'GAME_OVER',
@@ -12,18 +12,17 @@ const fieldCreator = (field, shape) => {
                         gameOver: true
                     }
                 }
-                //console.log(i, j+1)
-                ret[i][j+1] = shape.shape[i-1][j-3]
+                ret[i][j+1] = shapes[0].shape[i-1][j-3]
             }
         }
     }
-   // console.log(ret)
     return {
-        type: 'BRAND_NEW',
+        type: 'START_GAME',
         field: ret,
-        shape: shape,
-        next: randShape(),
-        currentID: shape.id,
+        shapes: shapes,
+        next: shapes[1],
+        currentID: shapes[0].id,
+        total: 1
     }
 }
 
@@ -42,13 +41,17 @@ const randShape = () => {
 }
 
 const shaper = (data) => {
-    //  console.log(data)
-    const shape = randShape();
-    if (data.next == null) {
-        return(fieldCreator(data.field, shape));
-    } else {
-        return (fieldCreator(data.field, data.next))
+    const shape = [];
+    for (let i=0; i<10; i++) {
+        shape.push(randShape())
     }
+    return fieldCreator(data.field, shape)
+    console.log(shape)
+    // if (data.next == null) {
+    //     return(fieldCreator(data.field, shape));
+    // } else {
+    //     return (fieldCreator(data.field, data.next))
+    // }
 }
 
 module.exports = shaper;

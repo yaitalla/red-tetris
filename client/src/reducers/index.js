@@ -1,30 +1,45 @@
 import grid from '../grid';
 import io from 'socket.io-client';
 import {BRAND_NEW, GAME_OVER, ROTATE, DOWN,
-    RIGHT, LEFT, DROPDOWN} from '../constants';
+    RIGHT, LEFT, DROPDOWN, START_GAME} from '../constants';
 
 const INITIAL_STATE = {
     field: grid,
-    shape: {},
+    shapes: [],
     colors: ['#fff6b6','#f4cfb2', '#ffcccc', '#d9c2f0', '#ffd232', '#b5e8f7','#d18162'],
     next: {},
     currentID: null,
     grounded: false,
     gameOver: false,
-    moving: false,
-    //socket: io('localhost:4000')
+    total: 0,
+    nb: 0
 }
 
 const game = (state = INITIAL_STATE, action = {}) => {
-    // console.log(action.type.length > 10 ? "defaut action": action.type)
+     //console.log(action.type.length > 10 ? "defaut action": action.type)
     switch(action.type) {
+        case 'REFRESH':
+            return {
+                ...state,
+                field: action.field,
+                nb: action.nb
+            };
+        case 'ADD_SHAPE':
+            return {
+                ...state,
+                field: action.field,
+                shapes: action.shapes,
+                next: action.next,
+                currentID: action.currentID,
+                total: action.total
+            };
         case DROPDOWN:
             return {
                 ...state,
                 field: action.field,
                 grounded: action.grounded,
                 moving: action.moving,
-                shape: action.shape
+                shapes: action.shapes
             };
         case DOWN:
             return {
@@ -32,7 +47,7 @@ const game = (state = INITIAL_STATE, action = {}) => {
                 field: action.field,
                 grounded: action.grounded,
                 moving: action.moving,
-                shape: action.shape
+                shapes: action.shapes
             };
         case ROTATE:
             return {
@@ -46,7 +61,7 @@ const game = (state = INITIAL_STATE, action = {}) => {
                 field: action.field,
                 grounded: action.grounded,
                 moving: action.moving,
-                shape: action.shape
+                shapes: action.shapes
             };
         case RIGHT:
             return {
@@ -54,16 +69,16 @@ const game = (state = INITIAL_STATE, action = {}) => {
                 field: action.field,
                 grounded: action.grounded,
                 moving: action.moving,
-                shape: action.shape
+                shapes: action.shapes
             };
-        case BRAND_NEW:
+        case START_GAME:
             return {
                 ...state,
                 field: action.field,
-                shape: action.shape,
+                shapes: action.shapes,
                 next: action.next,
                 currentID: action.currentID,
-                grounded: false
+                total: action.total
             };
         case GAME_OVER:
             return {
