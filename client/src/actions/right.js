@@ -54,7 +54,6 @@ const moveRight = (field, shapes, index, nbr) => {
         for( j=1; j<11; j++) {
             if ((field[i][j] == 2) && (i < 21)){
                 if (field[i][j+1] > 2 || field[i][j+1] == 1){
-                    console.log('ici')
                     return {
                         type: 'REFRESH',
                         field: field,

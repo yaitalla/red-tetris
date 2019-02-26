@@ -1,6 +1,7 @@
 import {add} from './addShape';
 
 const computeOffset = (data) => {
+    // console.log('data',data)
     let offset = 0;
     let x = -1, y = -1;
     for (let i=0; i<22; i++) {
