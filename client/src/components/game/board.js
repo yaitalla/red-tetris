@@ -1,5 +1,4 @@
 import React from 'react';
-import io from 'socket.io-client';
 import {board, rows, box, gameover} from './style';
 import { connect } from 'react-redux';
 import lifecycle from 'react-pure-lifecycle';
@@ -66,7 +65,7 @@ const Row = ({stat, colors, id}) => {
 }
 
 const Board = ({down, data, colors, gameOver,
-  triggerNext, next, right, left, id, socket, move}) =>
+  triggerNext, next, right, left, id, move}) =>
 {
   return (
     <div style={board}>
@@ -86,7 +85,6 @@ const mapStateToProps = (state) => ({
   next: state.next,
   gameOver: state.gameOver,
   move: state.moving,
-  socket: state.socket
 })
 
 // const Boarding =  lifecycle(methods)(Board) 

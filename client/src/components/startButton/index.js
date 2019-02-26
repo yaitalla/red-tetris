@@ -3,8 +3,6 @@ import { flex, noBullet, btn, nonstyle} from './style';
 import {fill} from '../../actions/fillGrid';
 import { connect } from 'react-redux';
 import { START_GAME, SERVER_IO_URL, START_SENT } from '../../constants';
-// import io from 'socket.io-client';
-// const socket =  io('localhost:4000');
 
 import socket from '../../socket';
 

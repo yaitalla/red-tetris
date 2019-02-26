@@ -12,19 +12,8 @@ import {rotate} from '../../actions/rotate';
 import {refresh} from '../../actions/refresh';
 import { connect } from 'react-redux';
 import {fill} from '../../actions/fillGrid';
-import socket from '../../socket';
-import { SERVE_LEFT, LEFT_REQUEST, RIGHT_REQUEST, SERVE_DROPDOWN,
-  SERVE_RIGHT, DROPDOWN_REQUEST, ROTATE_REQUEST, SERVE_ROTATE,
-  DOWN_REQUEST, SERVE_DOWN, SHAPE_REQUEST, SHAPE_SENT} from '../../constants';
 
 
-
-const listenServerSocket = (down, left, right, rotate, fill, drop) => {
-    socket.once(SHAPE_SENT, (data) => {
-      console.log('new shape from server')
-      fill(data)    
-    })
-}
 const keys = (total, field, id, shapes, down, left, right, rotate, refresh, nbr) => {
   const listener = (e) => {
       switch(e.keyCode) {
@@ -39,6 +28,8 @@ const keys = (total, field, id, shapes, down, left, right, rotate, refresh, nbr)
          case 38: //up
           if (id != 6) {
             rotate(field, shapes, total-1)
+          } else {
+            refresh(field, nbr)
           }
           e.preventDefault();
           break;
@@ -53,8 +44,8 @@ const keys = (total, field, id, shapes, down, left, right, rotate, refresh, nbr)
   }
  window.addEventListener('keydown', listener, {once: true});
 }
-const broadcastDropdown = (field, id, total, trigger, shapes, drop) => {
 
+const broadcastDropdown = (field, id, total, trigger, shapes, drop) => {
   if (trigger == true){
     // nextShape()
   } else if (trigger == false && id != null ){
@@ -65,7 +56,6 @@ const broadcastDropdown = (field, id, total, trigger, shapes, drop) => {
 }
 
 const Global = ({refresh, nb, data, id, total, down, left, right, shapes, rotate, drop, trigger, next, fill}) => {
-  //listenServerSocket(down, left, right, rotate, fill, drop)
   // if (id != null) {
   //   broadcastDropdown(data, id, total, trigger, shapes, drop)
   // }

@@ -1,3 +1,5 @@
+import socket from '../socket';
+
 const checkLine = (line) => {
     let x = 0;
     for (let i=0; i<12; i++) {
@@ -26,11 +28,21 @@ const gridMaker = () => {
 }
 
 const removeLiner = (lines, field) => {
-    let grid = gridMaker(), nbr = lines.length, i = 21;
-    if (nbr == 1) {
+    let grid = gridMaker(), gap = lines.length;
+    let min = Math.min(lines), max = Math.max(lines);
+    for (let i=21; i>0; i--) {
+        if (i > max) {
+            grid[i] = field[i]
+        } else if (i < min) {
+            grid[i] = field[i-gap]
+        }
+    }
+    console.log('grid',grid)
+  //  return grid
+    if (gap == 1) {
         let i = lines[0]
         field.splice(i, 1)
-        console.log(field)
+        console.log('field',field)
     }
 }
 
@@ -42,12 +54,18 @@ const checkForLine = (field) => {
         }
     }
     if (linesArray.length > 0){
-        removeLiner(linesArray, field)
+        return removeLiner(linesArray, field)
     }
     return field
 }
 
 export const add = (field, shapes, index) => {
+    if (index+2 == shapes.length){
+        for (let i=0; i<10; i++){
+            shapes.push(shapes[i])
+        }
+        console.log(shapes)
+    }
     let ret = field;
     for (let i=1; i<5; i++) {
         for(let j=3; j<7; j++) {
@@ -63,15 +81,14 @@ export const add = (field, shapes, index) => {
             }
         }
     }
-    const line = [], grid = gridMaker();
-    for (let i=0; i<12; i++) { //game height: 20 blocs
-        line.push(6);
-    }
-    checkForLine(ret)
-   // console.log(ret)
+
+    console.log(shapes)
+   // return checkForLine(ret)
+    
+    console.log(shapes.length, index+2)
     return {
         type: 'ADD_SHAPE',
-        field: ret,
+        field: ret/*checkForLine(ret)*/,
         shapes: shapes,
         next: shapes[index + 2],
         currentID: shapes[index+1].id,

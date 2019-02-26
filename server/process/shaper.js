@@ -46,12 +46,6 @@ const shaper = (data) => {
         shape.push(randShape())
     }
     return fieldCreator(data.field, shape)
-    console.log(shape)
-    // if (data.next == null) {
-    //     return(fieldCreator(data.field, shape));
-    // } else {
-    //     return (fieldCreator(data.field, data.next))
-    // }
 }
 
 module.exports = shaper;
