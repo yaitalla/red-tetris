@@ -2,7 +2,10 @@ import React from 'react';
 import { divGlobal } from './style';
 import Board from '../game/board';
 import DataBoard from '../gameData';
+import UserBoard from '../userBoard';
+import Roomlist from '../roomlist';
 import Button from '../startButton';
+import Roombutton from '../rooms';
 import {down} from '../../actions/down';
 import {drop} from '../../actions/drop';
 import {left} from '../../actions/left';
@@ -55,6 +58,30 @@ const broadcastDropdown = (field, id, total, trigger, shapes, drop) => {
   }
 }
 
+const Game = () => {
+  return (
+<div>
+      <Button />
+      <div  style={divGlobal}>
+        <Board/>
+        <DataBoard/>
+      </div>
+  </div>
+  )
+}
+
+const PreGame = () => {
+  return (
+<div>
+      <Roombutton />
+      <div  style={divGlobal}>
+        <UserBoard/>
+        <Roomlist/>
+      </div>
+  </div>
+  )
+}
+
 const Global = ({refresh, nb, data, id, total, down, left, right, shapes, rotate, drop, trigger, next, fill}) => {
   // if (id != null) {
   //   broadcastDropdown(data, id, total, trigger, shapes, drop)
@@ -62,13 +89,12 @@ const Global = ({refresh, nb, data, id, total, down, left, right, shapes, rotate
   if (id != null) {
     keys(total, data, id, shapes, down, left, right, rotate, refresh, nb);
   }
+  const i = shapes.length
+  console.log(nb)
   return (
       <div>
-        <Button />
-        <div  style={divGlobal}>
-          <Board/>
-          <DataBoard/>
-        </div>
+       { i > 0 ? <Game/> : <PreGame /> }
+        
       </div>
   )
 }

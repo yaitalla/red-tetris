@@ -23,8 +23,8 @@ export const box = {
 }
 export const gameover = {
     display: "flex",
-      flexDirection: "column",
-      width: '220px',
-      background: "#bbbb",
-      height: '510px'
+    flexDirection: "column",
+    width: '220px',
+    background: "#bbbb",
+    height: '510px'
   }

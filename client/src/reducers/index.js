@@ -4,6 +4,7 @@ import {BRAND_NEW, GAME_OVER, ROTATE, DOWN,
     RIGHT, LEFT, DROPDOWN, START_GAME} from '../constants';
 
 const INITIAL_STATE = {
+    rooms: [],
     field: grid,
     shapes: [],
     colors: ['#fff6b6','#f4cfb2', '#ffcccc', '#d9c2f0', '#ffd232', '#b5e8f7','#d18162'],
@@ -23,6 +24,11 @@ const game = (state = INITIAL_STATE, action = {}) => {
                 ...state,
                 field: action.field,
                 nb: action.nb
+            };
+        case 'ADD_ROOM':
+            return {
+                ...state,
+                rooms: action.rooms
             };
         case 'ADD_SHAPE':
             return {
