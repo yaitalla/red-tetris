@@ -7,6 +7,8 @@ import Roomlist from '../roomlist';
 import Button from '../startButton';
 import Roombutton from '../rooms';
 import {down} from '../../actions/down';
+import {chooseRoom} from '../../actions/chooseRoom';
+import {login} from '../../actions/login';
 import {drop} from '../../actions/drop';
 import {left} from '../../actions/left';
 import {right} from '../../actions/right';
@@ -15,7 +17,31 @@ import {rotate} from '../../actions/rotate';
 import {refresh} from '../../actions/refresh';
 import { connect } from 'react-redux';
 import {fill} from '../../actions/fillGrid';
+import socket from '../../socket';
 
+const componentDidMount = (props) => {
+  // console.log('global props: ', props);
+};
+const componentDidUpdate = (props) => {
+  // console.log('global updated props: ', props);
+};
+const methods = {
+  componentDidMount,
+  componentDidUpdate
+};
+
+const logger = (log, userList) => {
+  socket.once('USR_LOGIN', (id) => {
+    log(id, userList)
+  })
+}
+
+const roomChoice = (choice) => {
+  socket.once('ROOM_CHOSEN', (data) => {
+    choice(data)
+  })
+  
+}
 
 const keys = (total, field, id, shapes, down, left, right, rotate, refresh, nbr) => {
   const listener = (e) => {
@@ -82,15 +108,17 @@ const PreGame = () => {
   )
 }
 
-const Global = ({refresh, nb, data, id, total, down, left, right, shapes, rotate, drop, trigger, next, fill}) => {
+const Global = ({userList, login, chooseRoom, refresh, nb, actualRoom, data, id, total, down, left, right, shapes, rotate, drop, trigger, next, fill}) => {
   // if (id != null) {
   //   broadcastDropdown(data, id, total, trigger, shapes, drop)
   // }
+  roomChoice(chooseRoom)
+  logger(login, userList)
   if (id != null) {
     keys(total, data, id, shapes, down, left, right, rotate, refresh, nb);
   }
-  const i = shapes.length
-  console.log(nb)
+  const i = actualRoom.length
+  //console.log(nb)
   return (
       <div>
        { i > 0 ? <Game/> : <PreGame /> }
@@ -107,8 +135,11 @@ const mapStateToProps = (state) => ({
   move: state.moving,
   shapes: state.shapes,
   total: state.total,
-  nb: state.nb
+  nb: state.nb,
+  rooms: state.rooms,
+  actualRoom: state.actualRoom,
+  userList: state.users
 })
   
 
-export default connect(mapStateToProps, {refresh, down, drop, left, rotate, right, fill})(Global);
+export default connect(mapStateToProps, {chooseRoom, login, refresh, down, drop, left, rotate, right, fill})(lifecycle(methods)(Global));

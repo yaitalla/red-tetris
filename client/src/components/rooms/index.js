@@ -8,7 +8,7 @@ import socket from '../../socket';
 
 const Roombutton = ({addRoom}) => {
     socket.once('ROOM_SENT', (data) => {
-        console.log('reçu')
+       // console.log('reçu')
       addRoom(data)
     })
     let input

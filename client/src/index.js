@@ -8,9 +8,9 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 window.store = store.getState();
-// console.log(window.store)
+ //console.log(window.store)
 // store.subscribe(() => {
-//  console.log('subscribe',store.getState().field, store.getState().currentID)
+//  console.log('subscribe',store.getState().field, store.getState())
 // })
 
 ReactDOM.render((

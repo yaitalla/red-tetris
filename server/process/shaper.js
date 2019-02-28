@@ -1,6 +1,6 @@
 const data = require('../public/data.js');
 
-const fieldCreator = (field, shapes) => {
+const fieldCreator = (field, shapes, room) => {
     let ret = field;
     for (let i=1; i<5; i++) {
         for(let j=3; j<7; j++) {
@@ -22,7 +22,8 @@ const fieldCreator = (field, shapes) => {
         shapes: shapes,
         next: shapes[1],
         currentID: shapes[0].id,
-        total: 1
+        total: 1,
+        room: room
     }
 }
 
@@ -45,7 +46,7 @@ const shaper = (data) => {
     for (let i=0; i<10; i++) {
         shape.push(randShape())
     }
-    return fieldCreator(data.field, shape)
+    return fieldCreator(data.field, shape, data.room)
 }
 
 module.exports = shaper;

@@ -4,7 +4,10 @@ import {BRAND_NEW, GAME_OVER, ROTATE, DOWN,
     RIGHT, LEFT, DROPDOWN, START_GAME} from '../constants';
 
 const INITIAL_STATE = {
+    currentUser: "",
+    users: [],
     rooms: [],
+    actualRoom: "",
     field: grid,
     shapes: [],
     colors: ['#fff6b6','#f4cfb2', '#ffcccc', '#d9c2f0', '#ffd232', '#b5e8f7','#d18162'],
@@ -19,6 +22,11 @@ const INITIAL_STATE = {
 const game = (state = INITIAL_STATE, action = {}) => {
      //console.log(action.type.length > 10 ? "defaut action": action.type)
     switch(action.type) {
+        case 'ROOM_CHOSEN':
+            return {
+                ...state,
+                actualRoom: action.actualRoom
+            };
         case 'REFRESH':
             return {
                 ...state,
@@ -28,7 +36,13 @@ const game = (state = INITIAL_STATE, action = {}) => {
         case 'ADD_ROOM':
             return {
                 ...state,
-                rooms: action.rooms
+                rooms: action.rooms,
+            };
+        case 'USER_LOGIN':
+            return {
+                ...state,
+                currentUser: action.id,
+                users: action.userlist
             };
         case 'ADD_SHAPE':
             return {

@@ -22,35 +22,56 @@ const myFiles = proce.execSync('ls', {encoding: 'utf8'});
 console.log(myFiles);
 */
 var roomlist = [];
+var users = [];
 // io.sockets.in(room).emit('message', 'what is going on, party people?');
 // this message will go to the clients in the room "foobar"
 io.sockets.in('foobar').emit('message', 'anyone in this room yet?');
 
 io.sockets.on('connection', (socket) => {
   console.log('user connected', socket.id)
-  // socket.on('user conn', (socket) => {
-  //   console.log('user connected', socket.id)
-  // })
+  if (users.indexOf(socket.id) > -1){
+    users.push(socket.id)
+  }
+  socket.emit('ROOM_SENT', { //clients can see rooms at connection
+    type: 'ADD_ROOM',
+      rooms: roomlist,
+  })
+
+  socket.emit('USR_LOGIN', { //add new user to list
+      type: 'USER_LOGIN',
+      id: socket.id,
+      userlist: users
+  })
+
   socket.on('CREATE_ROOM', (room) => {
     roomlist.push(room)
-    //console.log('room list', roomlist)
-    socket.join(room);
-    socket.emit('ROOM_SENT', {
+    socket.emit('ROOM_SENT', { //add new room to list
       type: 'ADD_ROOM',
       rooms: roomlist
     })
   });
-  socket.on('ENTER_ROOM', (data) => {
+  
+  socket.on('ENTER_ROOM', (data) => { //enter room
+    socket.emit('ROOM_CHOSEN', {
+      type: 'ROOM_CHOSEN',
+      actualRoom: data
+    })
     socket.join(data)
   })
-  socket.on('START_GAME', (data) => {
-     socket.emit('START_SENT', shaper(data))
-   })
-  socket.on('SHAPE_REQUEST', (data) => {
-    socket.emit('SHAPE_SENT', moreShapes(data))
+
+  socket.on('START_GAME', (data) => { //start the game
+    console.log(data)
+    io.in(data.room).emit('START_SENT', shaper(data))//by sending shapes
+     //socket.emit('START_SENT', shaper(data))            //only in this room
   })
+  
+  socket.on('SHAPE_REQUEST', (data) => { //clients need more shapes
+    //socket.emit('SHAPE_SENT', moreShapes(data))
+  })
+
   socket.on('disconnect', () => {
     console.log(socket.id, 'disconnected')
+    socket.emit('USER_LOGOUT', socket.id)
   })
 })
 

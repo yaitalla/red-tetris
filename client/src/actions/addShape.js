@@ -55,7 +55,7 @@ const checkForLine = (field) => {
             linesArray.push(i);
         }
     }
-    console.log(linesArray.length)
+    //console.log(linesArray.length)
     if (linesArray.length > 0){
         return removeLiner(linesArray, field)
     }

@@ -1,13 +1,13 @@
 export const flex = {
     display: "flex",
     width: "100%",
-    justifyContent: "center"
   }
   
   export const noBullet = {
     display: "flex",
     justifyContent: "center",
     width: "100%",
+    justifyContent: "space-around",
     listStyleType: "none",
   }
   
@@ -25,6 +25,6 @@ export const flex = {
   
 export const nonstyle = {
   display: "flex",
-  flexDirection: "column",
+  flexDirection: "row",
   alignSelf: "center",
 }
