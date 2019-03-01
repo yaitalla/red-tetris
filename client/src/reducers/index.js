@@ -10,6 +10,7 @@ const INITIAL_STATE = {
     actualRoom: "",
     field: grid,
     shapes: [],
+    ghostSize: 0,
     colors: ['#fff6b6','#f4cfb2', '#ffcccc', '#d9c2f0', '#ffd232', '#b5e8f7','#d18162'],
     next: {},
     currentID: null,
@@ -39,6 +40,12 @@ const game = (state = INITIAL_STATE, action = {}) => {
                 rooms: action.rooms,
             };
         case 'USER_LOGIN':
+            return {
+                ...state,
+                currentUser: action.id,
+                users: action.userlist
+            };
+        case 'USER_LOGOUT':
             return {
                 ...state,
                 currentUser: action.id,

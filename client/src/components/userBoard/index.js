@@ -1,5 +1,5 @@
 import React from 'react';
-import {board, center} from './style';
+import {board, center, mapper} from './style';
 import { connect } from 'react-redux';
 import lifecycle from 'react-pure-lifecycle';
 

@@ -4,12 +4,17 @@ export const rows = {
 }
 
 export const box = {
+    height: '25px',
+    // border: '1px dashed #999',
+    width: '25px',
+    textAlign: 'center'
+}
+export const ghostStyle = {
     height: '24px',
     border: '1px dashed #999',
     width: '24px',
     textAlign: 'center'
-}
-
+  }
 export const board = {
     display: "flex",
     flexDirection: "column",

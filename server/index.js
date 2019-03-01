@@ -28,8 +28,8 @@ var users = [];
 io.sockets.in('foobar').emit('message', 'anyone in this room yet?');
 
 io.sockets.on('connection', (socket) => {
-  console.log('user connected', socket.id)
-  if (users.indexOf(socket.id) > -1){
+  // console.log('user connected', socket.id)
+  if (users.indexOf(socket.id) == -1){
     users.push(socket.id)
   }
   socket.emit('ROOM_SENT', { //clients can see rooms at connection
@@ -60,7 +60,7 @@ io.sockets.on('connection', (socket) => {
   })
 
   socket.on('START_GAME', (data) => { //start the game
-    console.log(data)
+    //console.log(data)
     io.in(data.room).emit('START_SENT', shaper(data))//by sending shapes
      //socket.emit('START_SENT', shaper(data))            //only in this room
   })
@@ -70,8 +70,8 @@ io.sockets.on('connection', (socket) => {
   })
 
   socket.on('disconnect', () => {
-    console.log(socket.id, 'disconnected')
-    socket.emit('USER_LOGOUT', socket.id)
+    // console.log(socket.id, 'disconnected')
+    users.splice(users.indexOf(socket.id), 1)
   })
 })
 
