@@ -68,20 +68,12 @@ const checkForMoves = (newPosY, newIndex) => {
 }
 
 const applyColor = (colors, mapKey, squareValue, squareId, posY) => {
-  // console.log(mapKey, squareValue, squareId)
   if(squareValue == 1) {
       return (
         <div key={mapKey} style={setStyle("white")}>{''}</div>
       )
   } else if(squareValue == 2) {
-    //console.log(mapKey, squareValue, squareId)
-    checkForMoves(posY, mapKey);
-    // if (ghostStat.positionY < posY) {
-    //   ghostStat.positionY = posY;
-    // }
-    // if (ghostStat.index.indexOf(mapKey) == -1){
-    //   ghostStat.index.push(mapKey)
-    // }
+      checkForMoves(posY, mapKey);
     return (
       <div key={mapKey} style={setStyle(colors[squareId])}>{''}</div>
     )
@@ -93,8 +85,7 @@ const applyColor = (colors, mapKey, squareValue, squareId, posY) => {
 }
 
 const ghostShape = (index, posY) => {
-  
-  if (ghostStat.index.indexOf(index) > -1 && posY >= ghostStat.positionY) {
+  if (ghostStat.index.indexOf(index) > -1 && posY > ghostStat.positionY) {
     //console.log(ghostStat.index)
     return ghostStyle;
   }return box;
@@ -106,7 +97,7 @@ const Row = ({stat, colors, id, posY}) => {
         {
           stat.map((square, i) =>
             square > 0 ?  applyColor(colors, i, square, id, posY) :
-            <div key={i} style={box/*ghostShape(i, posY)*/}>{''}</div>
+            <div key={i} style={ghostShape(i, posY)}>{''}</div>
           )
           
         }
@@ -117,6 +108,7 @@ const Row = ({stat, colors, id, posY}) => {
 const Board = ({down, data, colors, gameOver,
   triggerNext, next, right, left, id, move}) =>
 {
+  //console.log('ghostStat', ghostStat)
   return (
     <div style={board}>
         {

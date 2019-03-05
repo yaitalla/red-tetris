@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import lifecycle from 'react-pure-lifecycle';
 
 const componentDidMount = (props) => {
-     console.log('userBoard props: ', props);
+     //console.log('userBoard props: ', props);
   };
   const componentDidUpdate = (props) => {
     // console.log('global updated props: ', props);
@@ -21,7 +21,6 @@ const UserMapper = (user) => {
  }
 
 const UserBoard = ({users}) => {
-    console.log(' users', users)
     return ( 
         <div style={board}>
           <h2 style={center}>connected users</h2>
@@ -40,4 +39,6 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(lifecycle(methods)(UserBoard));
+const UserBoarding = lifecycle(methods)(UserBoard);
+
+export default connect(mapStateToProps)(lifecycle(methods)(UserBoarding));

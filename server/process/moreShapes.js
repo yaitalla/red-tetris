@@ -60,7 +60,7 @@ const checkForLine = (field) => {
     return field
 }
 
-export const add = (field, shapes, index) => {
+const moreShapes = (field, shapes, index) => {
     if (index+2 == shapes.length){
         for (let i=0; i<10; i++){
             shapes.push(shapes[i])
@@ -95,3 +95,5 @@ export const add = (field, shapes, index) => {
         total: index + 2
     }
 }
+
+module.exports = moreShapes;

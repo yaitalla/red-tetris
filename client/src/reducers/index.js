@@ -1,7 +1,7 @@
 import grid from '../grid';
 import io from 'socket.io-client';
-import {BRAND_NEW, GAME_OVER, ROTATE, DOWN,
-    RIGHT, LEFT, DROPDOWN, START_GAME} from '../constants';
+import {ADD_SHAPE, ROOM_CHOSEN, REFRESH, GAME_OVER, ROTATE, DOWN,
+    ADD_ROOM, USER_LOGIN, USER_LOGOUT, RIGHT, LEFT, DROPDOWN, START_GAME} from '../constants';
 
 const INITIAL_STATE = {
     currentUser: "",
@@ -21,37 +21,36 @@ const INITIAL_STATE = {
 }
 
 const game = (state = INITIAL_STATE, action = {}) => {
-     //console.log(action.type.length > 10 ? "defaut action": action.type)
     switch(action.type) {
-        case 'ROOM_CHOSEN':
+        case ROOM_CHOSEN:
             return {
                 ...state,
                 actualRoom: action.actualRoom
             };
-        case 'REFRESH':
+        case REFRESH:
             return {
                 ...state,
                 field: action.field,
                 nb: action.nb
             };
-        case 'ADD_ROOM':
+        case ADD_ROOM:
             return {
                 ...state,
                 rooms: action.rooms,
             };
-        case 'USER_LOGIN':
+        case USER_LOGIN:
             return {
                 ...state,
                 currentUser: action.id,
                 users: action.userlist
             };
-        case 'USER_LOGOUT':
+        case USER_LOGOUT:
             return {
                 ...state,
                 currentUser: action.id,
                 users: action.userlist
             };
-        case 'ADD_SHAPE':
+        case ADD_SHAPE:
             return {
                 ...state,
                 field: action.field,

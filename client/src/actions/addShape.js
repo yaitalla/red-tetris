@@ -30,20 +30,11 @@ const gridMaker = () => {
 const removeLiner = (lines, field) => {
     let grid = gridMaker(), gap = lines.length;
     let min = Math.min(lines), max = Math.max(lines);
-    // for (let i=21; i>0; i--) {
-    //     if (i > max) {
-    //         grid[i] = field[i]
-    //     } else if (i < min) {
-    //         grid[i] = field[i-gap]
-    //     }
-    // }
-    // console.log('grid',grid)
-  //  return grid
     if (gap == 1) {
         let i = lines[0]
         field.splice(i, 1)
         field.splice(1, 0, grid[1])
-        console.log('field',field[0], field[1], field.length)
+     //   console.log('field',field[0], field[1], field.length)
         return field
     }
 }
@@ -55,7 +46,6 @@ const checkForLine = (field) => {
             linesArray.push(i);
         }
     }
-    //console.log(linesArray.length)
     if (linesArray.length > 0){
         return removeLiner(linesArray, field)
     }
@@ -64,8 +54,10 @@ const checkForLine = (field) => {
 
 export const add = (field, shapes, index) => {
     if (index+2 == shapes.length){
-        for (let i=0; i<10; i++){
-            shapes.push(shapes[i])
+            console.log('ici', shapes.length)
+            for (let i=0; i<10; i++){
+                shapes.push(shapes[i])
+            //socket.emit('SHAPE_REQUEST', shapes)
         }
     }
     let ret = checkForLine(field);
@@ -84,10 +76,7 @@ export const add = (field, shapes, index) => {
         }
     }
 
-    // console.log(shapes)
-   // return checkForLine(ret)
-    
-    // console.log(shapes.length, index+2)
+
     return {
         type: 'ADD_SHAPE',
         field: ret,

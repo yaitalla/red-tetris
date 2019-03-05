@@ -4,9 +4,9 @@ export const rows = {
 }
 
 export const box = {
-    height: '25px',
+    height: '24px',
     // border: '1px dashed #999',
-    width: '25px',
+    width: '24px',
     textAlign: 'center'
 }
 export const ghostStyle = {

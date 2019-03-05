@@ -50,20 +50,25 @@ const touchDown = (field, id, shapes, index) => {
 
 const moveDown = (field, id, shapes, index) => {
     const grid = gridMaker(field)
-    let i, j;
+    let i, j, x;
     let offsetDown = computeOffset(field);
+    //console.log(offsetDown)
     for ( i=0; i<21; i++) {
         for( j=1; j<11; j++) {
             if ((field[i][j] == 2) && (i < 21)){
                 if (field[i + offsetDown-1][j] > 2 || field[i + offsetDown-1][j] == 1){
-                    // console.log(offsetDown, i, j)
+                     //console.log(offsetDown, i, j)
                     // return {
                     //     type: 'DOWN',
                     //     field: touchDown(field, id, shapes, index),
                     //     grounded: true,
                     // }
+                    //console.log(i, j, offsetDown)
                     return touchDown(field, id, shapes, index)
-                } else { grid[i+1][j] = 2; }
+                } else { 
+                    grid[i+1][j] = 2;
+                    
+                }
             }
         }
     }
