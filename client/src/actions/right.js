@@ -57,7 +57,7 @@ const moveRight = (field, shapes, index, nbr) => {
                     return {
                         type: 'REFRESH',
                         field: field,
-                        nb: nbr+1
+                        nbr: nbr+1
                     }
                 } else {
                     grid[i][j+1] = 2;

@@ -1,3 +1,5 @@
+import {checkBelow} from './chekBelow';
+
 const newGrid = (field) =>{
     const grid = []
     for (let i=0; i<22; i++) { //game height: 20 blocs
@@ -41,7 +43,14 @@ const rotater = (shape) => {
 }
 
 
-export const rotate = (field, shapes, index) => {
+export const rotate = (field, shapes, index, nb) => {
+    if (!checkBelow(field)) {
+        return {
+            type: 'REFRESH',
+            field: field,
+            nbr: nb+1,
+        }
+    }
     let ret = newGrid(field);
     const rot = {
         shape: rotater(shapes[index].shape),
@@ -61,6 +70,6 @@ export const rotate = (field, shapes, index) => {
     return {
         type: 'ROTATE',
         field: ret,
-        shapes: shapes,
+        shape: shapes,
     }
 }

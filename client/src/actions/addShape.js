@@ -34,7 +34,6 @@ const removeLiner = (lines, field) => {
         let i = lines[0]
         field.splice(i, 1)
         field.splice(1, 0, grid[1])
-     //   console.log('field',field[0], field[1], field.length)
         return field
     }
 }
@@ -52,13 +51,10 @@ const checkForLine = (field) => {
     return field
 }
 
-export const add = (field, shapes, index) => {
+export const add = (field, shapes, index, room) => {
     if (index+2 == shapes.length){
-            console.log('ici', shapes.length)
-            for (let i=0; i<10; i++){
-                shapes.push(shapes[i])
-            //socket.emit('SHAPE_REQUEST', shapes)
-        }
+            console.log('ici shape reqest', shapes.length)
+            socket.emit('SHAPE_REQUEST', {field, shapes, room})
     }
     let ret = checkForLine(field);
     for (let i=1; i<5; i++) {
@@ -75,8 +71,6 @@ export const add = (field, shapes, index) => {
             }
         }
     }
-
-
     return {
         type: 'ADD_SHAPE',
         field: ret,

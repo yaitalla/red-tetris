@@ -97,7 +97,7 @@ const Row = ({stat, colors, id, posY}) => {
         {
           stat.map((square, i) =>
             square > 0 ?  applyColor(colors, i, square, id, posY) :
-            <div key={i} style={ghostShape(i, posY)}>{''}</div>
+        <div key={i} style={box/*ghostShape(i, posY)*/}>{''}</div>
           )
           
         }

@@ -1,99 +1,44 @@
-const checkLine = (line) => {
-    let x = 0;
-    for (let i=0; i<12; i++) {
-        if (line[i] > 2) {
-            x++;
-        }
-    }
-    return x > 9 ? true : false
-}
-const gridMaker = () => {
-    const grid = []
-    for (let i=0; i<22; i++) { //game height: 20 blocs
-        grid.push([]);
-    }
-    for (let i=0; i<22; i++) {
-        for(let j=0; j<12; j++) { //game width 10 blocs
-            if (i==0 || j==0 || i==21 || j==11){
-                grid[i].push(1);
-            }
-            else {
-                grid[i].push(0);
-            }
-        }
-    }
-    return grid;
-}
+const data = require('../public/data.js');
 
-const removeLiner = (lines, field) => {
-    let grid = gridMaker(), gap = lines.length;
-    let min = Math.min(lines), max = Math.max(lines);
-    // for (let i=21; i>0; i--) {
-    //     if (i > max) {
-    //         grid[i] = field[i]
-    //     } else if (i < min) {
-    //         grid[i] = field[i-gap]
-    //     }
-    // }
-    // console.log('grid',grid)
-  //  return grid
-    if (gap == 1) {
-        let i = lines[0]
-        field.splice(i, 1)
-        field.splice(1, 0, grid[1])
-        console.log('field',field[0], field[1], field.length)
-        return field
-    }
-}
-
-const checkForLine = (field) => {
-    let linesArray = [];
-    for (let i=1; i<21; i++){
-        if (checkLine(field[i]) == true) {
-            linesArray.push(i);
-        }
-    }
-    //console.log(linesArray.length)
-    if (linesArray.length > 0){
-        return removeLiner(linesArray, field)
-    }
-    return field
-}
-
-const moreShapes = (field, shapes, index) => {
-    if (index+2 == shapes.length){
-        for (let i=0; i<10; i++){
-            shapes.push(shapes[i])
-        }
-    }
-    let ret = checkForLine(field);
+const shapesGenerator = (field, shapes) => {
+    let ret = field;
     for (let i=1; i<5; i++) {
         for(let j=3; j<7; j++) {
-            if (shapes[index+1].shape[i-1][j-3] == 2) {
-                if (ret[i][j+1] > 2) {
-                    return {
-                        type: 'GAME_OVER',
-                        field: ret,
-                        gameOver: true
-                    }
-                }
-                ret[i][j+1] = shapes[index+1].shape[i-1][j-3]
+            if (shapes[0].shape[i-1][j-3] == 2) {
+                ret[i][j+1] = shapes[0].shape[i-1][j-3]
             }
         }
     }
-
-    // console.log(shapes)
-   // return checkForLine(ret)
-    
-    // console.log(shapes.length, index+2)
     return {
-        type: 'ADD_SHAPE',
+        type: 'MORE_SHAPES',
         field: ret,
         shapes: shapes,
-        next: shapes[index + 2],
-        currentID: shapes[index+1].id,
-        total: index + 2
+        next: shapes[11],
+        currentID: shapes[10].id,
     }
+}
+
+
+const randShape = () => {
+    const shapes = data.shapes; //list of string
+	const currentRand = Math.floor(Math.random() * 7); //random number
+    const shape = data.tetriminos[shapes[currentRand]];
+    return {
+        shape: shape.shape,
+        id: currentRand,
+        leftCorner: {
+            y: 1,
+            x: 4
+        }
+    };
+}
+
+const moreShapes = (field, shapes) => {
+    for (let i=0; i<10; i++) {
+        shapes.push(randShape())
+    }
+    console.log(shapes.length)
+    return shapesGenerator(field, shapes)
 }
 
 module.exports = moreShapes;

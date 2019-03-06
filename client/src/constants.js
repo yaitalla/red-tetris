@@ -28,3 +28,4 @@ export const ADD_SHAPE = 'ADD_SHAPE';
 export const USER_LOGIN = 'USER_LOGIN';
 export const ADD_ROOM = 'ADD_ROOM';
 export const START_SENT = 'START_SENT';
+export const MORE_SHAPES = 'MORE_SHAPES';

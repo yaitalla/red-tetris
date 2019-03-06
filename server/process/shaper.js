@@ -5,13 +5,6 @@ const fieldCreator = (field, shapes, room) => {
     for (let i=1; i<5; i++) {
         for(let j=3; j<7; j++) {
             if (shapes[0].shape[i-1][j-3] == 2) {
-                if (ret[i][j+1] > 2) {
-                    return {
-                        type: 'GAME_OVER',
-                        field: ret,
-                        gameOver: true
-                    }
-                }
                 ret[i][j+1] = shapes[0].shape[i-1][j-3]
             }
         }

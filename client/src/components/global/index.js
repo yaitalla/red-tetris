@@ -14,6 +14,7 @@ import {left} from '../../actions/left';
 import {right} from '../../actions/right';
 import lifecycle from 'react-pure-lifecycle';
 import {rotate} from '../../actions/rotate';
+import {moreShapes} from '../../actions/moreShapes';
 import {refresh} from '../../actions/refresh';
 import { connect } from 'react-redux';
 import {fill} from '../../actions/fillGrid';
@@ -35,15 +36,19 @@ const logger = (log, userList) => {
     log(id, userList)
   })
 }
-
+const checkForMoreShapes = (shapes) => {
+  socket.once('MORE_SHAPES', (data) => {
+    moreShapes(data)
+  })
+}
 const roomChoice = (choice) => {
   socket.once('ROOM_CHOSEN', (data) => {
     choice(data)
   })
-  
 }
 
-const keys = (total, field, id, shapes, down, left, right, rotate, refresh, nbr) => {
+const keys = (total, field, id, shapes, down,
+          left, right, rotate, refresh, nbr, actualRoom) => {
   const listener = (e) => {
       switch(e.keyCode) {
         case 39: //right
@@ -51,12 +56,12 @@ const keys = (total, field, id, shapes, down, left, right, rotate, refresh, nbr)
           e.preventDefault();
           break;
         case 40: //down
-          down(field, id, shapes, total-1)
+          down(field, id, shapes, total-1, actualRoom)
           e.preventDefault();
           break;
          case 38: //up
           if (id != 6) {
-            rotate(field, shapes, total-1)
+            rotate(field, shapes, total-1, nbr)
           } else {
             refresh(field, nbr)
           }
@@ -108,14 +113,17 @@ const PreGame = () => {
   )
 }
 
-const Global = ({userList, login, chooseRoom, refresh, nb, actualRoom, data, id, total, down, left, right, shapes, rotate, drop, trigger, next, fill}) => {
+const Global = ({userList, login, chooseRoom,
+  refresh, nb, actualRoom, data, id, total, down, left,
+  right, shapes, rotate, drop, trigger, next, fill}) => {
   // if (id != null) {
   //   broadcastDropdown(data, id, total, trigger, shapes, drop)
   // }
-  roomChoice(chooseRoom)
   logger(login, userList)
+  roomChoice(chooseRoom)
+  checkForMoreShapes(shapes)
   if (id != null) {
-    keys(total, data, id, shapes, down, left, right, rotate, refresh, nb);
+    keys(total, data, id, shapes, down, left, right, rotate, refresh, nb, actualRoom);
   }
   const i = actualRoom.length
   //console.log(nb)
@@ -142,4 +150,6 @@ const mapStateToProps = (state) => ({
 })
   
 
-export default connect(mapStateToProps, {chooseRoom, login, refresh, down, drop, left, rotate, right, fill})(lifecycle(methods)(Global));
+export default connect(mapStateToProps,
+  {chooseRoom, login, refresh, down, drop,
+    moreShapes, left, rotate, right, fill})(lifecycle(methods)(Global));

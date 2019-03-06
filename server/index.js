@@ -58,8 +58,9 @@ io.sockets.on('connection', (socket) => {
   })
   
   socket.on('SHAPE_REQUEST', (data) => { //clients need more shapes
-    console.log('SHAPE_REQUEST received')
-    //io.in(data.room).emit('MORE_SHAPES', moreShapes(data))
+    // console.log('SHAPE_REQUEST received', data)
+    // console.log(moreShapes(data))
+    io.in(data.room).emit('MORE_SHAPES', moreShapes(data.field, data.shapes))
   })
 
   socket.on('disconnect', () => {

@@ -1,19 +1,5 @@
 import {add} from './addShape';
-
-const computeOffset = (data) => {
-    // console.log('data',data)
-    let offset = 0;
-    let x = -1, y = -1;
-    for (let i=0; i<22; i++) {
-        for(let j=0; j<12; j++) {
-            if (data[i][j] == 2 && x != i){
-                x = i;
-                offset++;
-            }
-        }
-    }
-    return offset == 1 ? 2: offset;
-}
+import {checkBelow} from './chekBelow';
 
 const gridMaker = (field) =>{
     const grid = []
@@ -36,7 +22,7 @@ const gridMaker = (field) =>{
     return grid;
 }
 
-const touchDown = (field, id, shapes, index) => {
+const touchDown = (field, id, shapes, index, room) => {
     let i, j;
     for ( i=0; i<22; i++) {
         for( j=0; j<12; j++) {
@@ -45,27 +31,18 @@ const touchDown = (field, id, shapes, index) => {
             }
         }
     }
-    return add(field, shapes, index);
+    return add(field, shapes, index, room);
 }
 
-const moveDown = (field, id, shapes, index) => {
+const moveDown = (field, id, shapes, index, room) => {
     const grid = gridMaker(field)
-    let i, j, x;
-    let offsetDown = computeOffset(field);
-    //console.log(offsetDown)
+    let i, j, x = 0;
     for ( i=0; i<21; i++) {
         for( j=1; j<11; j++) {
             if ((field[i][j] == 2) && (i < 21)){
-                if (field[i + offsetDown-1][j] > 2 || field[i + offsetDown-1][j] == 1){
-                     //console.log(offsetDown, i, j)
-                    // return {
-                    //     type: 'DOWN',
-                    //     field: touchDown(field, id, shapes, index),
-                    //     grounded: true,
-                    // }
-                    //console.log(i, j, offsetDown)
-                    return touchDown(field, id, shapes, index)
-                } else { 
+                if (!checkBelow(field)){
+                    return touchDown(field, id, shapes, index, room)
+                } else {
                     grid[i+1][j] = 2;
                     
                 }
@@ -81,6 +58,6 @@ const moveDown = (field, id, shapes, index) => {
     }
 }
 
-export const down = (field, id, shapes, index) => {
-    return moveDown(field, id, shapes, index)
+export const down = (field, id, shapes, index, room) => {
+    return moveDown(field, id, shapes, index, room)
 }
