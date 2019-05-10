@@ -1,22 +1,14 @@
-import Global from "./components/global/";
-import ReactDOM from "react-dom";
-import React from 'react';
-import store from './store';
-import { SERVE_DOWN, SERVE_LEFT, SERVE_RIGHT,
-DOWN_REQUEST, LEFT_REQUEST, RIGHT_REQUEST} from './constants';
-import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import React from 'react'
+import ReactDom from 'react-dom'
+import { Provider } from 'react-redux'                                                                                                                                                    
+// import {storeStateMiddleWare} from './middleware/storeStateMiddleWare'
+import App from './components/app'
+import store from './config/store';
+import socketStream from './config/misc/socketHandling';
 
-window.store = store.getState();
- //console.log(window.store)
-// store.subscribe(() => {
-//  console.log('subscribe',store.getState().field, store.getState())
-// })
-
-ReactDOM.render((
-    <Router>
-        <Provider store={store}>
-            <Global/>
-        </Provider>
-    </Router>
-), document.getElementById('tetris'));
+ReactDom.render((
+  <Provider store={store}>
+    <App/>
+  </Provider>
+), document.getElementById('tetris'))
+socketStream()

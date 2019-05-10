@@ -1,16 +1,14 @@
-import {checkBelow} from './chekBelow';
+import {checkBelow} from '../config/misc/collisionDown';
+import { ROTATE , REFRESH} from '../config/constants';
 
 const newGrid = (field) =>{
     const grid = []
-    for (let i=0; i<22; i++) { //game height: 20 blocs
+    for (let i=0; i<20; i++) { //game height: 20 blocs
         grid.push([]);
     }
-    for (let i=0; i<22; i++) {
-        for(let j=0; j<12; j++) { //game width 10 blocs
-            if (i==0 || j==0 || i==21 || j==11){
-                grid[i].push(1);
-            }
-            else if (field[i][j] > 2) {
+    for (let i=0; i<20; i++) {
+        for(let j=0; j<10; j++) { //game width 10 blocs
+            if (field[i][j] > 2 || field[i][j] == -99) {
                 grid[i].push(field[i][j]);
             }
             else {
@@ -38,27 +36,29 @@ const rotater = (shape) => {
     const update = new Array(checkArray).fill(0);
     for (let i=0; i<4; i++){
         ret[i] = ret[i].slice(checkArray).concat(update)
+        //console.log('rotater', ret[i])
     }
     return ret;
 }
 
 
-export const rotate = (field, shapes, index, nb) => {
-    if (!checkBelow(field)) {
-        return {
-            type: 'REFRESH',
-            field: field,
-            nbr: nb+1,
-        }
+export const rotate = (state) => {
+    let field = state.grid, shapes = state.shapes, index = state.shapeIndex;
+    const x = shapes[index].leftCorner.x
+    const y = shapes[index].leftCorner.y
+    const walls = (x >= 8);
+    const walls2 = shapes[index].id == 5 && x >= 7;
+  //  console.log(x, y)
+    if (!checkBelow(field) || walls || walls2) {
+        return { type: REFRESH, nbr: state.nb+1 }
     }
     let ret = newGrid(field);
     const rot = {
+        color: shapes[index].color,
         shape: rotater(shapes[index].shape),
         id: shapes[index].id,
         leftCorner: shapes[index].leftCorner
     }
-    const x = shapes[index].leftCorner.x
-    const y = shapes[index].leftCorner.y
     for (let i=y; i<(y+4); i++) {
         for(let j=x; j<(x+4); j++) {
             if (rot.shape[i-y][j-x] == 2) {
@@ -68,7 +68,7 @@ export const rotate = (field, shapes, index, nb) => {
     }
     shapes[index] = rot;
     return {
-        type: 'ROTATE',
+        type: ROTATE,
         field: ret,
         shape: shapes,
     }

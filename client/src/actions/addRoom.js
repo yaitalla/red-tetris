@@ -1,4 +1,9 @@
-export const addRoom = (data) => {
-    return data
-    // return (dispatch) => dispatch(data)
+import { ADD_ROOM } from '../config/constants';
+
+export const addRoom = (roomlist) => {
+  return {
+    type: ADD_ROOM,
+    roomlist
+  }
 }
+

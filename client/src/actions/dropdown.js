@@ -1,5 +1,7 @@
 import {add} from './addShape';
 import {checkBelow} from '../config/misc/collisionDown';
+import store from '../config/store';
+import { strict } from 'assert';
 import { REFRESH } from '../config/constants';
 
 const gridMaker = (field) =>{
@@ -20,7 +22,7 @@ const gridMaker = (field) =>{
     return grid;
 }
 
-const touchDown = (field, id, shapes, index, room, user) => {
+const touchDown = (field, id, shapes, index, room) => {
     let i, j;
     for ( i=0; i<20; i++) {
         for( j=0; j<10; j++) {
@@ -29,19 +31,17 @@ const touchDown = (field, id, shapes, index, room, user) => {
             }
         }
     }
-    return add(field, shapes, index, room, user);
+    return add(field, shapes, index, room);
 }
 
-const moveDown = (field, id, shapes, index, room, user) => {
+const moveDown = (field, id, shapes, index, room) => {
     const grid = gridMaker(field)
-    //console.log('movedown', grid, field)
     let i, j, x = 0;
     for ( i=0; i<20; i++) {
         for( j=0; j<10; j++) {
             if ((field[i][j] == 2) && (i < 20)){
                 if (!checkBelow(field)){
-                    //console.log('moveDown', field)
-                    return touchDown(field, id, shapes, index, room, user)
+                    return touchDown(field, id, shapes, index, room)
                 } else {
                     grid[i+1][j] = 2;
                     
@@ -51,21 +51,15 @@ const moveDown = (field, id, shapes, index, room, user) => {
     }
     shapes[index].leftCorner.y++
     return {
-        type: 'DOWN',
+        type: 'DROPDOWN',
         field: grid,
-        grounded: false,
         shapes: shapes
     }
 }
 
-export const down = (state) => {
-    // console.log(state.shapes[state.shapeIndex].id)
-    if (state.shapeIndex == -1) {
-        console.log('REFRESH TIME');
-        return ({type: REFRESH})
-    }
-    let field = state.grid, id = state.shapes[state.shapeIndex].id, shapes = state.shapes,
-                index = state.shapeIndex, room = state.actualRoom,
-                user = state.yourID;
-    return moveDown(field, id, shapes, index, room, user)
+export const dropdown = () => {
+    const state = store.getState();
+    const shapes = state.shapes;
+    const index = state.shapeIndex;
+    return (moveDown(state.grid, shapes[index].id, shapes, index, state.actualRoom))
 }

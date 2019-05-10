@@ -2,8 +2,8 @@
 const computeOffset = (data) => {
     let offset = 0;
     let x = -1, y = -1;
-    for (let i=0; i<22; i++) {
-        for(let j=0; j<12; j++) {
+    for (let i=0; i<20; i++) {
+        for(let j=0; j<10; j++) {
             if (data[i][j] == 2 && y > j){
                 y = j;
                 offset++;
@@ -15,15 +15,12 @@ const computeOffset = (data) => {
 
 const gridMaker = (field) =>{
     const grid = []
-    for (let i=0; i<22; i++) { //game height: 20 blocs
+    for (let i=0; i<20; i++) { //game height: 20 blocs
         grid.push([]);
     }
-    for (let i=0; i<22; i++) {
-        for(let j=0; j<12; j++) { //game width 10 blocs
-            if (i==0 || j==0 || i==21 || j==11){
-                grid[i].push(1);
-            }
-            else if (field[i][j] > 2) {
+    for (let i=0; i<20; i++) {
+        for(let j=0; j<10; j++) { //game width 10 blocs
+            if (field[i][j] > 2 || field[i][j] == -99) {
                 grid[i].push(field[i][j]);
             }
             else {
@@ -50,10 +47,10 @@ const moveRight = (field, shapes, index, nbr) => {
     const grid = gridMaker(field);
     let i, j;
     const offset = computeOffset(field);
-    for ( i=0; i<21; i++) {
-        for( j=1; j<11; j++) {
-            if ((field[i][j] == 2) && (i < 21)){
-                if (field[i][j+1] > 2 || field[i][j+1] == 1){
+    for ( i=0; i<20; i++) {
+        for( j=0; j<10; j++) {
+            if ((field[i][j] == 2) && (i < 20)){
+                if (field[i][j+1] > 2 || j == 9){
                     return {
                         type: 'REFRESH',
                         field: field,
@@ -74,6 +71,8 @@ const moveRight = (field, shapes, index, nbr) => {
     }
 }
 
-export const right = (field, nb, shapes, index) => {
+export const right = (state) => {
+    let field = state.grid, nb = state.nb, shapes = state.shapes,
+                index = state.shapeIndex, room = state.actualroom;
     return moveRight(field, shapes, index, nb)
 }

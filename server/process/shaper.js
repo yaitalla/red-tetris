@@ -1,45 +1,25 @@
-const data = require('../public/data.js');
+const source = require('./data');
 
-const fieldCreator = (field, shapes, room) => {
-    let ret = field;
-    for (let i=1; i<5; i++) {
-        for(let j=3; j<7; j++) {
-            if (shapes[0].shape[i-1][j-3] == 2) {
-                ret[i][j+1] = shapes[0].shape[i-1][j-3]
-            }
-        }
-    }
-    return {
-        type: 'START_GAME',
-        field: ret,
-        shapes: shapes,
-        next: shapes[1],
-        currentID: shapes[0].id,
-        total: 1,
-        room: room
-    }
-}
-
-const randShape = () => {
-    const shapes = data.shapes; //list of string
+const randomShape = () => {
+    const shapes = source.shapes; //list of string
 	const currentRand = Math.floor(Math.random() * 7); //random number
-    const shape = data.tetriminos[shapes[currentRand]];
+    const shape = source.tetriminos[shapes[currentRand]];
     return {
-        shape: shape.shape,
+        shape: shape,
         id: currentRand,
+        color: source.colors[currentRand],
         leftCorner: {
-            y: 1,
+            y: 0,
             x: 4
         }
     };
 }
 
-const shaper = (data) => {
-    const shape = [];
+const randomShapes = (shapes) => {
     for (let i=0; i<10; i++) {
-        shape.push(randShape())
+        shapes.push(randomShape())
     }
-    return fieldCreator(data.field, shape, data.room)
+    return shapes;
 }
 
-module.exports = shaper;
+module.exports = randomShapes;
